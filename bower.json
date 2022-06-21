@@ -1,0 +1,22 @@
+{
+  "name": "TouBVa",
+  "homepage": "https://github.com/touBVa/touBVa.github.io",
+  "authors": [
+    "TouBVa <touBVa@gmail.com>"
+  ],
+  "description": "The World of Cybersecurity",
+  "main": "",
+  "keywords": [
+    "jekyll-theme",
+    "jekyll",
+    "gallery"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
