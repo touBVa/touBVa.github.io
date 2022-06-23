@@ -5,8 +5,8 @@
     <description>Better than you thought, Worse than you expected</description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 23 Jun 2022 12:31:17 +0900</pubDate>
-    <lastBuildDate>Thu, 23 Jun 2022 12:31:17 +0900</lastBuildDate>
+    <pubDate>Thu, 23 Jun 2022 12:33:58 +0900</pubDate>
+    <lastBuildDate>Thu, 23 Jun 2022 12:33:58 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
     
@@ -41,8 +41,7 @@
       &lt;li&gt;
         &lt;p&gt;이름이 r로 시작함-64비트 아키텍쳐. 32비트 아키텍쳐는 e로 시작함.&lt;/p&gt;
 
-        &lt;p&gt;![x64의 general register중 주용도가 정해진 레지스터들.]
-  (../assets/img/posts/systemHackigStep2.png)&lt;/p&gt;
+        &lt;p&gt;&lt;img src=&quot;toubva.github.io/assets/img/posts/systemHackigStep2.png&quot; alt=&quot;x64의 general register중 주용도가 정해진 레지스터들.&quot; /&gt;&lt;/p&gt;
 
         &lt;p&gt;x64의 general register중 주용도가 정해진 레지스터들.&lt;/p&gt;
 
@@ -84,7 +83,7 @@
       &lt;li&gt;
         &lt;p&gt;RFLAGS는 64개의 플래그를 사용할 수 있지만, 실질적으로는 오른쪽 20개 정도 비트만 사용.&lt;/p&gt;
 
-        &lt;p&gt;&lt;img src=&quot;../assets/img/posts/systemHackingStep2_1.png&quot; alt=&quot;시스템 해킹을 할 때 주로 접할 플래그&quot; /&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;img src=&quot;toubva.github.io/assets/img/posts/systemHackingStep2_1.png&quot; alt=&quot;시스템 해킹을 할 때 주로 접할 플래그&quot; /&gt;&lt;/p&gt;
 
         &lt;p&gt;시스템 해킹을 할 때 주로 접할 플래그&lt;/p&gt;
       &lt;/li&gt;
@@ -142,7 +141,7 @@
   &lt;/ul&gt;
 &lt;/blockquote&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;![우와~ 리눅스에서는 실행 중인 프로세스의 메모리가 5개의 영역으로 구분되고, 각 영역별로 CPU가 부여받은 권한이 다르구나!](../assets/img/posts/systemHackingStep2_2.png)
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;![우와~ 리눅스에서는 실행 중인 프로세스의 메모리가 5개의 영역으로 구분되고, 각 영역별로 CPU가 부여받은 권한이 다르구나!](toubva.github.io/assets/img/posts/systemHackingStep2_2.png)
 
 우와~ 리눅스에서는 실행 중인 프로세스의 메모리가 5개의 영역으로 구분되고, 각 영역별로 CPU가 부여받은 권한이 다르구나!
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;

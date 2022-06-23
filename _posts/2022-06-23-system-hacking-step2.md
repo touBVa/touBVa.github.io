@@ -29,7 +29,7 @@ permalink: /blog/system-hacking-step2/
     - x64의 경우 각 범용 레지스터에는 8바이트 저장
     - 이름이 r로 시작함-64비트 아키텍쳐. 32비트 아키텍쳐는 e로 시작함.
         
-        ![x64의 general register중 주용도가 정해진 레지스터들.](../assets/img/posts/systemHackigStep2.png)
+        ![x64의 general register중 주용도가 정해진 레지스터들.](toubva.github.io/assets/img/posts/systemHackigStep2.png)
         
         x64의 general register중 주용도가 정해진 레지스터들.
         
@@ -55,7 +55,7 @@ permalink: /blog/system-hacking-step2/
     - x86: 16 bit → x64: 64 bit, “RFLAGS”
     - RFLAGS는 64개의 플래그를 사용할 수 있지만, 실질적으로는 오른쪽 20개 정도 비트만 사용.
         
-        ![시스템 해킹을 할 때 주로 접할 플래그](../assets/img/posts/systemHackingStep2_1.png)
+        ![시스템 해킹을 할 때 주로 접할 플래그](toubva.github.io/assets/img/posts/systemHackingStep2_1.png)
         
         시스템 해킹을 할 때 주로 접할 플래그
         
@@ -98,7 +98,7 @@ permalink: /blog/system-hacking-step2/
     - EXECUTE
 - 더 자세히 알고 싶다면, 세그먼테이션 기법 && x86-64 하드웨어 설계 참고.
     
-    ![우와~ 리눅스에서는 실행 중인 프로세스의 메모리가 5개의 영역으로 구분되고, 각 영역별로 CPU가 부여받은 권한이 다르구나!](../assets/img/posts/systemHackingStep2_2.png)
+    ![우와~ 리눅스에서는 실행 중인 프로세스의 메모리가 5개의 영역으로 구분되고, 각 영역별로 CPU가 부여받은 권한이 다르구나!](toubva.github.io/assets/img/posts/systemHackingStep2_2.png)
     
     우와~ 리눅스에서는 실행 중인 프로세스의 메모리가 5개의 영역으로 구분되고, 각 영역별로 CPU가 부여받은 권한이 다르구나!
     
