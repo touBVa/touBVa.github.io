@@ -100,6 +100,7 @@ permalink: /blog/system-hacking-step2/
     
     <img src="/assets/img/posts/systemHackingStep2_2.png" width="50%" height="50%">
 
+    
     우와~ 리눅스에서는 실행 중인 프로세스의 메모리가 5개의 영역으로 구분되고, 각 영역별로 CPU가 부여받은 권한이 다르구나!
     
 
