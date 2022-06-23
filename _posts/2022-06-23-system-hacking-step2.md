@@ -29,7 +29,7 @@ permalink: /blog/system-hacking-step2/
     - x64의 경우 각 범용 레지스터에는 8바이트 저장
     - 이름이 r로 시작함-64비트 아키텍쳐. 32비트 아키텍쳐는 e로 시작함.
         
-        ![x64의 general register중 주용도가 정해진 레지스터들.](/assets/img/posts/systemHackigStep2.png)
+        ![x64의 general register중 주용도가 정해진 레지스터들.](/assets/img/posts/systemHackingStep2.png)
         
         x64의 general register중 주용도가 정해진 레지스터들.
         
