@@ -30,6 +30,7 @@ permalink: /blog/system-hacking-step2/
     - 이름이 r로 시작함-64비트 아키텍쳐. 32비트 아키텍쳐는 e로 시작함.
         
         <img src="/assets/img/posts/systemHackingStep2.png" width="50%" height="50%">
+        
         x64의 general register중 주용도가 정해진 레지스터들.
         
         → ebx는 rbx와는 다르게 메모리 주소를 저장하기 위한 용도로 사용됐었음. 
@@ -55,6 +56,7 @@ permalink: /blog/system-hacking-step2/
     - RFLAGS는 64개의 플래그를 사용할 수 있지만, 실질적으로는 오른쪽 20개 정도 비트만 사용.
         
         <img src="/assets/img/posts/systemHackingStep2_1.png" width="50%" height="50%">
+
         시스템 해킹을 할 때 주로 접할 플래그
         
 
@@ -97,6 +99,7 @@ permalink: /blog/system-hacking-step2/
 - 더 자세히 알고 싶다면, 세그먼테이션 기법 && x86-64 하드웨어 설계 참고.
     
     <img src="/assets/img/posts/systemHackingStep2_2.png" width="50%" height="50%">
+
     우와~ 리눅스에서는 실행 중인 프로세스의 메모리가 5개의 영역으로 구분되고, 각 영역별로 CPU가 부여받은 권한이 다르구나!
     
 
