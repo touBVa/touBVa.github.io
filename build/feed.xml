@@ -5,8 +5,8 @@
     <description>Better than you thought, Worse than you expected</description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 23 Jun 2022 12:36:01 +0900</pubDate>
-    <lastBuildDate>Thu, 23 Jun 2022 12:36:01 +0900</lastBuildDate>
+    <pubDate>Thu, 23 Jun 2022 12:38:14 +0900</pubDate>
+    <lastBuildDate>Thu, 23 Jun 2022 12:38:14 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
     
@@ -41,7 +41,7 @@
       &lt;li&gt;
         &lt;p&gt;이름이 r로 시작함-64비트 아키텍쳐. 32비트 아키텍쳐는 e로 시작함.&lt;/p&gt;
 
-        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/systemHackigStep2.png&quot; alt=&quot;x64의 general register중 주용도가 정해진 레지스터들.&quot; /&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/systemHackingStep2.png&quot; alt=&quot;x64의 general register중 주용도가 정해진 레지스터들.&quot; /&gt;&lt;/p&gt;
 
         &lt;p&gt;x64의 general register중 주용도가 정해진 레지스터들.&lt;/p&gt;
 
