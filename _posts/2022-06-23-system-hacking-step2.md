@@ -5,7 +5,7 @@ summary: Dreamhack에서 공부한 것
 author: TouBVa
 date: '2022-06-23 12:24:23 +09'
 category: System Hacking Basic
-thumbnail: /assets/img/posts/systemHackingStep2_2.png
+thumbnail: assets/img/posts/systemHackingStep2_2.png
 keywords: System Hacking, Computer Architecture, Register, Memory Segment(Linux)
 usemathjax: true
 permalink: /blog/system-hacking-step2/
