@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Jekyll
-permalink: /blog/categories/jekyll/
+title: System Hacking Basic
+permalink: /blog/categories/system-hacking-basic/
 ---
 
 <h5> Posts by Category : {{ page.title }} </h5>
