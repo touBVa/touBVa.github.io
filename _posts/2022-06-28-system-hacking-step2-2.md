@@ -40,7 +40,7 @@ permalink: /blog/system-hacking-step2-2/
 ex) `mov   eax, 3`
 
 ### 어셈블리 명령어  중 알아두면 좋을 것
-
+  
 | 명령 코드 |  |
 | --- | --- |
 | Data Transfer | mov, lea |
@@ -50,7 +50,7 @@ ex) `mov   eax, 3`
 | Branch | jmp, je, jg |
 | Stack | push, pop |
 | Procedure | call, ret, leave |
-| System call | syscall |
+| System call | syscall |  
 
 ### 어셈블리 명령어의 피연산자
 
@@ -260,12 +260,13 @@ pop: 스택에서 빼내기
         
         
         | ========새로운======== |
-        | --- |
         | =======스택 프레임====== |
         | =========공간========= |
         | A의 rbp 주소 |
         | A 상에서의 다음 인스트럭션 주소 |
         | 기존에 A에서 쓰고 있던 임시 데이터들 |
+        
+        
 2. 함수 B를 실행한다.
     1. 앞에서 배웠듯, 스택에는 지역 변수가 저장된다. 따라서 함수 B의 지역 변수를 새로운 스택 프레임에 저장해 준다.
     2. 스택 프레임 위에서 여러 연산을 수행한다. 스택 프레임은 함수별로 할당되므로 해당 함수 한정으로만 유효할 수 있는 데이터를 스택에 저장할 것이다.
@@ -325,15 +326,16 @@ x64 아키텍처에서는 시스템콜을 하기 위해 `syscall` 명령어를 �
 rdi는 destination, 즉 정보가 어디로 향할지를 저장하는 데 쓰이고, rsi는 source, 즉 정보의 출처가 어디인지 지정하는 데 쓰이므로 각각 ‘어디에'와 ‘무엇을' 을 저장하는 데 적합한 논리를 가지고 있기 때문이다. 
 
 그렇다면 ‘얼마만큼의 길이로’를 저장하는 rdx는? 이건 사실 일반적인 convention 때문에 쓰인다. 그 convention이란 무엇이냐면…
-
+  
+  
 | rdi | 첫 번째 인자 저장 |
-| --- | --- |
 | rsi | 두번째 인자 저장 |
 | rdx | 세번째 인자 저장 |
 | rcx | 네번째 인자 저장 |
 | r8 | 다섯번째 인자 저장 |
 | r9 | 여섯번째 인자 저장 |
-
+  
+  
 바로 위의 테이블이다. 일반적으로 함수의 파라미터를 전달할 때 레지스터는 위와 같은 순서로 인자를 저장한다. 
 
 *그런데 좀 이상하네… 지금 이걸 쓰면서 생긴 의문인데, 이런 convention은 system call에 인자를 전달하면서 생겨나서 유저 권한의 함수를 콜할 때도 쓰게 된 거 아닌가? 그럼 system call에 rdx를 세번째 인자를 전달할 때 쓰는 이유는 대체 왜지? 언젠가 알게 되겠지… 지금은 이게 핵심이 아니니까 넘어가자.*
@@ -363,3 +365,5 @@ rax에서 write system call을 가리키고 있기 때문에, 이제 커널은 w
     | mprotect | 0x0a | unsigned long start | size_t len | unsigned long prot |
     | connect | 0x2a | int sockfd | struct sockaddr * addr | int addrlen |
     | execve | 0x3b | const char *filename | const char *const *argv | const char *const *envp |
+    
+    

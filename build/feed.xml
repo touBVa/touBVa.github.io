@@ -3,12 +3,642 @@
   <channel>
     <title>TouBVa</title>
     <description>Better than you thought, Worse than you expected</description>
-    <link>http://localhost:4000//</link>
-    <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 24 Jun 2022 15:56:58 +0900</pubDate>
-    <lastBuildDate>Fri, 24 Jun 2022 15:56:58 +0900</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 28 Jun 2022 19:04:58 +0900</pubDate>
+    <lastBuildDate>Tue, 28 Jun 2022 19:04:58 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
+    
+      <item>
+        <title>System Hackig Step 2-2</title>
+        <description>&lt;h1 id=&quot;stage-2&quot;&gt;STAGE 2&lt;/h1&gt;
+
+&lt;h1 id=&quot;x86-assembly-part-1&quot;&gt;x86 Assembly: Part 1&lt;/h1&gt;
+
+&lt;p&gt;&lt;em&gt;리버싱 공부하면서 이미 했던 거라 여기에서는 간단하게 메모만 하고 넘어갑니다.&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;어셈블리어 → (by 어셈블러) → 기계어&lt;/li&gt;
+  &lt;li&gt;역어셈블러 ↔  어셈블러
+    &lt;ul&gt;
+      &lt;li&gt;즉, 역어셈블러는 기계어 → 어셈블리어. 우리가 리버싱 할 때 없으면 안되는 것!&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;어셈블리어와-x86-64&quot;&gt;어셈블리어와 x86-64&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;요약&gt;
+
+- CPU의 ISA(Instruction Set Architecture) 종류별로 어셈블리어가 다르다.
+- 여기에서 다룰 어셈블리어는 x64 어셈블리어.
+&lt;/요약&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;어셈블리어의-기본-구조&quot;&gt;어셈블리어의 기본 구조&lt;/h3&gt;
+
+&lt;aside&gt;
+💡 OpCode    Operand1, Operand2
+
+&lt;/aside&gt;
+
+&lt;p&gt;ex) &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mov   eax, 3&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;어셈블리-명령어--중-알아두면-좋을-것&quot;&gt;어셈블리 명령어  중 알아두면 좋을 것&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;명령 코드&lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Data Transfer&lt;/td&gt;
+      &lt;td&gt;mov, lea&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Arithmetic&lt;/td&gt;
+      &lt;td&gt;inc, dec, add, sub&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Logical&lt;/td&gt;
+      &lt;td&gt;and, or, xor, not&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Comparison&lt;/td&gt;
+      &lt;td&gt;cmp, test&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Branch&lt;/td&gt;
+      &lt;td&gt;jmp, je, jg&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Stack&lt;/td&gt;
+      &lt;td&gt;push, pop&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Procedure&lt;/td&gt;
+      &lt;td&gt;call, ret, leave&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;System call&lt;/td&gt;
+      &lt;td&gt;syscall&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;어셈블리-명령어의-피연산자&quot;&gt;어셈블리 명령어의 피연산자&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;“총 3가지 종류”&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;ol&gt;
+    &lt;li&gt;상수(Immediate Value): {immediate_value}&lt;/li&gt;
+    &lt;li&gt;레지스터(Register): {register_name}&lt;/li&gt;
+    &lt;li&gt;메모리(Memory): &lt;strong&gt;[{memory_address}] …&lt;/strong&gt; &lt;em&gt;몰랐음!!&lt;/em&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;strong&gt;앞에 크기 지정자(Size Directive)인 TYPE PTR 추가될 수 있다.&lt;/strong&gt;&lt;/li&gt;
+        &lt;li&gt;BYTE(1 byte), WORD(2 byte), DWORD(4 byte), QWORD(8 byte)
+          &lt;ul&gt;
+            &lt;li&gt;WORD가 2 byte인 이유: 맨 처음 인텔의 아키텍처가 16비트였는데, 나중에 아키텍처 확장 과정을 거치다 보니 WORD 자료형 크기를 변경해 버리면 다른 아키텍처에서 프로그램 호환이 안 되는 문제가 생겨서 그냥 16비트 유지.&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;x86-64-어셈블리-명령어&quot;&gt;x86-64 어셈블리 명령어&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;리버싱과 시스템 해킹의 원리에서 공부했던 내용이므로 간략히 정리하고 넘어감.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;데이터-이동-명령어&quot;&gt;데이터 이동 명령어&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;mov dst, src&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;src의 값을 dst에 이동.&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;lea dst, src&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;src의 &lt;strong&gt;유효 주소&lt;/strong&gt;를 dst에 저장.&lt;/li&gt;
+    &lt;li&gt;즉, src는 memory 타입의 피연산자로 오게 된다.
+      &lt;ul&gt;
+        &lt;li&gt;ex) lea rsi, [rbx+8&lt;em&gt;rcx]: rbx+8&lt;/em&gt;rcx를 rsi에 대입한다.&lt;/li&gt;
+        &lt;li&gt;많이 헷갈리니까 주의!!!&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;산술-연산-명령어&quot;&gt;산술 연산 명령어&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;add dst, src&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;dst+=src&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;sub dst, src&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;dst-=src&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;inc op&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;op ++&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;dec op&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;op –&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;논리-연산-명령어&quot;&gt;논리 연산 명령어&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;and&lt;/strong&gt; dst, src&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;dst&amp;amp;=src&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;마스킹&lt;/strong&gt; 연산
+      &lt;ul&gt;
+        &lt;li&gt;eax=0xffff, ebx=0xcafe일 때, and eax, ebx를 시행하면 eax=0xcafe&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;or&lt;/strong&gt; dst, src&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;table&gt;
+        &lt;tbody&gt;
+          &lt;tr&gt;
+            &lt;td&gt;dst&lt;/td&gt;
+            &lt;td&gt;=src&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;역 마스킹&lt;/strong&gt; 연산
+      &lt;ul&gt;
+        &lt;li&gt;eax=0xffff0000, ebx=0xdeadbeef일 때, or eax, ebx를 시행하면 eax=0xffffbeef&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;xor dst, src&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;dst^=src&lt;/li&gt;
+    &lt;li&gt;비트가 다르면 1, 같으면 0&lt;/li&gt;
+    &lt;li&gt;따라서, xor 연산을 동일한 값으로 두 번 실행할 경우, 원래 값으로 돌아감.
+      &lt;ul&gt;
+        &lt;li&gt;ex) rax=0x35014541, rbx=0xdeadbeef일 때,
+          &lt;ul&gt;
+            &lt;li&gt;xor rax, rbx 시행 후 rax=0xebacfbae&lt;/li&gt;
+            &lt;li&gt;또 다시 xor rax, rbx 시행하면 rax=0x35014541&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;이런 성질을 이용해 XOR cipher가 개발(블록 암호화에서도 XOR의 성질을 이용해서 암호화하는 방식이 많은 것으로 기억함!)&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;not op&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;~(op) 즉, op의 비트 전부 반전(1의 보수)&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-wasm&quot;&gt;xor rax, rbx
+xor rax, rbx
+not eax
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;를 수행했을 때, 맨 마지막의 not eax까지를 수행하면 rax의 하위 32비트가 1의 보수를 취하여 다시 rax의 하위 32비트를 채우게 된다. rax의 하위 32비트가 eax이고, 실제로 그렇게 사용할 수 있다는 점 잊지 말자!&lt;/p&gt;
+
+&lt;h3 id=&quot;비교-연산-명령어&quot;&gt;비교 연산 명령어&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;“두 피연산자의 값을 비교하고, 플래그를 설정한다.”&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;cmp와 test의 비교는 리버싱을 공부할 때 많이 헷갈렸던 부분이다. 주의하자!&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;cmp op1, op2&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;op1과 op2를 비교한다.&lt;/li&gt;
+    &lt;li&gt;“빼서” 비교한다.&lt;/li&gt;
+    &lt;li&gt;연산의 결과는 ZF에 설정된다.&lt;/li&gt;
+    &lt;li&gt;보통 “같은지” 확인하기 위해 사용한다.
+      &lt;ul&gt;
+        &lt;li&gt;같다면 ZF=1로 설정되고, jmp 분기문에서 설정에 따라 코드 플로우를 분기시키게 된다.&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;test op1, op2&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;op1과 op2를 비교한다.&lt;/li&gt;
+    &lt;li&gt;“AND”를 취해 비교한다.&lt;/li&gt;
+    &lt;li&gt;연산의 결과는 ZF에 설정된다.&lt;/li&gt;
+    &lt;li&gt;보통 “자기 자신이” 0이었는지 확인하기 위해 사용한다.
+      &lt;ul&gt;
+        &lt;li&gt;자신이 0이었다면 ZF=1로 설정된다.&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;왜냐하면 자기 자신과 AND를 취했을 때 0이 나올 수 있는 경우는 오로지 자기 자신이 0일 때 뿐이므로!&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;분기-명령어&quot;&gt;분기 명령어&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;“rip를 이동시켜 실행 흐름을 바꾼다!”&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;리버싱을 할 때 정말 잘 알아둬야 한다. 왜냐하면 보통의 프로그램들은 분기에 따른 경우수를 기반으로 행동을 하기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;rip가 이동되는 이유는 컴퓨터 아키텍처를 공부한 적 있다면 알 수 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CPU는 jmp등의 분기문을 만나면 PC에 저장된 다음 인스트럭션 주소를 바꿔서 jmp 명령어가 가리키는 인스트럭션을 수행하게 되는데, 이때 PC가 rip이기 때문에 분기 명령어는 결론적으로 rip를 이동시켜 실행 흐름을 바꾸게 된다.&lt;/li&gt;
+  &lt;li&gt;jmp 계열 명령어는 jmp op1, op2일 때 op1을 기준으로 이름을 붙이게 된다.
+    &lt;ul&gt;
+      &lt;li&gt;ex) jg op1, op2 // jump if op1 is greater than op2&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;x86-assembly-part-2&quot;&gt;x86 Assembly: Part 2&lt;/h1&gt;
+
+&lt;p&gt;&lt;em&gt;리버싱 공부하면서 이미 했던 거라 여기에서는 간단하게 하고 넘어갑니다.&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;스택: 운영체제의 핵심 자료구조&lt;/li&gt;
+  &lt;li&gt;프로시저: C언어의 함수에 대응&lt;/li&gt;
+  &lt;li&gt;시스템 콜: 시스템 해킹의 관점에서 정말 중요함.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;x86-64-어셈블리-명령어-pt2&quot;&gt;x86-64 어셈블리 명령어 Pt.2&lt;/h2&gt;
+
+&lt;h3 id=&quot;스택&quot;&gt;스택&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;push: 스택에 쌓아넣기
+pop: 스택에서 빼내기&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;push val: val에 들어있는 값을 스택의 최상단에 쌓음
+      &lt;ul&gt;
+        &lt;li&gt;이 때 일어나는 연산을 pseudo-code로 표현하면 아래와 같다.&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```wasm
+rsp -= 8 //stack grows from high to low
+[rsp] = val
+```
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;pop reg: 스택 최상단의 값을 꺼내서 reg에 대입
+    &lt;ul&gt;
+      &lt;li&gt;이 때 일어나는 연산을 pseudo-code로 표현하면 아래와 같다.&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-wasm&quot;&gt;  rsp += 8 // decrease stack span
+  reg = [rsp-8] //pop
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;프로시저&quot;&gt;프로시저&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;프로시저의 호출 및 반환과 관련해서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;call&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;leave&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ret&lt;/code&gt; 명령어를 사용한다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;프로시저 불러서 진입하기: &lt;strong&gt;call&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;프로시저에서 나가서 원래의 함수로 돌아오기: &lt;strong&gt;return&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;스택프레임 정리하기: &lt;strong&gt;leave&lt;/strong&gt;&lt;/p&gt;
+
+&lt;/blockquote&gt;
+
+&lt;p&gt;프로시저를 call 할 당시, 원래의 함수에서 call 다음에 수행할 인스트럭션의 명령어 주소를 스택에 push 해둔 뒤, 콜했던 프로시저의 시작으로 rip를 이동하게 되는데, 이 때 스택에 저장되는 인스트럭션의 주소를 ‘Return address’라 칭한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;call addr: addr에 있는 프로시저 호출
+    &lt;ul&gt;
+      &lt;li&gt;이 때 일어나는 연산을 pseudo-code로 표현하면 아래와 같다.&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-wasm&quot;&gt;  push return_address // push return address into the stack
+  jmp addr
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;leave: 스택프레임 정리해서 원래 함수의 스택프레임 복구하기
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;leave 명령어와 동일한 기능을 수행하는 어셈블리 명령어의 조합은 아래와 같다.&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-wasm&quot;&gt;  **mov** rsp, rbp // 현재 함수에서의 스택 밑바닥이 원래 함수에서의 스택의 가장 꼭대기가 된다.
+               // 즉, 현재 스택 꼭대기: 원래 함수의 스택 꼭대기에서 하나 더 간 상태.
+  						 // 지금 rsp가 가리키는 위치에는 원래 함수의 스택 베이스 주소가 있다.
+  **pop** rbp // 원래 함수의 스택 베이스 주소를 빼서 rbp에 넣어 준다.
+  				// 또한 rsp를 하나 내림으로써 원래 함수의 스택 꼭대기와 일치시킨다.
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ret: return address로 rip를 위치시킨다.
+    &lt;ul&gt;
+      &lt;li&gt;ret 명령어와 동일한 기능을 수행하는 어셈블리 명령어는 아래와 같다.&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-wasm&quot;&gt;  pop rip // leave를 거친 이후 rsp가 가리키는 곳에는 콜했던 프로시저의 주소로 rip를 움직이기 전에
+  			  // 넣어 두었던 다음 인스트럭션의 주소가 저장되어 있다.
+  				// 따라서 다음에 수행할 인스트럭션의 주소를 스택에서 빼서 rip에 넣어 줌으로써
+  				// 원래의 코드 플로우를 수복한다. 
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;해당 명령어가 실제로 펑션콜과 리턴 과정에서 어떻게 사용되는지 시나리오 형식으로 설명해 보자.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;함수 A를 실행하다가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;call function_B&lt;/code&gt; 명령어를 맞닥뜨렸다.
+    &lt;ol&gt;
+      &lt;li&gt;4에서 실행될 다음 인스트럭션의 주소가 스택에 push 된다.&lt;/li&gt;
+      &lt;li&gt;함수 A의 스택 프레임을 유지하기 위해 A 스택 프레임의 rbp가 스택에 push 된다.&lt;/li&gt;
+      &lt;li&gt;새로운 스택 프레임을 할당해 주기 위해 rbp를 rsp의 위치로 옮긴다.&lt;/li&gt;
+      &lt;li&gt;앞에서 배웠듯, OS는 스택 프레임을 할당할 때 소규모로 할당한 후 가변적으로 운영한다. 따라서, 새로운 스택 프레임 공간을 할당하기 위해 rsp에서 0x30 정도를 뺀다.(통상적)&lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;이렇게 새롭게 할당된 스택 프레임과 기존의 A의 스택 프레임 구조를 확인하면 아래와 같다.&lt;/p&gt;
+
+        &lt;table&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td&gt;========새로운========&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;=======스택 프레임======&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;=========공간=========&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;A의 rbp 주소&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;A 상에서의 다음 인스트럭션 주소&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;기존에 A에서 쓰고 있던 임시 데이터들&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;함수 B를 실행한다.
+    &lt;ol&gt;
+      &lt;li&gt;앞에서 배웠듯, 스택에는 지역 변수가 저장된다. 따라서 함수 B의 지역 변수를 새로운 스택 프레임에 저장해 준다.&lt;/li&gt;
+      &lt;li&gt;스택 프레임 위에서 여러 연산을 수행한다. 스택 프레임은 함수별로 할당되므로 해당 함수 한정으로만 유효할 수 있는 데이터를 스택에 저장할 것이다.&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;함수 A로 복귀한다.
+    &lt;ol&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;leave&lt;/code&gt; 명령어가 실행된다. 따라서, rsp가 rbp의 위치로 이동하고 스택에 있던 A의 rbp 주소가 pop 되면서 rbp가 기존의 A의 스택 프레임의 rbp 주소를 가지게 된다.
+        &lt;ul&gt;
+          &lt;li&gt;한 마디로, B의 스택 프레임이 정리된 이후 A의 스택 프레임이 복구된다.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;함수 A 상에서의 다음 인스트럭션을 실행한다.
+    &lt;ol&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ret&lt;/code&gt; 명령어가 실행된다. 따라서, A 상에서의 다음 인스트럭션 주소가 rip로 들어간다.
+        &lt;ul&gt;
+          &lt;li&gt;이 시점에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;call&lt;/code&gt; 을 수행하기 이전의 A의 스택 프레임 상태가 완전히 복구된다.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;rip가 가리키는 주소의 명령어를 실행한다.&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;시스템-콜&quot;&gt;시스템 콜&lt;/h3&gt;
+
+&lt;p&gt;OS를 공부했다면 쉽게 이해할 수 있는 내용이다. 사실 OS 책의 1장 1페이지 정도 펼쳐봤다면 이해할 수 있는 내용이다. 따라서 자세한 부연 설명을 붙이지 않고, 간단히 정리만 하고 넘어간다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;OS는 시스템 보호를 위해 시스템과 직결된 행위(ex: 네트워크 통신, 파일시스템 테이블 생성/추가/삭제, 파일 Read/Write…)는 실행 권한을 분리해서 관리한다. 이럴 때 부여하는 권한이 바로 커널 권한과 유저 권한이다. 유저 권한을 가진 프로세스들은 커널 권한이 필요한 시스템 행위에 직접 엑세스할 수 없고, &lt;strong&gt;OS에게 요청해&lt;/strong&gt; OS가 대신 커널 권한이 필요한 시스템 행위를 수행하고 그 결과를 받아보는 것이 기본이다.&lt;/p&gt;
+
+  &lt;p&gt;이때 OS는 유저 권한과 커널 권한을 사용하는 상태를 오가는데, 유저 권한을 사용할 때를 ‘유저 모드’, 커널 권한을 사용할 때를 ‘커널 모드’에 있다고 표현한다.&lt;/p&gt;
+
+  &lt;p&gt;개인적으로 OS는 정말 재미있고 흥미로운 문제와 해결의 연속이라고 느꼈기 때문에, 만일 흥미가 생겼다면 공부해 보는 것을 추천한다. 리눅스부터 공부하는 게 좋을 것이다. 멀웨어 분석이 목표라면 윈도우를 공부해야 하겠지만…&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;Q. 그럼 프로세스에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;exec echo HOSTNAME&lt;/code&gt; 을 실행할 때 프로세스는 커널 모드로 진입하게 되는 건가요?&lt;/li&gt;
+    &lt;li&gt;A. 아닙니다. OS의 구성요소가 아닌 유저 레벨에서 생성되고 관리되는 요소들이라면 무조건 유저 모드에서 벗어날 수 없습니다. 해당 프로세스는 커널 권한이 필요한 행위를 수행하고 싶을 때 &lt;strong&gt;OS에게 수행을 요청&lt;/strong&gt;하고 그 결과만 받아보게 됩니다. 즉 OS가 커널 모드로 진입하고 빠져나옵니다.&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;즉, OS를 침해하는 해킹이 가장 심각한 결과를 이끌어내는 경우는 해당 해킹이 OS의 커널 모드 권한을 빼앗았을 때 발생한다.&lt;/p&gt;
+
+&lt;p&gt;그렇다면 시스템 콜(System Call)이란 무엇일까? 위에 서술한 내용 중에 답이 있다… (소곤소곤)&lt;/p&gt;
+
+&lt;p&gt;굵은 글씨로 쓰인 내용을 보자. 그리고 다음 설명을 보자. System Call이란 유저 모드에서 커널 모드에서의 수행이 필요할 때 ‘요청하는 것’이다. 이해가 확 될 것이다.&lt;/p&gt;
+
+&lt;p&gt;정리해서,&lt;/p&gt;
+
+&lt;aside&gt;
+⚙ 유저 모드의 프로세스에서 커널 모드의 동작이 필요하다. → System Call을 한다. → OS는 해당 요청을 승인해 커널 모드의 동작을 수행한다. → OS는 수행 결과를 반환한다. → 프로세스는 반환받은 결과를 이용한다.
+
+&lt;/aside&gt;
+
+&lt;p&gt;x64 아키텍처에서는 시스템콜을 하기 위해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;syscall&lt;/code&gt; 명령어를 쓴다. &lt;del&gt;나도 프로그래밍 하다가 본 것 같다… 아마도?&lt;/del&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;여기에서 끝나면 안된다. 지금 이 포스트의 목적은 ‘어셈블리어’를 공부하는 것이지 OS 개론을 공부하는 게 아니기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;syscall&lt;/code&gt; 명령어로 사용할 수 있는 시스템 콜은 함수다. 즉, 인자가 있고, 해당 인자를 이용해 어떠한 행위를 한다. 이 경우에는 커널에게 ‘사전 정보’를 주면서 ‘원하는 행위’를 요청하는 것임을 추측할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 원하는 행위와 사전 정보를 전달할 때, 아키텍처 레벨로 내려가 본다면 당연히 레지스터가 개입할 것이다. 파라미터가 있는 펑션콜이 수행되는 과정을 한 번 어셈블리 디버거로 보게 되면 직관적으로 알 수 있다. 그렇다면 어떤 레지스터가 통상적으로 개입할까? 그리고 어떤 레지스터에 ‘사전 정보’와 ‘원하는 행위’가 들어갈까?&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;리눅스의 경우 ‘원하는 행위’를 가리키는 데이터는 rax에 저장된다.&lt;/strong&gt; 해당 값은 시스템 콜 테이블이라는 시스템 콜이 저장되어 있는 테이블의 인덱스 넘버이므로, 어떠한 행위를 원하는지를 시스템이 인식할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;어떤 행위를 원하는지 알았다면 그 행위에 필요한 인자를 받아야 할 차례다. 한 예로, 현재 메모리에 있는 값을 읽어 와 콘솔에 write하려 한다고 하자. (write가 핵심이다. 프로세스가 선언한 데이터가 저장되어 있는 영역을 read할 땐 유저 권한으로 한다. 애초에 메모리에는 커널만을 위한 영역이 따로 있어서 엄격하게 커널과 유저 권한을 분리한다)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;write를 하기 위해서는 ‘어디에’ ‘무엇을’ ‘얼마만큼의 길이로’ 쓸 것인지를 알려 줘야 한다.&lt;/strong&gt; 그리고 OS는 정확하게 이 세 가지 요건을 입력받아 write 연산에 사용한다. 각 정보는 rdi, rsi, rdx에 저장된다. 레지스터의 용도를 고려해 보면 일리가 있게 저장되는 셈이다.&lt;/p&gt;
+
+&lt;p&gt;rdi는 destination, 즉 정보가 어디로 향할지를 저장하는 데 쓰이고, rsi는 source, 즉 정보의 출처가 어디인지 지정하는 데 쓰이므로 각각 ‘어디에’와 ‘무엇을’ 을 저장하는 데 적합한 논리를 가지고 있기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;그렇다면 ‘얼마만큼의 길이로’를 저장하는 rdx는? 이건 사실 일반적인 convention 때문에 쓰인다. 그 convention이란 무엇이냐면…&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;rdi&lt;/td&gt;
+      &lt;td&gt;첫 번째 인자 저장&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;rsi&lt;/td&gt;
+      &lt;td&gt;두번째 인자 저장&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;rdx&lt;/td&gt;
+      &lt;td&gt;세번째 인자 저장&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;rcx&lt;/td&gt;
+      &lt;td&gt;네번째 인자 저장&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;r8&lt;/td&gt;
+      &lt;td&gt;다섯번째 인자 저장&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;r9&lt;/td&gt;
+      &lt;td&gt;여섯번째 인자 저장&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;바로 위의 테이블이다. 일반적으로 함수의 파라미터를 전달할 때 레지스터는 위와 같은 순서로 인자를 저장한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;그런데 좀 이상하네… 지금 이걸 쓰면서 생긴 의문인데, 이런 convention은 system call에 인자를 전달하면서 생겨나서 유저 권한의 함수를 콜할 때도 쓰게 된 거 아닌가? 그럼 system call에 rdx를 세번째 인자를 전달할 때 쓰는 이유는 대체 왜지? 언젠가 알게 되겠지… 지금은 이게 핵심이 아니니까 넘어가자.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;정리해 보자. 만일 콘솔에 메모리 상의 어떤 정보를 읽어와 write한다고 치면&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;syscall&lt;/code&gt; 명령어가 실행된다. 이렇게 syscall 명령어가 실행되면 &lt;strong&gt;CPU는 rax부터 쳐다보게 된다.&lt;/strong&gt; &lt;del&gt;(언니 뭐부터 할까요)&lt;/del&gt; 그렇게 어떤 시스템 콜을 실행할지 결정하면 CPU는 해당 시스템 콜에 사용할 인자를 확인하기 위해 아래의 순서로 레지스터를 참조한다.(유저 권한에서 시스템 콜을 요청할 때는 아래의 sequence로 진행되고, 커널 권한의 인터페이스에서 뭔가를 할 땐 또 다른 sequence로 레지스터를 읽는다)&lt;/p&gt;
+
+&lt;aside&gt;
+⚙ **rdi → rsi → rdx → rcx → r8 → r9 → stack**
+
+&lt;/aside&gt;
+
+&lt;p&gt;rax에서 write system call을 가리키고 있기 때문에, 이제 커널은 write(out_mode, data_add, length)를 수행하게 된다. 인자가 3개이므로 커널이 참조하는 레지스터는 rdi, rsi, rdx가 된다.&lt;/p&gt;
+
+&lt;p&gt;참고로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;syscall&lt;/code&gt; 이 리턴되면 레지스터 컨벤션에 따라 rax에 시스템 콜의 결과가 저장된다. 에러 번호라든가 성공 여부라든가…&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;부록: System call table 중 주요 몇 가지 시스템 콜(검색하면 나옴)&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;syscall&lt;/th&gt;
+          &lt;th&gt;rax&lt;/th&gt;
+          &lt;th&gt;arg0 (rdi)&lt;/th&gt;
+          &lt;th&gt;arg1 (rsi)&lt;/th&gt;
+          &lt;th&gt;arg2 (rdx)&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;read&lt;/td&gt;
+          &lt;td&gt;0x00&lt;/td&gt;
+          &lt;td&gt;unsigned int fd&lt;/td&gt;
+          &lt;td&gt;char *buf&lt;/td&gt;
+          &lt;td&gt;size_t count&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;write&lt;/td&gt;
+          &lt;td&gt;0x01&lt;/td&gt;
+          &lt;td&gt;unsigned int fd&lt;/td&gt;
+          &lt;td&gt;const char *buf&lt;/td&gt;
+          &lt;td&gt;size_t count&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;open&lt;/td&gt;
+          &lt;td&gt;0x02&lt;/td&gt;
+          &lt;td&gt;const char *filename&lt;/td&gt;
+          &lt;td&gt;int flags&lt;/td&gt;
+          &lt;td&gt;umode_t mode&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;close&lt;/td&gt;
+          &lt;td&gt;0x03&lt;/td&gt;
+          &lt;td&gt;unsigned int fd&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;mprotect&lt;/td&gt;
+          &lt;td&gt;0x0a&lt;/td&gt;
+          &lt;td&gt;unsigned long start&lt;/td&gt;
+          &lt;td&gt;size_t len&lt;/td&gt;
+          &lt;td&gt;unsigned long prot&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;connect&lt;/td&gt;
+          &lt;td&gt;0x2a&lt;/td&gt;
+          &lt;td&gt;int sockfd&lt;/td&gt;
+          &lt;td&gt;struct sockaddr * addr&lt;/td&gt;
+          &lt;td&gt;int addrlen&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;execve&lt;/td&gt;
+          &lt;td&gt;0x3b&lt;/td&gt;
+          &lt;td&gt;const char *filename&lt;/td&gt;
+          &lt;td&gt;const char *const *argv&lt;/td&gt;
+          &lt;td&gt;const char *const *envp&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Tue, 28 Jun 2022 18:25:23 +0900</pubDate>
+        <link>http://localhost:4000/blog/system-hacking-step2-2/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/system-hacking-step2-2/</guid>
+      </item>
     
       <item>
         <title>System Hackig Step 2</title>
@@ -141,11 +771,9 @@
   &lt;/ul&gt;
 &lt;/blockquote&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;img src=&quot;/assets/img/posts/systemHackingStep2_2.png&quot; width=&quot;50%&quot; height=&quot;50%&quot;&amp;gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/systemHackingStep2_2.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
 
-
-우와~ 리눅스에서는 실행 중인 프로세스의 메모리가 5개의 영역으로 구분되고, 각 영역별로 CPU가 부여받은 권한이 다르구나!
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;우와~ 리눅스에서는 실행 중인 프로세스의 메모리가 5개의 영역으로 구분되고, 각 영역별로 CPU가 부여받은 권한이 다르구나!&lt;/p&gt;
 
 &lt;h3 id=&quot;code-segment&quot;&gt;“Code Segment”&lt;/h3&gt;
 
@@ -235,8 +863,8 @@
 &lt;p&gt;A. 동일하면 충돌하니까. 따라서 리눅스는 스택 베이스를 메모리 끝에 위치시키고 힙 베이스는 낮은 주소에 위치시켜서 충돌할 일이 거의 없게 만들어 놨음.&lt;/p&gt;
 </description>
         <pubDate>Thu, 23 Jun 2022 12:24:23 +0900</pubDate>
-        <link>http://localhost:4000//blog/system-hacking-step2/</link>
-        <guid isPermaLink="true">http://localhost:4000//blog/system-hacking-step2/</guid>
+        <link>http://localhost:4000/blog/system-hacking-step2/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/system-hacking-step2/</guid>
       </item>
     
 
@@ -272,7 +900,7 @@
 &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;jekyll&lt;/a&gt;&lt;/p&gt;
 
 </description>
-            <link>http://localhost:4000//about/</link>
+            <link>http://localhost:4000/about/</link>
           </item>
         
       
@@ -290,11 +918,17 @@
   &lt;div class=&quot;category-box&quot;&gt;
     
     &lt;div id=&quot;#System Hacking Basic&quot;&gt;&lt;/div&gt;
-    &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;//blog/categories/System Hacking Basic&quot;&gt;System Hacking Basic&lt;/a&gt;&lt;/h4&gt;
+    &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;/blog/categories/System Hacking Basic&quot;&gt;System Hacking Basic&lt;/a&gt;&lt;/h4&gt;
     &lt;a name=&quot;System Hacking Basic&quot;&gt;&lt;/a&gt;
      
     &lt;article class=&quot;center&quot;&gt;
-      &lt;h6&gt;&lt;a href=&quot;//blog/system-hacking-step2/&quot;&gt;System Hackig Step 2&lt;/a&gt;&lt;/h6&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/system-hacking-step2-2/&quot;&gt;System Hackig Step 2-2&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/system-hacking-step2/&quot;&gt;System Hackig Step 2&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
 
 
@@ -305,7 +939,7 @@
 &lt;/div&gt;
 
 </description>
-            <link>http://localhost:4000//blog/categories/</link>
+            <link>http://localhost:4000/blog/categories/</link>
           </item>
         
       
@@ -325,7 +959,7 @@
  &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;{{ post.date | date_to_string }}&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;{{ post.url }}&quot;&gt;{{ post.title }}&lt;/a&gt;&lt;/li&gt;
 {% endfor %}
 &lt;/div&gt;</description>
-            <link>http://localhost:4000//blog/categories/guides/</link>
+            <link>http://localhost:4000/blog/categories/guides/</link>
           </item>
         
       
@@ -512,7 +1146,7 @@ Visit your Github Repo settings ! Enable master branch as Github Pages Branch :
 You can visit the blog using [http://your-github-username.github.io](http://your-github-username.github.io).
 
 </description>
-            <link>http://localhost:4000//get-started/</link>
+            <link>http://localhost:4000/get-started/</link>
           </item>
         
       
@@ -532,7 +1166,7 @@ You can visit the blog using [http://your-github-username.github.io](http://your
  &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;{{ post.date | date_to_string }}&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;{{ post.url }}&quot;&gt;{{ post.title }}&lt;/a&gt;&lt;/li&gt;
 {% endfor %}
 &lt;/div&gt;</description>
-            <link>http://localhost:4000//blog/categories/sample_category/</link>
+            <link>http://localhost:4000/blog/categories/sample_category/</link>
           </item>
         
       
@@ -546,7 +1180,7 @@ You can visit the blog using [http://your-github-username.github.io](http://your
             <description>Thanks to all the amazing contributors and our Backers for the support.
 
 - [Dirish Mohan](https://dirishmohan.com)</description>
-            <link>http://localhost:4000//sponsors/</link>
+            <link>http://localhost:4000/sponsors/</link>
           </item>
         
       
@@ -756,7 +1390,7 @@ You can visit the blog using [http://your-github-username.github.io](http://your
 
 
 </description>
-            <link>http://localhost:4000//styleguide/</link>
+            <link>http://localhost:4000/styleguide/</link>
           </item>
         
       
@@ -772,7 +1406,7 @@ You can visit the blog using [http://your-github-username.github.io](http://your
  &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;{{ post.date | date_to_string }}&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;{{ post.url }}&quot;&gt;{{ post.title }}&lt;/a&gt;&lt;/li&gt;
 {% endfor %}
 &lt;/div&gt;</description>
-            <link>http://localhost:4000//blog/categories/system-hacking-basic/</link>
+            <link>http://localhost:4000/blog/categories/system-hacking-basic/</link>
           </item>
         
       
