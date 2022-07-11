@@ -5,7 +5,7 @@ summary: Dreamhack에서 공부한 것
 author: TouBVa
 date: '2022-07-10 21:10:23 +09'
 category: System Hacking Basic
-thumbnail: /assets/img/syshack3-1/Untitled.png
+thumbnail: /assets/img/syshack3-1/Untitled.jpeg
 keywords: System Hacking, Computer Architecture, Register, OS basic
 usemathjax: true
 permalink: /blog/system-hacking-step3-1/
