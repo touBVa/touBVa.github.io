@@ -5,7 +5,7 @@ summary: 어셈블리어와 시스템 콜
 author: TouBVa
 date: '2022-06-28 18:25:23 +09'
 category: System Hacking Basic
-thumbnail: /assets/img/posts/systemHackingStep2_2.png
+thumbnail: /assets/img/posts/assembly.png
 keywords: System Hacking, Computer Architecture, Register, OS basic
 usemathjax: true
 permalink: /blog/system-hacking-step2-2/
