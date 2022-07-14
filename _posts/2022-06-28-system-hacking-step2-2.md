@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "System Hackig Step 2-2"
-summary: Dreamhack에서 공부한 것
+summary: 어셈블리어와 시스템 콜
 author: TouBVa
 date: '2022-06-28 18:25:23 +09'
 category: System Hacking Basic

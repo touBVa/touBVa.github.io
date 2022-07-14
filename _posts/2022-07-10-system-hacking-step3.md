@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "System Hackig Step 3-1"
-summary: Dreamhack에서 공부한 것
+summary: gdb 사용 기초와 각종 명령어
 author: TouBVa
 date: '2022-07-10 21:10:23 +09'
 category: System Hacking Basic

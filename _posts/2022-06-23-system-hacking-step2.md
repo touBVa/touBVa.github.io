@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "System Hackig Step 2"
-summary: Dreamhack에서 공부한 것
+summary: 레지스터 종류와 운영체제 프로세스 메모리 관리 구조
 author: TouBVa
 date: '2022-06-23 12:24:23 +09'
 category: System Hacking Basic
