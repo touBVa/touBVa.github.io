@@ -25,12 +25,12 @@ urls:
 # Edit Author details (For multi authors check _data/authors.yml)
 
 author_logo: gallery/mountains/2.jpg
-author: TouBVa(UNI)
+author: TouBVa
 author_bio: Welcome to my world!
 author_email: "touBVa@gmail.com"
 author_location: South Korea
 author_website_url: "https://twitter.com/TouBVa"
-typewrite-text: Better than you thought, worse than you expected
+typewrite-text: Easier than you thought, harder than you expected
 hero_cover_img: sample_cover.jpg # replace this for changing homepage cover (eg. try cover.jpeg). Image should be in /assets/img
 
 # Experiences
