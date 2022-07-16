@@ -1,4 +1,5 @@
  User-agent: *
  Allow: /
  Disallow: /build/
+ Disallow: /admin/
  Sitemap: {{ '/sitemap.xml' | relative_url | prepend: site.url }}
