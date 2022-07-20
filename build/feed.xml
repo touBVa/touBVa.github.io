@@ -5,8 +5,8 @@
     <description>Better than you thought, Worse than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 20 Jul 2022 19:25:19 +0900</pubDate>
-    <lastBuildDate>Wed, 20 Jul 2022 19:25:19 +0900</lastBuildDate>
+    <pubDate>Wed, 20 Jul 2022 19:35:36 +0900</pubDate>
+    <lastBuildDate>Wed, 20 Jul 2022 19:35:36 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
     
@@ -70,14 +70,12 @@
   &lt;/ul&gt;
 &lt;/blockquote&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```c
-//flag 파일에 있는 글자수만큼+1의 버퍼 만들어 주기
-char buf[0x30];
-
-int fd = open(&quot;/tmp/flag&quot;, RD_ONLY, NULL); // 목표 파일의 포인터와 접근 모드 가져오기
-read(fd, buf, 0x30); // 파일을 읽어 오기
-write(1, buf, 0x30); // 1번, 즉 stdout인 콘솔에 읽어 온 buf 출력하기
-```
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//flag 파일에 있는 글자수만큼+1의 버퍼 만들어 주기&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/tmp/flag&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RD_ONLY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 목표 파일의 포인터와 접근 모드 가져오기&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 파일을 읽어 오기&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 1번, 즉 stdout인 콘솔에 읽어 온 buf 출력하기&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;여기에서 사용된 syscall은 총 세 가지, open, read, write 였다. 해당 syscall들의 상세 사양들을 알아보자.&lt;/p&gt;
@@ -335,8 +333,8 @@ mov rax, 0x01
 &lt;p&gt;그런데 이상한 점. 플래그의 글자 수를 세어 보면 29글자로 원래 의도했던 48바이트보다 한참 작은 크기의 문자열을 읽어왔음을 알 수 있다. 이러면 29바이트 + 19바이트 쯤으로 뒤에 쓰레기값이 붙어 나와야 하는데(드림핵 자료에서도 동일한 이야기를 하고 있다)…. 나는 왜 안 나오지? ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ 이상한데…&lt;/p&gt;
 
 &lt;aside&gt;
-⚙ Uninitialized Memory
-
+⚙ Uninitialized Memory &lt;br /&gt;
+  
 스택은 각 함수별로 스택 프레임이라는 제도를 만들어 공간을 분리해 사용하는, 일종의 함수간 공유 자원으로 정의될 수 있다. 그러나 어떤 함수를 수행하고 다시 원래의 함수로 돌아올 때, 직전의 함수의 스택 프레임 영역을 0으로 초기화하는 게 아니라(Uninitialized Memory) 그냥 rbp와 rsp의 위치만 옮겨 오는 원리로 스택을 관리하기 때문에 이전 스택 프레임의 데이터는 고스란히 남아 있게 된다. 이것이 바로 쓰레기 값(garbage data)이다.
 
 이런 쓰레기 값에 잘 접근하면 프로세스가 프로그래머의 의도와는 다른 동작을 하도록 만들 수 도 있고, 중요한 정보를 읽어낼(Memory Leak) 수도 있다. 이런 걸 막기 위해 시큐어 코딩이라는 것을 하는데, 그건 KISA 들어가서 찾아보면 지침서가 나오니 관심 있는 사람들은 그쪽을 참고하시길!
