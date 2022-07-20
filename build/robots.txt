@@ -1,5 +1,1 @@
- User-agent: *
- Allow: /
- Disallow: /build/
- Disallow: /admin/
- Sitemap: {{ '/sitemap.xml' | relative_url | prepend: site.url }}
+Sitemap: http://localhost:4000/sitemap.xml
