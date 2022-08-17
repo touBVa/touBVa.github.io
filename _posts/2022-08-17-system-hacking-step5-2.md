@@ -65,7 +65,7 @@ permalink: /blog/system-hacking-step5-2/
 
 예제를 분석하며 BOF의 감을 잡아 보자. 사실 나는 저번에 풀었던 문제 정도를 예상하고 에이 똑같은 이야긴가~ 하며 방심했는데, 전혀 아니었다. 설명을 읽고 뒤통수를 한 대 맞은 기분이었기 때문에, 나와 비슷한 초보자 분들도 이건 꼭 보셨으면 좋겠다.
 
-![Untitled](/assets/img/posts/syshack52/Untitled.png)
+![Untitled](/assets/img/posts/syshack52/Untitled.jpeg)
 
 원래 main 함수가 따로 있는데, 가장 중요한 check_auth 함수만 잘라서 가져왔다. 여기에서 집중해볼 것은, temp[16]과 strncpy(temp, password, strlen(password))이다. strncpy 자체가 BOF에 취약한 함수인 데다가 temp[16]은 16바이트로 크기가 정해진 배열이다. 
 
