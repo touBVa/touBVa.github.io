@@ -5,8 +5,8 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 14 Nov 2022 19:53:16 +0900</pubDate>
-    <lastBuildDate>Mon, 14 Nov 2022 19:53:16 +0900</lastBuildDate>
+    <pubDate>Mon, 14 Nov 2022 19:57:06 +0900</pubDate>
+    <lastBuildDate>Mon, 14 Nov 2022 19:57:06 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
     
@@ -3735,9 +3735,9 @@ rsp -= 8 //stack grows from high to low
 
   &lt;div class=&quot;category-box&quot;&gt;
     
-    &lt;div id=&quot;#System Hacking Basic&quot;&gt;&lt;/div&gt;
-    &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;/blog/categories/System Hacking Basic&quot;&gt;System Hacking Basic&lt;/a&gt;&lt;/h4&gt;
-    &lt;a name=&quot;System Hacking Basic&quot;&gt;&lt;/a&gt;
+    &lt;div id=&quot;#system_hacking_basic&quot;&gt;&lt;/div&gt;
+    &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;/blog/categories/system_hacking_basic&quot;&gt;system_hacking_basic&lt;/a&gt;&lt;/h4&gt;
+    &lt;a name=&quot;system_hacking_basic&quot;&gt;&lt;/a&gt;
      
     &lt;article class=&quot;center&quot;&gt;
       &lt;h6&gt;&lt;a href=&quot;/blog/protostar-stack5-x86-x64/&quot;&gt;Protostar-stack5.c x86 &amp;amp; x86-64&lt;/a&gt;&lt;/h6&gt;
@@ -3804,9 +3804,9 @@ rsp -= 8 //stack grows from high to low
 
   &lt;div class=&quot;category-box&quot;&gt;
     
-    &lt;div id=&quot;#Taught By Myself&quot;&gt;&lt;/div&gt;
-    &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;/blog/categories/Taught By Myself&quot;&gt;Taught By Myself&lt;/a&gt;&lt;/h4&gt;
-    &lt;a name=&quot;Taught By Myself&quot;&gt;&lt;/a&gt;
+    &lt;div id=&quot;#taught_by_myself&quot;&gt;&lt;/div&gt;
+    &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;/blog/categories/taught_by_myself&quot;&gt;taught_by_myself&lt;/a&gt;&lt;/h4&gt;
+    &lt;a name=&quot;taught_by_myself&quot;&gt;&lt;/a&gt;
      
     &lt;article class=&quot;center&quot;&gt;
       &lt;h6&gt;&lt;a href=&quot;/blog/protostar-stack5-x86-x64/&quot;&gt;Protostar-stack5.c x86 &amp;amp; x86-64&lt;/a&gt;&lt;/h6&gt;
@@ -4279,7 +4279,7 @@ You can visit the blog using [http://your-github-username.github.io](http://your
       
         
           <item>
-            <title>System Hacking Basic</title>
+            <title>system_hacking_basic</title>
             <description>&lt;h5&gt; Posts by Category : {{ page.title }} &lt;/h5&gt;
 
 &lt;div class=&quot;card&quot;&gt;
@@ -4287,7 +4287,7 @@ You can visit the blog using [http://your-github-username.github.io](http://your
  &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;{{ post.date | date_to_string }}&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;{{ post.url }}&quot;&gt;{{ post.title }}&lt;/a&gt;&lt;/li&gt;
 {% endfor %}
 &lt;/div&gt;</description>
-            <link>http://localhost:4000/blog/categories/system-hacking-basic/</link>
+            <link>http://localhost:4000/blog/categories/system_hacking_basic/</link>
           </item>
         
       

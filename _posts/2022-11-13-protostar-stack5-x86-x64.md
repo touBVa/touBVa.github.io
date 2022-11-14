@@ -4,7 +4,7 @@ title:  "Protostar-stack5.c x86 & x86-64"
 summary: RTL 실습 및 32비트/64비트 프로그램 RTL exploit의 차이
 author: TouBVa
 date: '2022-11-13 20:31:23 +09'
-category: ['System Hacking Basic', 'Taught By Myself']
+category: ['system_hacking_basic', 'taught_by_myself']
 thumbnail: /assets/img/posts/protostar5/Untitled.jpeg
 keywords: System Hacking, RTL, x86, x86-64
 usemathjax: true

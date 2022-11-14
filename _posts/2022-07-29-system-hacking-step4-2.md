@@ -4,7 +4,7 @@ title:  "System Hackig Step 4-2: Shell_basic"
 summary: 드림핵의 Shell_basic 문제 풀이
 author: TouBVa
 date: '2022-07-29 00:08:23 +09'
-category: System Hacking Basic
+category: system_hacking_basic
 thumbnail: /assets/img/posts/syshack42/Untitled%205.jpeg
 keywords: System Hacking, Shellcode, Pwnable
 usemathjax: true

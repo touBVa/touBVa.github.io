@@ -1,7 +1,7 @@
 ---
 layout: page
-title: System Hacking Basic
-permalink: /blog/categories/system-hacking-basic/
+title: system_hacking_basic
+permalink: /blog/categories/system_hacking_basic/
 ---
 
 <h5> Posts by Category : {{ page.title }} </h5>

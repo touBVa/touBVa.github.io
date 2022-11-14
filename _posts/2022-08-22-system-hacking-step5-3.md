@@ -4,7 +4,7 @@ title:  "System Hackig Step 5-3"
 summary: BOF-Return Address Overwrite
 author: TouBVa
 date: '2022-08-22 23:55:23 +09'
-category: System Hacking Basic
+category: system_hacking_basic
 thumbnail: /assets/img/posts/syshack53/Untitled%203.jpeg
 keywords: System Hacking, BOF, Return Address Overwrite
 usemathjax: true

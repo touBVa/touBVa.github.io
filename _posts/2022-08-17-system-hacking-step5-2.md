@@ -4,7 +4,7 @@ title:  "System Hackig Step 5-2"
 summary: Stack Buffer Overflow
 author: TouBVa
 date: '2022-08-17 14:25:23 +09'
-category: System Hacking Basic
+category: system_hacking_basic
 thumbnail: /assets/img/posts/syshack52/Untitled.jpeg
 keywords: System Hacking, BOF
 usemathjax: true
