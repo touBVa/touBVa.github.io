@@ -5,8 +5,8 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 14 Nov 2022 18:30:27 +0900</pubDate>
-    <lastBuildDate>Mon, 14 Nov 2022 18:30:27 +0900</lastBuildDate>
+    <pubDate>Mon, 14 Nov 2022 18:31:51 +0900</pubDate>
+    <lastBuildDate>Mon, 14 Nov 2022 18:31:51 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
     
@@ -3758,6 +3758,12 @@ rsp -= 8 //stack grows from high to low
 
     
     &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/system-hacking-step5/&quot;&gt;System Hackig Step 5&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
       &lt;h6&gt;&lt;a href=&quot;/blog/system-hacking-step4-2&quot;&gt;System Hackig Step 4-2: Shell_basic&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
 
@@ -3789,21 +3795,6 @@ rsp -= 8 //stack grows from high to low
     
     &lt;article class=&quot;center&quot;&gt;
       &lt;h6&gt;&lt;a href=&quot;/blog/system-hacking-step2/&quot;&gt;System Hackig Step 2&lt;/a&gt;&lt;/h6&gt;
-    &lt;/article&gt;
-
-
-    
-
-  &lt;/div&gt;
-
-  &lt;div class=&quot;category-box&quot;&gt;
-    
-    &lt;div id=&quot;#System Hacking Basic, Taught By Myself&quot;&gt;&lt;/div&gt;
-    &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;/blog/categories/System Hacking Basic, Taught By Myself&quot;&gt;System Hacking Basic, Taught By Myself&lt;/a&gt;&lt;/h4&gt;
-    &lt;a name=&quot;System Hacking Basic, Taught By Myself&quot;&gt;&lt;/a&gt;
-     
-    &lt;article class=&quot;center&quot;&gt;
-      &lt;h6&gt;&lt;a href=&quot;/blog/system-hacking-step5/&quot;&gt;System Hackig Step 5&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
 
 

@@ -4,7 +4,7 @@ title:  "System Hackig Step 5"
 summary: Calling Convention
 author: TouBVa
 date: '2022-08-12 21:25:23 +09'
-category: System Hacking Basic, Taught By Myself
+category: System Hacking Basic
 thumbnail: /assets/img/posts/syshack5/Untitled.jpeg
 keywords: System Hacking, Calling Convention, SYSV, cdecl
 usemathjax: true
