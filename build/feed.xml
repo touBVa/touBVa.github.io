@@ -5,10 +5,223 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 14 Nov 2022 20:00:19 +0900</pubDate>
-    <lastBuildDate>Mon, 14 Nov 2022 20:00:19 +0900</lastBuildDate>
+    <pubDate>Tue, 22 Nov 2022 00:14:34 +0900</pubDate>
+    <lastBuildDate>Tue, 22 Nov 2022 00:14:34 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
+    
+      <item>
+        <title>Memory Exploit Mitigations and How to Bypass them 01</title>
+        <description>&lt;p&gt;아직 윈도우 메모리 보호 기법은 다루지 못했다. 또한 다음 포스트로는 보호 기법 우회 실습을 다루려 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;0-memory-exploit-mitigation-techniques&quot;&gt;0. Memory Exploit Mitigation Techniques&lt;/h1&gt;
+
+&lt;h2 id=&quot;01-linux&quot;&gt;0.1. Linux&lt;/h2&gt;
+
+&lt;p&gt;이어 말할 메모리 보호 기법을 더 잘 이해하기 위해 리눅스의 프로세스 메모리 구조를 명시한다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;.code: RE&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;.data: R+W&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;.bss: RW&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;heap: RW&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;stack: RW&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;OS Kernel Space&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;(Low to High address)&lt;/p&gt;
+
+&lt;h3 id=&quot;011-aslraddress-space-layout-randomization&quot;&gt;0.1.1. ASLR(Address Space Layout Randomization)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;공유 라이브러리, 스택 및 힙, 실행 파일의 베이스가 매핑되는 메모리 영역의 주소를 Randomization 한다.&lt;/p&gt;
+
+&lt;/blockquote&gt;
+
+&lt;p&gt;공격자가 공격에 필요한 정확한 메모리 주소를 알아내 공격에 사용하는 것을 막아주는 기법이다. 리눅스에서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;randomize_va_space&lt;/code&gt; 파일에 int 값으로 옵션이 저장되는데, 이 값이 0일 경우 해제, 1일 경우 스택과 라이브러리 랜덤화, 2일 경우 스택, 라이브러리 및 힙까지 랜덤화를 할 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;012-ascii-armor&quot;&gt;0.1.2. ASCII-Armor&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;공유 라이브러리 매핑 시, 주소값의 상위 1바이트를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x00&lt;/code&gt;이 되도록 배치한다.&lt;/p&gt;
+
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x00&lt;/code&gt; 은 ASCII로 NULL을 의미한다. 보통 문자열 관련 함수들은 NULL 문자를 문자의 끝이라고 인식하기 때문에, ASCII-Armor는 문자열 관련 함수를 이용한 라이브러리 주소 편집/사용이 불가능해지게 만든다. 따라서, RTL과 같이 라이브러리 주소를 이용한 공격을 까다롭게 만든다.&lt;/p&gt;
+
+&lt;h3 id=&quot;013-fortify_source&quot;&gt;0.1.3. FORTIFY_SOURCE&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;strcpy, memset과 같은 메모리 버퍼 관련 함수 실행 시, 기존 함수 대신 src와 dst의 크기를 비교하는 검사를 수행하는 빌트인 함수로 대체해 실행시킨다.&lt;/p&gt;
+
+&lt;/blockquote&gt;
+
+&lt;p&gt;입력값이 저장될 위치의 크기와 입력값의 크기를 비교하는 것이므로, SSP와 달리 스택에 할당되지 않은 변수에 대한 오버플로우 검사가 가능하다.&lt;/p&gt;
+
+&lt;p&gt;적용하기 위해서는 gcc 컴파일 시 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-D_FORTIFY_SOURCE=N&lt;/code&gt; 옵션을 추가해야 하고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-O1&lt;/code&gt; 이상의 최적화 옵션도 추가해 주어야 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;014-nx-bitno-execute-bit&quot;&gt;0.1.4. NX-bit(No-eXecute bit)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;데이터 영역의 메모리 페이지를 NX 특성으로 지정해 BOF를 이용한 쉘코드 실행 공격을 불가능하게 만든다.&lt;/p&gt;
+
+&lt;/blockquote&gt;
+
+&lt;p&gt;리눅스의 프로세스 메모리 5개 영역 중, 코드 영역과 데이터 영역의 실행 권한을 명확하게 분리하려는 정책이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;015-pieposition-independent-executable&quot;&gt;0.1.5. PIE(Position Independent Executable)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;프로그램의 바이너리 코드가 매핑되는 메모리 영역이 매번 달라지게 하는 기법이다.&lt;/p&gt;
+
+&lt;/blockquote&gt;
+
+&lt;p&gt;따라서, plt나 got 영역에 접근해 라이브러리 함수의 절대 주소를 알아내 익스플로잇에 이용하는 기존 기법이 어려워졌다. 또한 코드 영역의 주소가 실행될 때마다 변화하므로 ROP 등의 코드 재사용 공격을 막을 수 있다.&lt;/p&gt;
+
+&lt;p&gt;컴파일러가 제공하는 보안 기능이기 때문에, 컴파일러 옵션으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-no-pie&lt;/code&gt;를 주어서 끌 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;016-relrorelocation-read-only&quot;&gt;0.1.6. RELRO(RELocation Read-Only)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;ELF binary의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.dynamic&lt;/code&gt; 섹션을 RO로 설정해 데이터 섹션의 보안을 강화하는 보호기술&lt;/p&gt;
+
+&lt;/blockquote&gt;
+
+&lt;p&gt;Relocation Table이란 프로그램이 실행되기 위해 어느 부분에 relocation이 필요한지 보관하고 있는 영역으로, 라이브러리 함수의 주소를 담고 있는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.got&lt;/code&gt; 등이 이에 해당된다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Partial RELRO-Lazy Binding
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dynamic&lt;/code&gt; 영역의 쓰기 권한을 없애 버린다.
+        &lt;ul&gt;
+          &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dynamic&lt;/code&gt; 영역이란?
+            &lt;ul&gt;
+              &lt;li&gt;오브젝트 파일(소스)가 dynamic linking을 사용하면 해당 파일의 elf header 에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PT_DYNAMIC&lt;/code&gt; 타입의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.dynamic&lt;/code&gt; 이라는 섹션이 생기는데, 이때 해당 섹션에는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_DYNAMIC&lt;/code&gt; 이라는 심볼이 붙는다.&lt;/li&gt;
+              &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_DYNAMIC&lt;/code&gt; 섹션 안에는 함수 엔트리를 가리키는 포인터가 있다.&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;ELF Header에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RELRO&lt;/code&gt; 영역이 생기고, 해당영역의 권한은 RO이다.
+        &lt;ul&gt;
+          &lt;li&gt;해당 영역에 포함되는 Section은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;INIT_ARRAY&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FINI_ARRAY&lt;/code&gt; 이다.&lt;/li&gt;
+          &lt;li&gt;즉 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.dynamic&lt;/code&gt; 에 속하지 않는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.got&lt;/code&gt; 섹션은 덮어쓸 수 있다.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Full RELRO-Now Binding
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.bss&lt;/code&gt; section 이외 모든 영역의 쓰기 권한이 없어진다.&lt;/li&gt;
+      &lt;li&gt;ELF Header에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RELRO&lt;/code&gt; 영역이 생기고, 해당 영역의 권한은 RO이다.
+        &lt;ul&gt;
+          &lt;li&gt;해당 영역에 포함되는 Section은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;INIT_ARRAY&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FINI_ARRAY&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PLTGOT&lt;/code&gt; 이다.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Section 영역에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PLTRELSZ&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PLTREL&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JMPREL&lt;/code&gt; 이 제거되고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BIND_NOW&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FLAGS_1&lt;/code&gt; 섹션이 추가된다.&lt;/li&gt;
+      &lt;li&gt;즉, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.got&lt;/code&gt; 섹션을 덮어쓸 수 없다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;017-sspstack-smashing-protector&quot;&gt;0.1.7. SSP(Stack Smashing Protector)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Stack Smashing, 즉 스택을 violating하는 스택 버퍼 오버플로우를 막기 위해 고안된 방식이다.&lt;/p&gt;
+
+&lt;/blockquote&gt;
+
+&lt;p&gt;보통은 Stack Canary라고 부른다.&lt;/p&gt;
+
+&lt;p&gt;함수가 실행될 때 스택의 RBP와 RET 사이에 랜덤으로 생성된 Canary를 삽입한다. Canary 가 변조된 것이 확인되면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__stack_chk_fail&lt;/code&gt; 함수가 호출되면서 프로그램이 종료되기 때문에, RET 변조를 이용한 공격을 방어할 수 있다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;1-how-to-bypass-them&quot;&gt;1. How to Bypass them&lt;/h1&gt;
+
+&lt;h2 id=&quot;01-linux-1&quot;&gt;0.1. Linux&lt;/h2&gt;
+
+&lt;h3 id=&quot;011-aslraddress-space-layout-randomization-1&quot;&gt;0.1.1. ASLR(Address Space Layout Randomization)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Address Leak: 가장 현실적&lt;/li&gt;
+  &lt;li&gt;ASLR Bypass Brute-Force attack&lt;/li&gt;
+  &lt;li&gt;NOP Sled&lt;/li&gt;
+  &lt;li&gt;Heap Spraying&lt;/li&gt;
+  &lt;li&gt;RTL using Symbolic Link&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;012-ascii-armor-1&quot;&gt;0.1.2. ASCII-Armor&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;RTL: 쓰레기값에 심볼릭 링크를 거는 방식의 RTL(Omega Project)&lt;/li&gt;
+  &lt;li&gt;Chainning RTL&lt;/li&gt;
+  &lt;li&gt;PLT &amp;amp; GOT Overwrite&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;013-fortify_source-1&quot;&gt;0.1.3. FORTIFY_SOURCE&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;입력값이 저장될 위치의 크기를 알 수 없다면 아무런 검사를 수행할 수 없기 때문에 빌트인 함수가 아닌 원본의 라이브러리 함수로 변경된다.&lt;/li&gt;
+  &lt;li&gt;즉, 전달되는 크기 정보를 망가뜨려 버리거나 저장될 위치의 크기를 알 수 없다는 뜻의 플래그를 리턴하도록 한다면 얼마든지 회피할 수 있다.&lt;/li&gt;
+  &lt;li&gt;한 예로, 저장 위치 포인터가 함수 호출을 통해 함수 간에 전달된다면 크기 정보가 모두 사라지는 이유로 검사 수행이 불가능하기 때문에 우회 가능해진다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;014-nx-bit&quot;&gt;0.1.4. NX-bit&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;RTL: RX 권한들이 동시에 존재하는 메모리 영역이 없기 때문에, 프로그램에 스택 버퍼 오버플로우 취약점이 존재하는 경우 X 권한이 있는 메모리 페이지에 위치한 코드들을 걸치면서 이동해 코드 플로우를 바꾸는 방식으로 익스플로잇할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;015-pieposition-independent-executable-1&quot;&gt;0.1.5. PIE(Position Independent Executable)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;코드 영역의 주소를 알아내는 것이 우선이다. 특정 코드 영역의 주소를 leak한 이후, 구한 주소를 이용해 베이스 주소를 구할 수 있다. 이렇게 구한 코드 베이스 주소에 대해 오프셋 계산을 함으로써 여타 시스템 함수들의 주소를 구할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;016-relrorelocation-read-only-1&quot;&gt;0.1.6. RELRO(RELocation Read-Only)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Partial RELRO
+    &lt;ul&gt;
+      &lt;li&gt;plt, got는 보호받지 못하기 때문에 PLT&amp;amp;GOT Overwriting이 가능하다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Full RELRO
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.ctors&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.dtors&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.jcr&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.dynamic&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.got&lt;/code&gt; 등의 영역에 RO가 설정되기 때문에, 그냥 이 영역들을 쓰지 않으면 쉽게 익스플로잇이 가능하다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;017-sspstack-smashing-protector-1&quot;&gt;0.1.7. SSP(Stack Smashing Protector)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Canary Leak: 가장 현실적! 함수의 프롤로그에서 스택에 카나리 값을 저장하므로, 이를 읽어낼 수 있다면 카나리와 똑같은 값을 오버플로우 페이로드에 집어넣어 우회할 수 있다.&lt;/li&gt;
+  &lt;li&gt;TLS(Thread Local Storage) 접근: 카나리 값이 프로세스가 시작될 때 TLS에 전역변수로 저장되고, 각 함수마다 프롤로그와 에필로그에서 이 값을 참조하기 때문에 TLS 주소를 Leak 한다면 카나리의 값을 알아내거나 조작할 수 있다.&lt;/li&gt;
+  &lt;li&gt;Brute Forcing Attack: 사실상 불가능하다.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Tue, 22 Nov 2022 00:08:23 +0900</pubDate>
+        <link>http://localhost:4000/blog/memory-exploit-mitigation-bypass-01/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/memory-exploit-mitigation-bypass-01/</guid>
+      </item>
     
       <item>
         <title>Protostar-stack5.c x86 &amp; x86-64</title>
@@ -3809,7 +4022,28 @@ rsp -= 8 //stack grows from high to low
     &lt;a name=&quot;taught_by_myself&quot;&gt;&lt;/a&gt;
      
     &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/memory-exploit-mitigation-bypass-01/&quot;&gt;Memory Exploit Mitigations and How to Bypass them 01&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
       &lt;h6&gt;&lt;a href=&quot;/blog/protostar-stack5-x86-x64/&quot;&gt;Protostar-stack5.c x86 &amp;amp; x86-64&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+
+  &lt;/div&gt;
+
+  &lt;div class=&quot;category-box&quot;&gt;
+    
+    &lt;div id=&quot;#system_hacking&quot;&gt;&lt;/div&gt;
+    &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;/blog/categories/system_hacking&quot;&gt;system_hacking&lt;/a&gt;&lt;/h4&gt;
+    &lt;a name=&quot;system_hacking&quot;&gt;&lt;/a&gt;
+     
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/memory-exploit-mitigation-bypass-01/&quot;&gt;Memory Exploit Mitigations and How to Bypass them 01&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
 
 
@@ -4272,6 +4506,22 @@ You can visit the blog using [http://your-github-username.github.io](http://your
 
 </description>
             <link>http://localhost:4000/styleguide/</link>
+          </item>
+        
+      
+    
+      
+        
+          <item>
+            <title>system_hacking</title>
+            <description>&lt;h5&gt; Posts by Category : {{ page.title }} &lt;/h5&gt;
+
+&lt;div class=&quot;card&quot;&gt;
+{% for post in site.categories.system_hacking %}
+ &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;{{ post.date | date_to_string }}&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;{{ post.url }}&quot;&gt;{{ post.title }}&lt;/a&gt;&lt;/li&gt;
+{% endfor %}
+&lt;/div&gt;</description>
+            <link>http://localhost:4000/blog/categories/system_hacking/</link>
           </item>
         
       
