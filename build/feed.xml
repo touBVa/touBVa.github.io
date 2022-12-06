@@ -5,8 +5,8 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 06 Dec 2022 21:19:28 +0900</pubDate>
-    <lastBuildDate>Tue, 06 Dec 2022 21:19:28 +0900</lastBuildDate>
+    <pubDate>Tue, 06 Dec 2022 22:15:47 +0900</pubDate>
+    <lastBuildDate>Tue, 06 Dec 2022 22:15:47 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
     
@@ -592,6 +592,7 @@
 &lt;hr /&gt;
 
 &lt;h1 id=&quot;0-x86에서의-rtl과-x64에서의-rtl&quot;&gt;0. X86에서의 RTL과 X64에서의 RTL&lt;/h1&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;01-rtl이란&quot;&gt;0.1. RTL이란&lt;/h2&gt;
 
@@ -616,6 +617,8 @@
   &lt;/ul&gt;
 &lt;/blockquote&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;02-요점&quot;&gt;0.2. 요점&lt;/h2&gt;
 
 &lt;ol&gt;
@@ -637,7 +640,7 @@
       &lt;li&gt;
         &lt;p&gt;32bit&lt;/p&gt;
 
-        &lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;n&quot;&gt;offset&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Library&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dump&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parameter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;
+        &lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;n&quot;&gt;offset&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Library&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dump&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/*(ret of the libc function)*/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parameter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
       &lt;/li&gt;
       &lt;li&gt;
@@ -651,8 +654,10 @@
 &lt;/ol&gt;
 
 &lt;hr /&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;1-x86-기반에서-rtl-수행하기&quot;&gt;1. X86 기반에서 RTL 수행하기&lt;/h1&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;11-파라미터가-스택에&quot;&gt;1.1. 파라미터가 스택에?&lt;/h2&gt;
 
@@ -660,35 +665,38 @@
 
 &lt;p&gt;만일 sum(1, 2)를 콜했다면 sum 함수의 line 1에 들어섰을 때의 스택 구조는 아래와 같을 것이다.&lt;/p&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th&gt;Stack frame of Callee over EBP and RET&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Stack frame of Callee over EBP and RET&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;EBP&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;EBP(SFP of the caller)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;RET&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;RET&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;SFP of Caller&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Stack frame of Caller&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Stack frame of the Caller&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
 &lt;p&gt;파라미터는 마지막 파라미터부터 스택에 push된다는 점을 다시 한 번 주지하고자 한다. 왜냐하면 ESP는 pop될 때 낮은 주소에서 높은 주소로 이동하기 때문이다. 즉, 파라미터를 스택에 push한 것과 거꾸로의 순서를 따라 파라미터를 읽어오기 때문에 마지막 파라미터부터 push하는 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;12-rtl을-위한-스택-조작&quot;&gt;1.2. RTL을 위한 스택 조작&lt;/h2&gt;
 
@@ -698,40 +706,51 @@
 
 &lt;p&gt;위의 설명만 읽으면 직전에 말한 간단하다는 말이 무색할 만큼 복잡하기 짝이 없어 보인다. 그러니 아래 그림을 보자. BOF 취약점으로 스택을 조작할 수 있다는 전제 하에서 그린 그림이다.&lt;/p&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th&gt;Dump bytes(Overflowed)&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Dump bytes(Overflowed)&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;Corrupted EBP&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Corrupted EBP&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;Libc function address(Corrupted RET)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Libc function address(Corrupted RET) (1)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;Corrupted SFP of Caller (4 bytes)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Will be RET of a called libc function (4 bytes) (2)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;1st Param of the function&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1st Param of the function&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;2nd Param of the function&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2nd Param of the function&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;…&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;…&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
 &lt;p&gt;따라서, BOF 취약점이 존재한다고 가정할 때 페이로드의 구조는 아래와 같을 수밖에 없다.&lt;/p&gt;
 
-&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;offset&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Library&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dump&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parameter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;offset&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Library&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dump&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parameters&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reverse&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;order&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;물론 다른 함수 호출 규약을 쓴다면 그건 그거대로 반영해야 할 문제일 테다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;추가로, RET와 parameter 사이에 대체 왜 콜리의 리턴 주소가 위치하게 되는지 궁금할 수 있다. 만일 RTL로 실행한 Libc 함수가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;system&lt;/code&gt;이라고 하면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rip&lt;/code&gt;는 위의 스택 구조 중 (1)에 있는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;system&lt;/code&gt; 함수의 엔트리로 점프하게 되고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rsp&lt;/code&gt;는 바로 아래인 (2)를 가리키게 될 것이다.
+그런데 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cdedl&lt;/code&gt; calling convention에서 스택을 정리하고 만드는 것은 Caller이기 때문에 Callee인 함수 입장에서는 이미 스택 정리가 모두 되어 스택의 프롤로그인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;push rbp; mov rbp, rsp (이하 로컬변수 자리 확보 과정 생략)&lt;/code&gt;가 실행되기 직전까지의 행동이 모두 진행되었다고 생각할 것이다. 즉, 현재의 스택 프레임을 만들기 직전 과정인 Callee가 끝나고 다시 돌아가야 할 Caller의 이후 인스트럭션 주소인 RET가 스택에 전부 저장되었다고 생각할 것이다. 따라서 정규 과정 없이 RTL을 이용해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;system&lt;/code&gt;을 콜했더라도 이 과정에서 Callee인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;system&lt;/code&gt; 함수의 입장에서는 Caller의 RET까지가 전부 스택에 저장되어 있으리라 생각하므로 자동으로 (2)는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;system&lt;/code&gt; 의 RET 주소로서 parameter를 가져올 때 건너뛰는 위치가 된다.
+이로 인해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;system&lt;/code&gt;인 (1)과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;system&lt;/code&gt; 에서 참조하는 파라미터들의 사이에 스택 한 주소만큼(4 byte)의 빈 공간이 생기게 되는 것이다. 
+&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;13-실습&quot;&gt;1.3. 실습&lt;/h2&gt;
 
@@ -915,6 +934,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;hr /&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;2-x86-64-기반에서-rtl-수행하기&quot;&gt;2. X86-64 기반에서 RTL 수행하기&lt;/h1&gt;
 
@@ -925,6 +945,8 @@
   &lt;li&gt;해당 취약점을 익스플로잇할 방법 지정&lt;/li&gt;
   &lt;li&gt;익스플로잇 생성&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;21-페이로드가-왜-이-모양이야&quot;&gt;2.1. 페이로드가 왜 이 모양이야?&lt;/h2&gt;
 
@@ -953,6 +975,8 @@
   &lt;li&gt;“/bin/sh”의 주소&lt;/li&gt;
   &lt;li&gt;system의 주소&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;22-익스플로잇-생성&quot;&gt;2.2. 익스플로잇 생성&lt;/h2&gt;
 
@@ -1116,7 +1140,11 @@
 
 &lt;hr /&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
 &lt;h1 id=&quot;3-삽질이-남긴-지식&quot;&gt;3. 삽질이 남긴 지식&lt;/h1&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;31-리눅스에서-프로그램-컴파일-시-refer되는-공유-라이브러리와-그-호출-과정&quot;&gt;3.1. 리눅스에서 프로그램 컴파일 시 refer되는 공유 라이브러리와 그 호출 과정&lt;/h2&gt;
 
@@ -1179,6 +1207,8 @@
 &lt;p&gt;마지막 의문이 하나 생긴다. 왜 굳이? 왜 굳이 이렇게 심볼릭 링크를 써서 돌아 돌아 가는 것일까? 그 이유는 라이브러리 연결의 호환성을 좋게 하기 위해서이다. 통상적으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{library_name.so.1.5}-&amp;gt;{library_name.so}&lt;/code&gt; 의 구도로 링크가 걸리는데, 이는 개발 환경에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.so.1.5&lt;/code&gt; 버전의 라이브러리뿐 아니라 다른 버전의 라이브러리도 존재할 수 있기 때문에 어떤 버전(어떤 soname)을 사용하든 안정적으로 필요한 Linker name을 가진 라이브러리와 연결해주기 위해서 생겨난 방식이다.&lt;/p&gt;
 
 &lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;4-참고문헌&quot;&gt;4. 참고문헌&lt;/h1&gt;
 

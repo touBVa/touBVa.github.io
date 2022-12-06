@@ -20,6 +20,7 @@ permalink: /blog/protostar-stack5-x86-x64/
 ---
 
 # 0. X86에서의 RTL과 X64에서의 RTL
+<br>
 
 ## 0.1. RTL이란
 
@@ -33,6 +34,8 @@ permalink: /blog/protostar-stack5-x86-x64/
 - DEP에는 소프트웨어가 제공하는 DEP와 하드웨어가 제공하는 DEP가 있다.
     - 하드웨어 DEP는 메모리를 페이지 단위에서 실행 불가능으로 처리해 CPU에게 넘기는 방식이다.
     - 소프트웨어 DEP는 데이터 페이지 부근에서의 코드 실행을 막지는 못하지만 SEH 덮어쓰기 등의 공격은 막을 수 있다.
+
+<br>
 
 ## 0.2. 요점
 
@@ -49,7 +52,7 @@ permalink: /blog/protostar-stack5-x86-x64/
     - 32bit
         
         ```c
-        offset bytes + Library function address(RET) + 4 bytes(dump) + parameter address
+        offset bytes + Library function address(RET) + 4 bytes(dump/*(ret of the libc function)*/) + parameter address
         ```
         
     - 64bit (왜 페이로드가 이런 꼴인지 이해가 어려울 수 있지만, 아래에서 RSP의 위치 변동을 감안하며 설명하겠다)
@@ -60,8 +63,10 @@ permalink: /blog/protostar-stack5-x86-x64/
         
 
 ---
+<br><br>
 
 # 1. X86 기반에서 RTL 수행하기
+<br>
 
 ## 1.1. 파라미터가 스택에?
 
@@ -69,16 +74,21 @@ C 언어의 경우 함수의 Calling Convention을 정의해 둔 것은 __cdecl�
 
 만일 sum(1, 2)를 콜했다면 sum 함수의 line 1에 들어섰을 때의 스택 구조는 아래와 같을 것이다.
 
+<br>
+
 | Stack frame of Callee over EBP and RET |
-| --- |
-| EBP |
+| :---: |
+| EBP(SFP of the caller) |
 | RET |
-| SFP of Caller |
 | 1 |
 | 2 |
-| Stack frame of Caller |
+| Stack frame of the Caller |
+
+<br>
 
 파라미터는 마지막 파라미터부터 스택에 push된다는 점을 다시 한 번 주지하고자 한다. 왜냐하면 ESP는 pop될 때 낮은 주소에서 높은 주소로 이동하기 때문이다. 즉, 파라미터를 스택에 push한 것과 거꾸로의 순서를 따라 파라미터를 읽어오기 때문에 마지막 파라미터부터 push하는 것이다.
+
+<br>
 
 ## 1.2. RTL을 위한 스택 조작
 
@@ -88,22 +98,33 @@ C 언어의 경우 함수의 Calling Convention을 정의해 둔 것은 __cdecl�
 
 위의 설명만 읽으면 직전에 말한 간단하다는 말이 무색할 만큼 복잡하기 짝이 없어 보인다. 그러니 아래 그림을 보자. BOF 취약점으로 스택을 조작할 수 있다는 전제 하에서 그린 그림이다.
 
+<br>
+
 | Dump bytes(Overflowed) |
-| --- |
+| :---: |
 | Corrupted EBP |
-| Libc function address(Corrupted RET) |
-| Corrupted SFP of Caller (4 bytes) |
+| Libc function address(Corrupted RET) (1)|
+| Will be RET of a called libc function (4 bytes) (2)|
 | 1st Param of the function |
 | 2nd Param of the function |
 | … |
 
+<br>
+
 따라서, BOF 취약점이 존재한다고 가정할 때 페이로드의 구조는 아래와 같을 수밖에 없다.
 
 ```c
-offset bytes + Library function address(RET) + 4 bytes(dump) + parameter address
+offset bytes + Library function address(RET) + 4 bytes(dump) + parameters in reverse order
 ```
 
 물론 다른 함수 호출 규약을 쓴다면 그건 그거대로 반영해야 할 문제일 테다.
+
+<br>
+
+추가로, RET와 parameter 사이에 대체 왜 콜리의 리턴 주소가 위치하게 되는지 궁금할 수 있다. 만일 RTL로 실행한 Libc 함수가 `system`이라고 하면, `rip`는 위의 스택 구조 중 (1)에 있는 `system` 함수의 엔트리로 점프하게 되고 `rsp`는 바로 아래인 (2)를 가리키게 될 것이다.
+그런데 `cdedl` calling convention에서 스택을 정리하고 만드는 것은 Caller이기 때문에 Callee인 함수 입장에서는 이미 스택 정리가 모두 되어 스택의 프롤로그인 `push rbp; mov rbp, rsp (이하 로컬변수 자리 확보 과정 생략)`가 실행되기 직전까지의 행동이 모두 진행되었다고 생각할 것이다. 즉, 현재의 스택 프레임을 만들기 직전 과정인 Callee가 끝나고 다시 돌아가야 할 Caller의 이후 인스트럭션 주소인 RET가 스택에 전부 저장되었다고 생각할 것이다. 따라서 정규 과정 없이 RTL을 이용해 `system`을 콜했더라도 이 과정에서 Callee인 `system` 함수의 입장에서는 Caller의 RET까지가 전부 스택에 저장되어 있으리라 생각하므로 자동으로 (2)는 `system` 의 RET 주소로서 parameter를 가져올 때 건너뛰는 위치가 된다.
+이로 인해 `&system`인 (1)과 `system` 에서 참조하는 파라미터들의 사이에 스택 한 주소만큼(4 byte)의 빈 공간이 생기게 되는 것이다. 
+<br>
 
 ## 1.3. 실습
 
@@ -286,6 +307,7 @@ p.interactive()
 ```
 
 ---
+<br><br>
 
 # 2. X86-64 기반에서 RTL 수행하기
 
@@ -294,6 +316,8 @@ p.interactive()
 1. 대상 프로그램 분석해 취약점 지정
 2. 해당 취약점을 익스플로잇할 방법 지정
 3. 익스플로잇 생성
+
+<br>
 
 ## 2.1. 페이로드가 왜 이 모양이야?
 
@@ -319,6 +343,8 @@ offset bytes + Gadget address(pop rdi;ret;) + parameter address + Library functi
 2. Gadget의 주소
 3. “/bin/sh”의 주소
 4. system의 주소
+
+<br>
 
 ## 2.2. 익스플로잇 생성
 
@@ -485,7 +511,11 @@ p.interactive()
 
 ---
 
+<br><br>
+
 # 3. 삽질이 남긴 지식
+
+<br>
 
 ## 3.1. 리눅스에서 프로그램 컴파일 시 refer되는 공유 라이브러리와 그 호출 과정
 
@@ -537,6 +567,8 @@ p.interactive()
 마지막 의문이 하나 생긴다. 왜 굳이? 왜 굳이 이렇게 심볼릭 링크를 써서 돌아 돌아 가는 것일까? 그 이유는 라이브러리 연결의 호환성을 좋게 하기 위해서이다. 통상적으로 `{library_name.so.1.5}->{library_name.so}` 의 구도로 링크가 걸리는데, 이는 개발 환경에 `.so.1.5` 버전의 라이브러리뿐 아니라 다른 버전의 라이브러리도 존재할 수 있기 때문에 어떤 버전(어떤 soname)을 사용하든 안정적으로 필요한 Linker name을 가진 라이브러리와 연결해주기 위해서 생겨난 방식이다.
 
 ---
+
+<br><br>
 
 # 4. 참고문헌
 
