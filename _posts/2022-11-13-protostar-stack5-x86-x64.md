@@ -523,7 +523,7 @@ p.interactive()
 
 ![Untitled](/assets/img/posts/protostar5/Untitled%2016.jpeg)
 
-`[libc-2.27.so](http://libc-2.27.so)` 파일과 `[ld-2.27.so](http://ld-2.27.so)` 파일이 링킹되어 있는 게 보인다. 엥? 그런데 이상하다. 분명히 우리가 ldd, 즉 libc database 커맨드로 확인했을 때 사용된 라이브러리는 아래와 같았다.
+`libc-2.27.so` 파일과 `ld-2.27.so` 파일이 링킹되어 있는 게 보인다. 엥? 그런데 이상하다. 분명히 우리가 ldd, 즉 libc database 커맨드로 확인했을 때 사용된 라이브러리는 아래와 같았다.
 
 ![Untitled](/assets/img/posts/protostar5/Untitled%204.jpeg)
 
@@ -540,10 +540,10 @@ p.interactive()
     
     ![Untitled](/assets/img/posts/protostar5/Untitled%2017.jpeg)
     
-    가장 첫 번째에 보이는 `[libc-2.27.so](http://libc-2.27.so)` 파일의 inode num은 `6816882` 인데, 해당 파일에 소프트 링크가 걸려 있는 가장 마지막의 `libc.so.6` 파일의 inode num은 `6816904` 로 서로 다르다는 것을 확인할 수 있다.
+    가장 첫 번째에 보이는 `libc-2.27.so` 파일의 inode num은 `6816882` 인데, 해당 파일에 소프트 링크가 걸려 있는 가장 마지막의 `libc.so.6` 파일의 inode num은 `6816904` 로 서로 다르다는 것을 확인할 수 있다.
     
 
-좋아, 그렇다면 파일 실행 시 **공유 라이브러리**로는 `libc.so.6` 을 썼기 때문에 소프트 링크의 오리지널 파일인 `[libc-2.27.so](http://libc-2.27.so)` 가 사용됐고 **Dynamic Loader**로는 `ld-linux.so.2` 를 썼기 때문에 링크가 걸린 `[ld-2.27.so](http://ld-2.27.so)` 가 사용됐다고 치자. (아래 사진 참고)
+좋아, 그렇다면 파일 실행 시 **공유 라이브러리**로는 `libc.so.6` 을 썼기 때문에 소프트 링크의 오리지널 파일인 `libc-2.27.so` 가 사용됐고 **Dynamic Loader**로는 `ld-linux.so.2` 를 썼기 때문에 링크가 걸린 `ld-2.27.so` 가 사용됐다고 치자. (아래 사진 참고)
 
 ![Untitled](/assets/img/posts/protostar5/Untitled%2018.jpeg)
 
@@ -560,9 +560,9 @@ p.interactive()
 - 파일 실행 시의 행위:
     - 이후 컴파일된 프로그램을 실행할 때 `Dynamic Loader` 가 실행되고 이것이 Dynamic Link 된 공유 라이브러리를 `soname` 을 이용해 각종 변수로부터 위치를 찾아낸 다음 메모리에 띄워 준다. 그렇다. `Dynamic Loader` 가 RTL 기법의 주범이었던 것이다…
 
-아무튼, 앞서 잠깐 언급했던 파일 실행 시의 행위를 이제 알아낸 정보를 이용해 더 구체화해 보자. 앞서 알아보았듯 해당 파일에게 지정된 Dynamic Loader는 `[ld-](http://ld-2.27.so)linux.so.2` 인데, 심볼릭 링크 정책으로 인해 실제로는 `[ld-2.27.so](http://ld-2.27.so)` 가 사용된다. 파일 실행 시 트리거된 Dynamic Loader는 soname을 이용해 어떤 라이브러리를 사용할지 찾아낸다. 
+아무튼, 앞서 잠깐 언급했던 파일 실행 시의 행위를 이제 알아낸 정보를 이용해 더 구체화해 보자. 앞서 알아보았듯 해당 파일에게 지정된 Dynamic Loader는 `ld-linux.so.2` 인데, 심볼릭 링크 정책으로 인해 실제로는 `ld-2.27.so` 가 사용된다. 파일 실행 시 트리거된 Dynamic Loader는 soname을 이용해 어떤 라이브러리를 사용할지 찾아낸다. 
 
-여기에서 soname을 가진 라이브러리는 `libc.so.6`이기 때문에 Dynamic Loader는 `libc.so.6` 을 실행시킴으로써 메모리에 적재하려 한다. 그런데, 심볼릭 링크 정책으로 인해 `[libc-2.27.so](http://libc-2.27.so)` 가 실행되며 메모리에 적재된다. 이로 인해 실행 상태인 프로그램에 사용된 라이브러리를 사용하면 `libc.so.6` 으로 뜨지 않는다.
+여기에서 soname을 가진 라이브러리는 `libc.so.6`이기 때문에 Dynamic Loader는 `libc.so.6` 을 실행시킴으로써 메모리에 적재하려 한다. 그런데, 심볼릭 링크 정책으로 인해 `libc-2.27.so` 가 실행되며 메모리에 적재된다. 이로 인해 실행 상태인 프로그램에 사용된 라이브러리를 사용하면 `libc.so.6` 으로 뜨지 않는다.
 
 마지막 의문이 하나 생긴다. 왜 굳이? 왜 굳이 이렇게 심볼릭 링크를 써서 돌아 돌아 가는 것일까? 그 이유는 라이브러리 연결의 호환성을 좋게 하기 위해서이다. 통상적으로 `{library_name.so.1.5}->{library_name.so}` 의 구도로 링크가 걸리는데, 이는 개발 환경에 `.so.1.5` 버전의 라이브러리뿐 아니라 다른 버전의 라이브러리도 존재할 수 있기 때문에 어떤 버전(어떤 soname)을 사용하든 안정적으로 필요한 Linker name을 가진 라이브러리와 연결해주기 위해서 생겨난 방식이다.
 
