@@ -5,8 +5,8 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 21 Dec 2022 11:22:14 +0900</pubDate>
-    <lastBuildDate>Wed, 21 Dec 2022 11:22:14 +0900</lastBuildDate>
+    <pubDate>Wed, 21 Dec 2022 11:23:58 +0900</pubDate>
+    <lastBuildDate>Wed, 21 Dec 2022 11:23:58 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
     
@@ -581,21 +581,24 @@
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th&gt;.code: RE&lt;/th&gt;
+      &lt;th&gt;.code(.text): RE&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;.data: R+W&lt;/td&gt;
+      &lt;td&gt;.rodata: R, 상수 저장&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;.bss: RW&lt;/td&gt;
+      &lt;td&gt;.data: RW, 초기화한 전역 변수 저장&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;heap: RW&lt;/td&gt;
+      &lt;td&gt;.bss: RW, 초기화 되기 전의 전역 변수 저장&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;stack: RW&lt;/td&gt;
+      &lt;td&gt;heap: RW, 동적으로 메모리를 할당할 때 사용&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;stack: RW, 지역 변수 저장&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;OS Kernel Space&lt;/td&gt;
@@ -603,7 +606,8 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;(Low to High address)&lt;/p&gt;
+&lt;p&gt;(Low to High address)
+.bss 영역에 있던 초기화 되기 전의 전역 변수들은 main이 실행되기 전에 0으로 초기화되어 .data 영역에 저장된다.&lt;/p&gt;
 
 &lt;h3 id=&quot;011-aslraddress-space-layout-randomization&quot;&gt;0.1.1. ASLR(Address Space Layout Randomization)&lt;/h3&gt;
 
