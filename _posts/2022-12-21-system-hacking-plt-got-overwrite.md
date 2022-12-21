@@ -8,7 +8,7 @@ category: ['system_hacking', 'protostar']
 thumbnail: /assets/img/posts/pltgot/Untitled.jpeg
 keywords: System Hacking, PLT, GOT, x86-64
 usemathjax: true
-permalink: /blog/system-hacking/plt-got-overwrite
+permalink: /blog/system_hacking/plt-got-overwrite
 ---
 
 # 0. PLT&GOT란?

@@ -8,7 +8,7 @@ category: ['system_hacking', 'protostar']
 thumbnail: /assets/img/posts/format1/Untitled%201.jpeg
 keywords: System Hacking, Memory Exploit, Format String Bug
 usemathjax: true
-permalink: /blog/protostar-format1/
+permalink: /blog/system_hacking/protostar-format1/
 ---
 
 
