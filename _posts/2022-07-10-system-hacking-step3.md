@@ -4,11 +4,11 @@ title:  "System Hackig Step 3-1"
 summary: gdb 사용 기초와 각종 명령어
 author: TouBVa
 date: '2022-07-10 21:10:23 +09'
-category: system_hacking_basic
+category: dreamhack_system_hacking
 thumbnail: /assets/img/syshack3-1/Untitled.jpeg
 keywords: System Hacking, gdb, pwndbg
 usemathjax: true
-permalink: /blog/system-hacking-step3-1/
+permalink: /blog/dreamhack_system_hacking/step3-1
 ---
 
 # STAGE 3-1

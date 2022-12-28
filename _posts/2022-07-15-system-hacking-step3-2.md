@@ -4,11 +4,11 @@ title:  "System Hackig Step 3-2"
 summary: pwntools 사용법과 BOF 실습
 author: TouBVa
 date: '2022-07-15 18:25:23 +09'
-category: system_hacking_basic
+category: dreamhack_system_hacking
 thumbnail: /assets/img/posts/syshack3-2/Untitled%206.jpeg
 keywords: System Hacking, pwntools, BOF
 usemathjax: true
-permalink: /blog/system-hacking-step3-2/
+permalink: /blog/dreamhack_system_hacking/step3-2
 ---
 
 # STAGE 3-2

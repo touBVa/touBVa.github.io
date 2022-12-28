@@ -4,11 +4,11 @@ title:  "System Hackig Step 4-2: Shell_basic"
 summary: 드림핵의 Shell_basic 문제 풀이
 author: TouBVa
 date: '2022-07-29 00:08:23 +09'
-category: system_hacking_basic
+category: dreamhack_system_hacking
 thumbnail: /assets/img/posts/syshack42/Untitled%205.jpeg
 keywords: System Hacking, Shellcode, Pwnable
 usemathjax: true
-permalink: /blog/system-hacking-step4-2
+permalink: /blog/dreamhack_system_hacking/step4-2
 ---
 
 # STAGE 4-2: Shell_basic

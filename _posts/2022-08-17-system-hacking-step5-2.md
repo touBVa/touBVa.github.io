@@ -4,11 +4,11 @@ title:  "System Hackig Step 5-2"
 summary: Stack Buffer Overflow
 author: TouBVa
 date: '2022-08-17 14:25:23 +09'
-category: system_hacking_basic
+category: dreamhack_system_hacking
 thumbnail: /assets/img/posts/syshack52/Untitled.jpeg
 keywords: System Hacking, BOF
 usemathjax: true
-permalink: /blog/system-hacking-step5-2/
+permalink: /blog/dreamhack_system_hacking/step5-2
 ---
 
 # STAGE 5-2

@@ -4,11 +4,11 @@ title:  "System Hackig Step 5"
 summary: Calling Convention
 author: TouBVa
 date: '2022-08-12 21:25:23 +09'
-category: system_hacking_basic
+category: dreamhack_system_hacking
 thumbnail: /assets/img/posts/syshack5/Untitled.jpeg
 keywords: System Hacking, Calling Convention, SYSV, cdecl
 usemathjax: true
-permalink: /blog/system-hacking-step5/
+permalink: /blog/dreamhack_system_hacking/step5-1
 ---
 
 # STAGE 5

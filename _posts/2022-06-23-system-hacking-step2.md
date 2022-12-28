@@ -4,11 +4,11 @@ title:  "System Hackig Step 2"
 summary: 레지스터 종류와 운영체제 프로세스 메모리 관리 구조
 author: TouBVa
 date: '2022-06-23 12:24:23 +09'
-category: system_hacking_basic
+category: dreamhack_system_hacking
 thumbnail: /assets/img/posts/systemHackingStep2.png
 keywords: System Hacking, Computer Architecture, Register, Memory Segment(Linux)
 usemathjax: true
-permalink: /blog/system-hacking-step2/
+permalink: /blog/dreamhack_system_hacking/step2-1
 ---
 
 # STAGE 2

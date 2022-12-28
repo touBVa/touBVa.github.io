@@ -4,11 +4,11 @@ title:  "System Hackig Step 5-3"
 summary: BOF-Return Address Overwrite
 author: TouBVa
 date: '2022-08-22 23:55:23 +09'
-category: system_hacking_basic
+category: dreamhack_system_hacking
 thumbnail: /assets/img/posts/syshack53/Untitled%203.jpeg
 keywords: System Hacking, BOF, Return Address Overwrite
 usemathjax: true
-permalink: /blog/system-hacking-step5-3/
+permalink: /blog/dreamhack_system_hacking/step5-3
 ---
 
 # STAGE 5-3: BOF-Return Address Overwrite

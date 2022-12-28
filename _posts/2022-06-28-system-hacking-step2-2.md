@@ -4,11 +4,11 @@ title:  "System Hackig Step 2-2"
 summary: 어셈블리어와 시스템 콜
 author: TouBVa
 date: '2022-06-28 18:25:23 +09'
-category: system_hacking_basic
+category: dreamhack_system_hacking
 thumbnail: /assets/img/posts/assembly.png
 keywords: System Hacking, Computer Architecture, Register, OS basic
 usemathjax: true
-permalink: /blog/system-hacking-step2-2/
+permalink: /blog/dreamhack_system_hacking/step2-2
 ---
 
 # STAGE 2

@@ -4,11 +4,11 @@ title:  "System Hackig Step 4"
 summary: 셸코드 작성과 바이트 코드의 작성-어셈블리어 필수!
 author: TouBVa
 date: '2022-07-20 19:24:23 +09'
-category: system_hacking_basic
+category: dreamhack_system_hacking
 thumbnail: /assets/img/posts/syshack4/Untitled%208.jpeg
 keywords: System Hacking, Shellcode, code flow, Bytecode
 usemathjax: true
-permalink: /blog/system-hacking-step4
+permalink: /blog/dreamhack_system_hacking/step4-1
 ---
 
 # STAGE 4

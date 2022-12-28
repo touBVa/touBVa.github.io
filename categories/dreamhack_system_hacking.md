@@ -1,13 +1,13 @@
 ---
 layout: page
 title: system_hacking_basic
-permalink: /blog/categories/system_hacking_basic/
+permalink: /blog/categories/dreamhack_system_hacking/
 ---
 
 <h5> Posts by Category : {{ page.title }} </h5>
 
 <div class="card">
-{% for post in site.categories.system_hacking_basic %}
+{% for post in site.categories.dreamhack_system_hacking %}
  <li class="category-posts"><span>{{ post.date | date_to_string }}</span> &nbsp; <a href="{{ post.url }}">{{ post.title }}</a></li>
 {% endfor %}
 </div>
