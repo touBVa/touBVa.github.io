@@ -1,5 +1,5 @@
  User-agent: *
- Allow: /
+ Allow: /blog/
  Disallow: /build/
  Disallow: /admin/
  Sitemap: {{ '/sitemap.xml' | relative_url | prepend: site.url }}
