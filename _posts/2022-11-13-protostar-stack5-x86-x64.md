@@ -8,7 +8,7 @@ category: ['system_hacking', 'protostar']
 thumbnail: /assets/img/posts/protostar5/Untitled.jpeg
 keywords: System Hacking, RTL, x86, x86-64
 usemathjax: true
-permalink: /blog/protostar-stack5-x86-x64/
+permalink: /blog/system_hacking/protostar-stack5-x86-x64/
 ---
 
 학교 수업에서 풀이한 문제 중 하나로, x86에서의 RTL과 x86-64에서의 RTL을 모두 실습하기에 좋은 문제인 것 같아 블로그에 기록해본다.
