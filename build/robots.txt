@@ -1,4 +1,5 @@
  User-agent: *
- Allow: /blog/
  Disallow: /build/
  Disallow: /admin/
+ Allow: /blog/
+ Sitemap: https://toubva.github.io/sitemap.xml
