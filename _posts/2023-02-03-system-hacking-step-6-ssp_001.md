@@ -5,7 +5,7 @@ summary: Stack Canary and How to Bypass It; wargame
 author: TouBVa
 date: '2023-02-03 22:44:23 +09'
 category: dreamhack_system_hacking
-thumbnail: /assets/img/posts/ssp_001/Untitled.jpeg
+thumbnail: /assets/img/posts/ssp_001/Untitled%207.jpeg
 keywords: System Hacking, Stack Canary
 usemathjax: true
 permalink: /blog/dreamhack_system_hacking/step6/ssp_001
