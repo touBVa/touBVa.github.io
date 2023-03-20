@@ -5,10 +5,28 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 03 Feb 2023 22:39:39 +0900</pubDate>
-    <lastBuildDate>Fri, 03 Feb 2023 22:39:39 +0900</lastBuildDate>
+    <pubDate>Mon, 20 Mar 2023 12:51:08 +0900</pubDate>
+    <lastBuildDate>Mon, 20 Mar 2023 12:51:08 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
+    
+      <item>
+        <title>정보보안기사 실기 공부 - VPN과 IPSec</title>
+        <description>&lt;p&gt;정보보안기사 필기에 합격하고 실기를 준비하고 있다.
+필기 준비할 때 공부했던 내용들을 나만의 방식으로 구조화하면 좋을 것 같아 마인드맵을 그리고 있는데,
+이번에 VPN과 그를 구현하는 프로토콜, 그리고 그 중에서도 IPSec에 대해 공부하며 마인드맵을 완성했다.
+어쨌든 다같이 보면 좋으니까…. 그리고 블로그에 너무 오래 업로드를 못하기도 했고… 그래서 업로드해본다.&lt;/p&gt;
+
+&lt;p&gt;원본 다운로드 링크는 여기: &lt;a href=&quot;https://drive.google.com/file/d/11ylPfRzMMb01oYBUtbozxztNKRqANgxT/view?usp=sharing&quot;&gt;VPN 정리&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/VPN.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 17 Mar 2023 14:22:23 +0900</pubDate>
+        <link>http://localhost:4000/blog/certification_study/net_vpn</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/certification_study/net_vpn</guid>
+      </item>
     
       <item>
         <title>System Hacking Step 6: ssp_001</title>
@@ -299,9 +317,9 @@
 
 &lt;p&gt;그 결과, 플래그를 얻을 수 있었다. 플래그 인증샷은 스포가 되니 넣지 않을 것이다…&lt;/p&gt;
 </description>
-        <pubDate>Fri, 03 Feb 2023 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2023/02/03/system-hacking-step-6-ssp-001/</link>
-        <guid isPermaLink="true">http://localhost:4000/2023/02/03/system-hacking-step-6-ssp-001/</guid>
+        <pubDate>Fri, 03 Feb 2023 22:44:23 +0900</pubDate>
+        <link>http://localhost:4000/blog/dreamhack_system_hacking/step6/ssp_001</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/dreamhack_system_hacking/step6/ssp_001</guid>
       </item>
     
       <item>
@@ -5699,6 +5717,12 @@ rsp -= 8 //stack grows from high to low
     &lt;a name=&quot;dreamhack_system_hacking&quot;&gt;&lt;/a&gt;
      
     &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/dreamhack_system_hacking/step6/ssp_001&quot;&gt;System Hacking Step 6: ssp_001&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
       &lt;h6&gt;&lt;a href=&quot;/blog/dreamhack_system_hacking/step6-1&quot;&gt;System Hacking Step 6-1&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
 
@@ -5827,10 +5851,42 @@ rsp -= 8 //stack grows from high to low
 
   &lt;/div&gt;
 
+  &lt;div class=&quot;category-box&quot;&gt;
+    
+    &lt;div id=&quot;#certification_study&quot;&gt;&lt;/div&gt;
+    &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;/blog/categories/certification_study&quot;&gt;certification_study&lt;/a&gt;&lt;/h4&gt;
+    &lt;a name=&quot;certification_study&quot;&gt;&lt;/a&gt;
+     
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/certification_study/net_vpn&quot;&gt;정보보안기사 실기 공부 - VPN과 IPSec&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+
+  &lt;/div&gt;
+
 &lt;/div&gt;
 
 </description>
             <link>http://localhost:4000/blog/categories/</link>
+          </item>
+        
+      
+    
+      
+        
+          <item>
+            <title>certification_study</title>
+            <description>&lt;h5&gt; Posts by Category : certification_study &lt;/h5&gt;
+
+&lt;div class=&quot;card&quot;&gt;
+
+ &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;17 Mar 2023&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;/blog/certification_study/net_vpn&quot;&gt;정보보안기사 실기 공부 - VPN과 IPSec&lt;/a&gt;&lt;/li&gt;
+
+&lt;/div&gt;
+</description>
+            <link>http://localhost:4000/blog/categories/certification_study/</link>
           </item>
         
       
@@ -5844,6 +5900,8 @@ rsp -= 8 //stack grows from high to low
             <description>&lt;h5&gt; Posts by Category : system_hacking_basic &lt;/h5&gt;
 
 &lt;div class=&quot;card&quot;&gt;
+
+ &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;03 Feb 2023&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;/blog/dreamhack_system_hacking/step6/ssp_001&quot;&gt;System Hacking Step 6: ssp_001&lt;/a&gt;&lt;/li&gt;
 
  &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;08 Jan 2023&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;/blog/dreamhack_system_hacking/step6-1&quot;&gt;System Hacking Step 6-1&lt;/a&gt;&lt;/li&gt;
 
@@ -5874,22 +5932,6 @@ rsp -= 8 //stack grows from high to low
         
       
     
-      
-    
-      
-        
-          <item>
-            <title>Guides</title>
-            <description>&lt;h5&gt; Posts by Category : {{ page.title }} &lt;/h5&gt;
-
-&lt;div class=&quot;card&quot;&gt;
-{% for post in site.categories.guides %}
- &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;{{ post.date | date_to_string }}&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;{{ post.url }}&quot;&gt;{{ post.title }}&lt;/a&gt;&lt;/li&gt;
-{% endfor %}
-&lt;/div&gt;</description>
-            <link>http://localhost:4000/blog/categories/guides/</link>
-          </item>
-        
       
     
       
@@ -6353,6 +6395,8 @@ You can visit the blog using [http://your-github-username.github.io](http://your
             <link>http://localhost:4000/blog/categories/system_hacking/</link>
           </item>
         
+      
+    
       
     
       
