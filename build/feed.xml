@@ -5,10 +5,26 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 20 Mar 2023 12:51:08 +0900</pubDate>
-    <lastBuildDate>Mon, 20 Mar 2023 12:51:08 +0900</lastBuildDate>
+    <pubDate>Wed, 22 Mar 2023 13:55:25 +0900</pubDate>
+    <lastBuildDate>Wed, 22 Mar 2023 13:55:25 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
+    
+      <item>
+        <title>정보보안기사 실기 공부 - 네트워크 장비와 VLAN</title>
+        <description>&lt;p&gt;빨리 네트워크 분야 정리 끝내고 이제 애플리케이션 보안으로 넘어가야 하는데…
+바빠 죽겠다. 그 와중에 16학점 막학기 듣는 나 자신 칭찬… 아니 멍청해….&lt;/p&gt;
+
+&lt;p&gt;원본 다운로드 링크는 여기: &lt;a href=&quot;https://drive.google.com/file/d/1QdPDOghp6KK79NhfzaS5wLzb_hUJxxXb/view?usp=sharing&quot;&gt;네트워크 장비와 VLAN 정리&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/22-VLAN.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 22 Mar 2023 13:22:23 +0900</pubDate>
+        <link>http://localhost:4000/blog/certification_study/net-gadgets-vlan</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/certification_study/net-gadgets-vlan</guid>
+      </item>
     
       <item>
         <title>정보보안기사 실기 공부 - VPN과 IPSec</title>
@@ -5858,6 +5874,12 @@ rsp -= 8 //stack grows from high to low
     &lt;a name=&quot;certification_study&quot;&gt;&lt;/a&gt;
      
     &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/certification_study/net-gadgets-vlan&quot;&gt;정보보안기사 실기 공부 - 네트워크 장비와 VLAN&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
       &lt;h6&gt;&lt;a href=&quot;/blog/certification_study/net_vpn&quot;&gt;정보보안기사 실기 공부 - VPN과 IPSec&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
 
@@ -5881,6 +5903,8 @@ rsp -= 8 //stack grows from high to low
             <description>&lt;h5&gt; Posts by Category : certification_study &lt;/h5&gt;
 
 &lt;div class=&quot;card&quot;&gt;
+
+ &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;22 Mar 2023&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;/blog/certification_study/net-gadgets-vlan&quot;&gt;정보보안기사 실기 공부 - 네트워크 장비와 VLAN&lt;/a&gt;&lt;/li&gt;
 
  &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;17 Mar 2023&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;/blog/certification_study/net_vpn&quot;&gt;정보보안기사 실기 공부 - VPN과 IPSec&lt;/a&gt;&lt;/li&gt;
 
