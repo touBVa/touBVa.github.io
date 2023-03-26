@@ -5,10 +5,29 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 22 Mar 2023 13:55:25 +0900</pubDate>
-    <lastBuildDate>Wed, 22 Mar 2023 13:55:25 +0900</lastBuildDate>
+    <pubDate>Sun, 26 Mar 2023 16:03:46 +0900</pubDate>
+    <lastBuildDate>Sun, 26 Mar 2023 16:03:46 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
+    
+      <item>
+        <title>정보보안기사 실기 공부 - 네트워크 5대 관리 기능, SNMP, SSH</title>
+        <description>&lt;p&gt;진짜 기염을 토하고 있다
+다음달 시험… 어떻게든 한다 할 수 있다
+안되면 슬픈 거고 되면 좋은 거고&lt;/p&gt;
+
+&lt;p&gt;힘내보자구&lt;/p&gt;
+
+&lt;p&gt;원본 다운로드 링크는 여기: &lt;a href=&quot;https://drive.google.com/file/d/1cFutSPS-RZeN69recbynrIiGjCUWTwnY/view?usp=sharing&quot;&gt;네트워크 5대 관리 기능, SNMP, SSH&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/24-SSH.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 22 Mar 2023 15:59:23 +0900</pubDate>
+        <link>http://localhost:4000/blog/certification_study/net-manage-snmp-ssh</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/certification_study/net-manage-snmp-ssh</guid>
+      </item>
     
       <item>
         <title>정보보안기사 실기 공부 - 네트워크 장비와 VLAN</title>
@@ -5874,6 +5893,12 @@ rsp -= 8 //stack grows from high to low
     &lt;a name=&quot;certification_study&quot;&gt;&lt;/a&gt;
      
     &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/certification_study/net-manage-snmp-ssh&quot;&gt;정보보안기사 실기 공부 - 네트워크 5대 관리 기능, SNMP, SSH&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
       &lt;h6&gt;&lt;a href=&quot;/blog/certification_study/net-gadgets-vlan&quot;&gt;정보보안기사 실기 공부 - 네트워크 장비와 VLAN&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
 
@@ -5903,6 +5928,8 @@ rsp -= 8 //stack grows from high to low
             <description>&lt;h5&gt; Posts by Category : certification_study &lt;/h5&gt;
 
 &lt;div class=&quot;card&quot;&gt;
+
+ &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;22 Mar 2023&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;/blog/certification_study/net-manage-snmp-ssh&quot;&gt;정보보안기사 실기 공부 - 네트워크 5대 관리 기능, SNMP, SSH&lt;/a&gt;&lt;/li&gt;
 
  &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;22 Mar 2023&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;/blog/certification_study/net-gadgets-vlan&quot;&gt;정보보안기사 실기 공부 - 네트워크 장비와 VLAN&lt;/a&gt;&lt;/li&gt;
 
