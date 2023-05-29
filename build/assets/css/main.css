@@ -16,7 +16,7 @@ ol, ul { margin-left: 30px !important; }
 .progressline .bar { background: #ff9100; }
 
 /* On scroll progress bar */
-#progress-bar { background: linear-gradient(to right, #ff9100 var(--progress), transparent 0); height: 5px; position: fixed; width: 100%; overflow: hidden; z-index: 1; margin-top: 25px; }
+#progress-bar { background: linear-gradient(to right, #ff9100 var(--progress), transparent 0); height: 5px; position: fixed; width: 100%; overflow: hidden; z-index: 1; margin-top: 17px; }
 
 body { background-color: var(--main-background-color) !important; color: var(--main-text-color) !important; font-family: 'Quicksand', sans-serif !important; font-feature-settings: "kern"on; font-size: 1.4rem; font-variant-numeric: oldstyle-nums; hanging-punctuation: first last; height: 100%; line-height: 1.35em; margin: 0; text-rendering: optimizeLegibility; padding-top: 33px; overflow-x: hidden; overflow-y: scroll; }
 
@@ -50,14 +50,14 @@ h1, h2, h3, h4, h5, h6 { color: var(--bold-color) !important; line-height: 1.1; 
 a { color: var(--link-color) !important; }
 
 /* Navigation Header */
-header { background-color: var(--main-background-color); box-shadow: 0px; height: auto; width: 100%; padding: 11px; }
+header { background-color: var(--main-background-color); box-shadow: 0px; height: auto; width: 100vh; padding: 11px; }
 
 /* bootstrap override */
 .container-fluid { padding: 0px !important; width: fit-content !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 10px !important; }
 
-.card { margin: 20px !important; padding: 20px !important; background-color: var(--card-background-color) !important; }
+.card { margin: 20px !important; padding: 20px !important; background-color: var(--main-background-color) !important; }
 
-#topNav { padding-left: 15%; padding-right: 15%; background-color: var(--main-background-color) !important; box-shadow: #000 0px 0px 8px; }
+#topNav { padding-left: 15%; padding-right: 15%; max-height: 50px; background-color: var(--main-background-color) !important; box-shadow: #000 0px 0px 8px; }
 
 #navbar-hamburger, #navbar-search { color: var(--bold-color) !important; }
 
@@ -255,7 +255,7 @@ footer { width: 100%; height: 70px; text-align: center; padding: 20px; backgroun
 @media screen and (min-width: 768px) { .main-container { margin-left: auto; margin-right: auto; width: 70%; } }
 
 /* ##Device = Low Resolution Tablets, Mobiles (Landscape) ##Screen = B/w 320px to 480px */
-@media (min-width: 320px) and (max-width: 480px) { header { height: auto; text-align: center; background-color: var(--main-background-color); box-shadow: 0px; height: auto; width: 100%; padding: 1px; } header #author-img { margin-left: auto; margin-right: auto; width: 100%; } header #author_details { text-align: center; } #mc-embedded-subscribe-form { width: 100%; padding: 50px; } #mc_embed_signup_scroll_footer { margin-left: 5%; margin-right: 5%; text-align: center; font-size: 12px; } #mce-EMAIL_footer { width: 200px; padding: 14px; color: #111; border-color: #fff; text-align: center; text-transform: capitalize; border: 1px solid #fff; } #mc-embedded-subscribe_footer { margin-top: 30px; } .blog-post { width: 100%; height: auto; margin: 20px !important; } .product { width: auto; float: left; } #topNav { padding-left: 0px; padding-right: 0px; } .navbar-brand { display: inline-block; padding-top: .3125rem; padding-bottom: .3125rem; margin-right: 1rem; font-size: 1.25rem; line-height: inherit; white-space: nowrap; } .jumbotron { padding: 10rem 1rem !important; } }
+@media (min-width: 320px) and (max-width: 480px) { header { height: auto; text-align: center; background-color: var(--main-background-color); box-shadow: 0px; height: auto; width: 100%; padding: 1px; } header #author-img { margin-left: auto; margin-right: auto; width: 100%; } header #author_details { text-align: center; } #mc-embedded-subscribe-form { width: 100%; padding: 50px; } #mc_embed_signup_scroll_footer { margin-left: 5%; margin-right: 5%; text-align: center; font-size: 12px; } #mce-EMAIL_footer { width: 200px; padding: 14px; color: #111; border-color: #fff; text-align: center; text-transform: capitalize; border: 1px solid #fff; } #mc-embedded-subscribe_footer { margin-top: 30px; } .blog-post { width: 100%; height: auto; margin: 20px !important; } .product { width: auto; float: left; } #topNav { padding-left: 0px; padding-right: 0px; } .navbar-brand { display: inline-block; padding-top: .3rem; padding-bottom: .3rem; margin-right: 1rem; font-size: 1.25rem; line-height: inherit; white-space: nowrap; } .jumbotron { padding: 10rem 1rem !important; } }
 
 /* Smartphones */
 @media (min-width: 200px) and (max-width: 319px) { header { height: auto; text-align: center; background-color: var(--main-background-color); box-shadow: 0px; height: auto; width: 100%; padding: 1px; } header #author-img { margin-left: auto; margin-right: auto; width: 100%; } header #author_details { text-align: center; } #mc-embedded-subscribe-form { width: 100%; padding: 50px; } #mc_embed_signup_scroll_footer { margin-left: 5%; margin-right: 5%; text-align: center; font-size: 12px; } #mce-EMAIL_footer { width: 200px; padding: 14px; color: #111; border-color: #fff; text-align: center; text-transform: capitalize; border: 1px solid #fff; } #mc-embedded-subscribe_footer { margin-top: 30px; } .blog-post { width: 100%; height: auto; margin: 20px !important; } .product { width: auto; float: left; } #topNav { padding-left: 0px; padding-right: 0px; } .navbar-brand { display: inline-block; padding-top: .3125rem; padding-bottom: .3125rem; margin-right: 1rem; font-size: 1.25rem; line-height: inherit; white-space: nowrap; margin-left: -30px; } .jumbotron { padding: 10rem 1rem !important; } }
@@ -319,7 +319,7 @@ footer { width: 100%; height: 70px; text-align: center; padding: 20px; backgroun
     filter: blur(0px); } }
 
 /* Table of Contents */
-@media (min-width: 1400px) { ul#markdown-toc { position: fixed; top: 100px; bottom: 0; left: calc(100vw - 350px); width: 318px; max-height: 90vh; background-color: var(--main-background-color); z-index: 1; font-size: 0.8em; overflow-y: auto; overflow-x: hidden; border: 0px solid; line-height: 1.5; } }
+@media (min-width: 1400px) { ul#markdown-toc { position: fixed; top: 100px; bottom: 0; left: calc(100vw - 325px); width: 300px; max-height: 90vh; background-color: var(--main-background-color); z-index: 1; font-size: 0.8em; overflow-y: auto; overflow-x: hidden; border: 0px solid; line-height: 1.5; overscroll-behavior: contain; } }
 
 #markdown-toc { border: 1px solid; padding: 10px; padding-left: 30px; background-color: var(--main-background-color); line-height: 1.5; }
 

@@ -122,7 +122,7 @@ ol, ul {
     width: 100%;
     overflow: hidden;
     z-index: 1;
-    margin-top: 25px;
+    margin-top: 17px;
 }
 
 body {
@@ -209,7 +209,7 @@ header {
     background-color: var(--main-background-color);
     box-shadow:0px;
     height: auto;
-    width: 100%;
+    width: 100vh;
     padding: 11px;
 }
 
@@ -225,12 +225,13 @@ header {
 .card {
     margin: 20px !important;
     padding: 20px !important;
-    background-color: var(--card-background-color) !important;
+    background-color: var(--main-background-color) !important;
 }
 
 #topNav{
     padding-left: 15%;
     padding-right: 15%;
+    max-height: 50px;
     background-color: var(--main-background-color) !important;
     box-shadow: #000 0px 0px 8px;
 }
@@ -242,6 +243,7 @@ header {
 .navbar-dark .navbar-brand {
     color: #ff7601 !important;
 }
+
 .navbar-dark .navbar-nav .nav-link {
     color: var(--nav-link-color) !important;
 }
@@ -869,8 +871,8 @@ footer {
 
             .navbar-brand {
                 display: inline-block;
-                padding-top: .3125rem;
-                padding-bottom: .3125rem;
+                padding-top: .3rem;
+                padding-bottom: .3rem;
                 margin-right: 1rem;
                 font-size: 1.25rem;
                 line-height: inherit;
@@ -1222,8 +1224,8 @@ footer {
         position: fixed;
         top: 100px;
         bottom: 0;
-        left: calc(100vw - 350px);
-        width: 318px;
+        left: calc(100vw - 325px);
+        width: 300px;
         max-height: 90vh;
         background-color: var(--main-background-color);
         z-index: 1;
@@ -1232,6 +1234,7 @@ footer {
         overflow-x:hidden;
         border: 0px solid;
         line-height: 1.5;
+        overscroll-behavior: contain;
     }
 }
 
