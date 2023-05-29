@@ -1216,6 +1216,41 @@ footer {
      }
  }
 
+ /* Table of Contents */
+ @media (min-width: 1400px) {
+    ul#markdown-toc {
+        position: fixed;
+        top: 100px;
+        bottom: 0;
+        left: calc(100vw - 350px);
+        width: 318px;
+        max-height: 90vh;
+        background-color: var(--main-background-color);
+        z-index: 1;
+        font-size: 0.8em;
+        overflow-y:auto;
+        overflow-x:hidden;
+        border: 0px solid;
+        line-height: 1.5;
+    }
+}
+
+#markdown-toc {
+    border: 1px solid;
+    padding: 10px;
+    padding-left: 30px;
+    background-color: var(--main-background-color);
+    line-height: 1.5;
+}
+
+$active-color: rgb(252, 252, 252);
+.active-toc {
+  color: $active-color;
+}
+.active-toc:visited {
+  color: $active-color;
+}
+
  /* Syntax Hightlighter */
  .highlight pre { background-color: #212529; padding: 20px;}
 .highlight .hll { background-color: #272822; }

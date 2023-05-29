@@ -318,6 +318,15 @@ footer { width: 100%; height: 70px; text-align: center; padding: 20px; backgroun
     box-shadow: 5px -1px 0px #fff;
     filter: blur(0px); } }
 
+/* Table of Contents */
+@media (min-width: 1400px) { ul#markdown-toc { position: fixed; top: 100px; bottom: 0; left: calc(100vw - 350px); width: 318px; max-height: 90vh; background-color: var(--main-background-color); z-index: 1; font-size: 0.8em; overflow-y: auto; overflow-x: hidden; border: 0px solid; line-height: 1.5; } }
+
+#markdown-toc { border: 1px solid; padding: 10px; padding-left: 30px; background-color: var(--main-background-color); line-height: 1.5; }
+
+.active-toc { color: #fcfcfc; }
+
+.active-toc:visited { color: #fcfcfc; }
+
 /* Syntax Hightlighter */
 .highlight pre { background-color: #212529; padding: 20px; }
 
