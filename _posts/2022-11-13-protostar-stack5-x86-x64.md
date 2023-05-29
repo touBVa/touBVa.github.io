@@ -11,6 +11,12 @@ usemathjax: true
 permalink: /blog/system_hacking/protostar-stack5-x86-x64/
 ---
 
+
+* TOC
+{:toc}
+
+<br>
+
 학교 수업에서 풀이한 문제 중 하나로, x86에서의 RTL과 x86-64에서의 RTL을 모두 실습하기에 좋은 문제인 것 같아 블로그에 기록해본다.
 
 사실 이 문제는 BOF로 쉘코드를 넣으라고 만들어준 문제이긴 하지만, 1) 마음대로 RTL을 하기에도 괜찮아 보이고 2) 32bit로 컴파일 시 메인 함수의 에필로그가 달라지는 문제가 있기에 해결해 보고 싶어 선택했다.

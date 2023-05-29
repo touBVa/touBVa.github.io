@@ -11,6 +11,11 @@ usemathjax: true
 permalink: /blog/system_hacking/plt-got-overwrite
 ---
 
+* TOC
+{:toc}
+
+<br>
+
 # 0. PLT&GOT란?
 
 [이전 포스트의 섹션 3](https://toubva.github.io/blog/protostar-stack5-x86-x64/#/) 에서 다루었던 요소가 있다. 바로 GCC 를 이용한 C 언어 소스 코드 컴파일 시, 파일 실행 시의 행위였다. 가볍게 해당 과정을 되살려보자. (정적 라이브러리 방식은 현재 주제와 관련 없으므로 쓰지 않았다)

@@ -12,6 +12,11 @@ permalink: /blog/system_hacking/protostar-format1/
 ---
 
 
+* TOC
+{:toc}
+
+<br>
+
 # Format1.c
 
 결론부터 말하자면, 이 문제는 64비트로 푸는 게 불가능한 문제다. 입력값으로 페이로드를 받는다면 어떻게든 풀 수 있겠으나, 함수의 인자로 페이로드를 받기 때문에 리눅스 쉘의 파이프 특성상 null byte가 제외되어 불가능하다.

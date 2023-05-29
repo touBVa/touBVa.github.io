@@ -11,6 +11,11 @@ usemathjax: true
 permalink: /blog/dreamhack_system_hacking/step2-1
 ---
 
+* TOC
+{:toc}
+
+<br>
+
 # STAGE 2
 
 # Background: Computer Architecture

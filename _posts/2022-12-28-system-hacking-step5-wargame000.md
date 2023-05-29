@@ -11,6 +11,12 @@ usemathjax: true
 permalink: /blog/dreamhack_system_hacking/step5-basic_exploitation_000
 ---
 
+
+* TOC
+{:toc}
+
+<br>
+
 드림핵의 시스템 해킹 기본 문제 중 하나인 basic_exploitation_000을 풀어 보았다.
 
 종강하고 나서 저번 방학 때 수강하던 트랙을 이어서 수강하고 있는 중이라… 사실 이 문제가 무엇을 취약점으로 가지고 있는지 까먹은 상태로 풀었다. 그래서 익스플로잇을 결정할 때 ROP를 이용한 RTL을 할 건지(입력 가능한 비트수 때문에 탈락) Return Address Overwrite를 할 건지 잠깐 고민했는데, 지금 보니 문제에 Retrun Address Overwrite를 쓰라고 버젓이 나와 있었네… 뭔가를 할 땐 설명서부터 잘 읽는 삶을 살도록 하자. 머쓱해질 수 있으니까,,

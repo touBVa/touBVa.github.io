@@ -11,6 +11,11 @@ usemathjax: true
 permalink: /blog/dreamhack_system_hacking/step2-2
 ---
 
+* TOC
+{:toc}
+
+<br>
+
 # STAGE 2
 
 # x86 Assembly: Part 1

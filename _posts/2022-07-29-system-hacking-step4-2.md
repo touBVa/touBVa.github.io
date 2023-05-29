@@ -11,6 +11,12 @@ usemathjax: true
 permalink: /blog/dreamhack_system_hacking/step4-2
 ---
 
+
+* TOC
+{:toc}
+
+<br>
+
 # STAGE 4-2: Shell_basic
 
 - 이번 스테이지는 문제를 자율적으로 풀어보는 스테이지이다.

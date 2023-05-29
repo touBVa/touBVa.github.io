@@ -5,8 +5,8 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 29 May 2023 17:55:48 +0900</pubDate>
-    <lastBuildDate>Mon, 29 May 2023 17:55:48 +0900</lastBuildDate>
+    <pubDate>Mon, 29 May 2023 18:05:38 +0900</pubDate>
+    <lastBuildDate>Mon, 29 May 2023 18:05:38 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
     
@@ -681,7 +681,35 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
     
       <item>
         <title>System Hacking Step 6: ssp_001</title>
-        <description>&lt;h1 id=&quot;1-코드-분석&quot;&gt;1. 코드 분석&lt;/h1&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#1-코드-분석&quot; id=&quot;markdown-toc-1-코드-분석&quot;&gt;1. 코드 분석&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#11-사용된-함수-목록-확인&quot; id=&quot;markdown-toc-11-사용된-함수-목록-확인&quot;&gt;1.1. 사용된 함수 목록 확인&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#12-main-함수의-어셈블리-확인&quot; id=&quot;markdown-toc-12-main-함수의-어셈블리-확인&quot;&gt;1.2. main 함수의 어셈블리 확인&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#121-함수-branch-별-행동-확인&quot; id=&quot;markdown-toc-121-함수-branch-별-행동-확인&quot;&gt;1.2.1. 함수 branch 별 행동 확인&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#122-선택지-f의-경우&quot; id=&quot;markdown-toc-122-선택지-f의-경우&quot;&gt;1.2.2. 선택지 [F]의 경우&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#123-선택지-p의-경우&quot; id=&quot;markdown-toc-123-선택지-p의-경우&quot;&gt;1.2.3. 선택지 [P]의 경우&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#124-선택지-e의-경우&quot; id=&quot;markdown-toc-124-선택지-e의-경우&quot;&gt;1.2.4. 선택지 [E]의 경우&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2-취약점-지정-및-익스플로잇-방법-선정&quot; id=&quot;markdown-toc-2-취약점-지정-및-익스플로잇-방법-선정&quot;&gt;2. 취약점 지정 및 익스플로잇 방법 선정&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#21-분석-요약-및-필요한-정보-선정&quot; id=&quot;markdown-toc-21-분석-요약-및-필요한-정보-선정&quot;&gt;2.1. 분석 요약 및 필요한 정보 선정&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#22-필요한-정보-알아내기&quot; id=&quot;markdown-toc-22-필요한-정보-알아내기&quot;&gt;2.2. 필요한 정보 알아내기&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#221-p-옵션상에서-사용자-입력값으로-무엇을-줘야-canary-leak이-가능할까&quot; id=&quot;markdown-toc-221-p-옵션상에서-사용자-입력값으로-무엇을-줘야-canary-leak이-가능할까&quot;&gt;2.2.1. [P] 옵션상에서, 사용자 입력값으로 무엇을 줘야 Canary Leak이 가능할까?&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#222-e-옵션-실행-시-삽입될-페이로드-구성은-어떻게-해야-할까&quot; id=&quot;markdown-toc-222-e-옵션-실행-시-삽입될-페이로드-구성은-어떻게-해야-할까&quot;&gt;2.2.2. [E] 옵션 실행 시 삽입될 페이로드 구성은 어떻게 해야 할까?&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#223-리턴-어드레스는-어디로-조작해야-할까&quot; id=&quot;markdown-toc-223-리턴-어드레스는-어디로-조작해야-할까&quot;&gt;2.2.3. 리턴 어드레스는 어디로 조작해야 할까?&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#23-취약점-익스플로잇-시나리오-세우기&quot; id=&quot;markdown-toc-23-취약점-익스플로잇-시나리오-세우기&quot;&gt;2.3. 취약점 익스플로잇 시나리오 세우기&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#3-익스플로잇-작성-후-실행&quot; id=&quot;markdown-toc-3-익스플로잇-작성-후-실행&quot;&gt;3. 익스플로잇 작성 후 실행&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;1-코드-분석&quot;&gt;1. 코드 분석&lt;/h1&gt;
 
 &lt;p&gt;이 문제는 코드와 바이너리를 함께 제시해 주는 문제다. 그러나 더 깊은 공부를 위해 코드가 주어지지 않았다는 가정 하에서 문제를 풀기 위해 바이너리를 분석해 보았다. 설명하기에 앞서, 바이너리만 주어진 상황에서의 분석 순서는 동적 분석 → 정적 분석이라는 점을 강조하고 싶다. 해당 바이너리가 어떤 행위를 하는지 추상적으로 알고 있어야 정적 분석을 할 때 중요한 포인트를 찾아가는 지표를 가질 수 있기 때문이다. 따라서, 아래에 이어지는 바이너리 정적 분석은 동적 분석이 이미 이루어졌다는 것을 전제로 한다.&lt;/p&gt;
 
@@ -975,7 +1003,48 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
     
       <item>
         <title>System Hacking Step 6-1</title>
-        <description>&lt;h1 id=&quot;0-스택-카나리란&quot;&gt;0. 스택 카나리란?&lt;/h1&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#0-스택-카나리란&quot; id=&quot;markdown-toc-0-스택-카나리란&quot;&gt;0. 스택 카나리란?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#1-카나리의-작동-원리&quot; id=&quot;markdown-toc-1-카나리의-작동-원리&quot;&gt;1. 카나리의 작동 원리&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#11-카나리-비활성화-활성화-비교&quot; id=&quot;markdown-toc-11-카나리-비활성화-활성화-비교&quot;&gt;1.1. 카나리 비활성화-활성화 비교&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#111-카나리-비활성화의-경우&quot; id=&quot;markdown-toc-111-카나리-비활성화의-경우&quot;&gt;1.1.1. 카나리 비활성화의 경우&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#112-카나리-활성화의-경우&quot; id=&quot;markdown-toc-112-카나리-활성화의-경우&quot;&gt;1.1.2. 카나리 활성화의 경우&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#12--어셈블리-비교-분석-프롤로그와-에필로그의-차이&quot; id=&quot;markdown-toc-12--어셈블리-비교-분석-프롤로그와-에필로그의-차이&quot;&gt;1.2.  어셈블리 비교-분석; 프롤로그와 에필로그의 차이&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#121-fs가-대체-뭐야&quot; id=&quot;markdown-toc-121-fs가-대체-뭐야&quot;&gt;1.2.1. FS가 대체 뭐야?&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#122-gdb로-tcb의-스택-카나리-직접-확인하기&quot; id=&quot;markdown-toc-122-gdb로-tcb의-스택-카나리-직접-확인하기&quot;&gt;1.2.2. gdb로 TCB의 스택 카나리 직접 확인하기&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2-카나리-생성-과정-분석&quot; id=&quot;markdown-toc-2-카나리-생성-과정-분석&quot;&gt;2. 카나리 생성 과정 분석&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#21-fs와-tls의-연결과정-추적&quot; id=&quot;markdown-toc-21-fs와-tls의-연결과정-추적&quot;&gt;2.1. fs와 TLS의 연결과정 추적&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#22-스택-카나리의-저장-과정-추적&quot; id=&quot;markdown-toc-22-스택-카나리의-저장-과정-추적&quot;&gt;2.2. 스택 카나리의 저장 과정 추적&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#23-main에서-사용되는-스택-카나리-확인&quot; id=&quot;markdown-toc-23-main에서-사용되는-스택-카나리-확인&quot;&gt;2.3. main에서 사용되는 스택 카나리 확인&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#3-카나리-우회&quot; id=&quot;markdown-toc-3-카나리-우회&quot;&gt;3. 카나리 우회&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#31-brute-force&quot; id=&quot;markdown-toc-31-brute-force&quot;&gt;3.1. Brute Force&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#32-tls-접근-canary-leak&quot; id=&quot;markdown-toc-32-tls-접근-canary-leak&quot;&gt;3.2. TLS 접근-Canary Leak&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#4-카나리-우회-실습&quot; id=&quot;markdown-toc-4-카나리-우회-실습&quot;&gt;4. 카나리 우회 실습&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#41-코드-분석&quot; id=&quot;markdown-toc-41-코드-분석&quot;&gt;4.1. 코드 분석&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#42-익스플로잇-구성&quot; id=&quot;markdown-toc-42-익스플로잇-구성&quot;&gt;4.2. 익스플로잇 구성&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#43-익스플로잇-실행&quot; id=&quot;markdown-toc-43-익스플로잇-실행&quot;&gt;4.3. 익스플로잇 실행&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#번외-삽질이-남긴-지식&quot; id=&quot;markdown-toc-번외-삽질이-남긴-지식&quot;&gt;번외: 삽질이 남긴 지식&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#1-와-리눅스-대상-분석을-하는데-윈도우-프로세스-관리를-가져왔다&quot; id=&quot;markdown-toc-1-와-리눅스-대상-분석을-하는데-윈도우-프로세스-관리를-가져왔다&quot;&gt;1. 와! 리눅스 대상 분석을 하는데 윈도우 프로세스 관리를 가져왔다?!?&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#&quot; id=&quot;markdown-toc-&quot;&gt;&lt;br /&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;0-스택-카나리란&quot;&gt;0. 스택 카나리란?&lt;/h1&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -1531,7 +1600,20 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
     
       <item>
         <title>Wargame: Basic_Exploitation_000</title>
-        <description>&lt;p&gt;드림핵의 시스템 해킹 기본 문제 중 하나인 basic_exploitation_000을 풀어 보았다.&lt;/p&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#1-주어진-정보-분석-취약점-지정&quot; id=&quot;markdown-toc-1-주어진-정보-분석-취약점-지정&quot;&gt;1. 주어진 정보 분석, 취약점 지정&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2-취약점-익스플로잇-설계&quot; id=&quot;markdown-toc-2-취약점-익스플로잇-설계&quot;&gt;2. 취약점 익스플로잇 설계&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#2-1-쉘코드-구성&quot; id=&quot;markdown-toc-2-1-쉘코드-구성&quot;&gt;2. 1. 쉘코드 구성&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#2-2-dump-byte-수-계산&quot; id=&quot;markdown-toc-2-2-dump-byte-수-계산&quot;&gt;2. 2. dump byte 수 계산&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#2-3-ret-address-알아내기&quot; id=&quot;markdown-toc-2-3-ret-address-알아내기&quot;&gt;2. 3. ret address 알아내기&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#3-익스플로잇-수행&quot; id=&quot;markdown-toc-3-익스플로잇-수행&quot;&gt;3. 익스플로잇 수행&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;드림핵의 시스템 해킹 기본 문제 중 하나인 basic_exploitation_000을 풀어 보았다.&lt;/p&gt;
 
 &lt;p&gt;종강하고 나서 저번 방학 때 수강하던 트랙을 이어서 수강하고 있는 중이라… 사실 이 문제가 무엇을 취약점으로 가지고 있는지 까먹은 상태로 풀었다. 그래서 익스플로잇을 결정할 때 ROP를 이용한 RTL을 할 건지(입력 가능한 비트수 때문에 탈락) Return Address Overwrite를 할 건지 잠깐 고민했는데, 지금 보니 문제에 Retrun Address Overwrite를 쓰라고 버젓이 나와 있었네… 뭔가를 할 땐 설명서부터 잘 읽는 삶을 살도록 하자. 머쓱해질 수 있으니까,,&lt;/p&gt;
 
@@ -1835,7 +1917,25 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
     
       <item>
         <title>PLT &amp; GOT Overwrite in x86-64</title>
-        <description>&lt;h1 id=&quot;0-pltgot란&quot;&gt;0. PLT&amp;amp;GOT란?&lt;/h1&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#0-pltgot란&quot; id=&quot;markdown-toc-0-pltgot란&quot;&gt;0. PLT&amp;amp;GOT란?&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#01-컴파일-시의-행위동적-라이브러리-참조&quot; id=&quot;markdown-toc-01-컴파일-시의-행위동적-라이브러리-참조&quot;&gt;0.1. 컴파일 시의 행위(동적 라이브러리 참조)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#02-파일-실행-시의-행위동적-라이브러리-참조&quot; id=&quot;markdown-toc-02-파일-실행-시의-행위동적-라이브러리-참조&quot;&gt;0.2. 파일 실행 시의 행위(동적 라이브러리 참조)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#03-정리&quot; id=&quot;markdown-toc-03-정리&quot;&gt;0.3. 정리&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#1-코드-정적-분석&quot; id=&quot;markdown-toc-1-코드-정적-분석&quot;&gt;1. 코드 정적 분석&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#11-plt와-got-직접-따라가-보기&quot; id=&quot;markdown-toc-11-plt와-got-직접-따라가-보기&quot;&gt;1.1 plt와 got 직접 따라가 보기&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#12-코드-정적-분석&quot; id=&quot;markdown-toc-12-코드-정적-분석&quot;&gt;1.2 코드 정적 분석&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2-익스플로잇-설계&quot; id=&quot;markdown-toc-2-익스플로잇-설계&quot;&gt;2. 익스플로잇 설계&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#3-익스플로잇&quot; id=&quot;markdown-toc-3-익스플로잇&quot;&gt;3. 익스플로잇&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;0-pltgot란&quot;&gt;0. PLT&amp;amp;GOT란?&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://toubva.github.io/blog/protostar-stack5-x86-x64/#/&quot;&gt;이전 포스트의 섹션 3&lt;/a&gt; 에서 다루었던 요소가 있다. 바로 GCC 를 이용한 C 언어 소스 코드 컴파일 시, 파일 실행 시의 행위였다. 가볍게 해당 과정을 되살려보자. (정적 라이브러리 방식은 현재 주제와 관련 없으므로 쓰지 않았다)&lt;/p&gt;
 
@@ -2035,7 +2135,27 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
     
       <item>
         <title>Protostar-format1.c x86-64</title>
-        <description>&lt;h1 id=&quot;format1c&quot;&gt;Format1.c&lt;/h1&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#format1c&quot; id=&quot;markdown-toc-format1c&quot;&gt;Format1.c&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#0-포맷-스트링-버그란&quot; id=&quot;markdown-toc-0-포맷-스트링-버그란&quot;&gt;0. 포맷 스트링 버그란&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#01-포맷-스트링이란&quot; id=&quot;markdown-toc-01-포맷-스트링이란&quot;&gt;0.1. 포맷 스트링이란&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#1-예제-코드-분석&quot; id=&quot;markdown-toc-1-예제-코드-분석&quot;&gt;1. 예제 코드 분석&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2-익스플로잇&quot; id=&quot;markdown-toc-2-익스플로잇&quot;&gt;2. 익스플로잇&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#21-취약점-익스플로잇-방법-지정&quot; id=&quot;markdown-toc-21-취약점-익스플로잇-방법-지정&quot;&gt;2.1. 취약점 익스플로잇 방법 지정&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#211-배경-설명&quot; id=&quot;markdown-toc-211-배경-설명&quot;&gt;2.1.1. 배경 설명&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#212-익스플로잇-설계&quot; id=&quot;markdown-toc-212-익스플로잇-설계&quot;&gt;2.1.2. 익스플로잇 설계&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#3-논외-수학적으로-읽어야-할-주소-개수-구하기를-시도했는데-고려한-변수가-한두개가-아니라-포기한-건에-대하여&quot; id=&quot;markdown-toc-3-논외-수학적으로-읽어야-할-주소-개수-구하기를-시도했는데-고려한-변수가-한두개가-아니라-포기한-건에-대하여&quot;&gt;3. 논외-수학적으로 읽어야 할 주소 개수 구하기를 시도했는데 고려한 변수가 한두개가 아니라 포기한 건에 대하여&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;format1c&quot;&gt;Format1.c&lt;/h1&gt;
 
 &lt;p&gt;결론부터 말하자면, 이 문제는 64비트로 푸는 게 불가능한 문제다. 입력값으로 페이로드를 받는다면 어떻게든 풀 수 있겠으나, 함수의 인자로 페이로드를 받기 때문에 리눅스 쉘의 파이프 특성상 null byte가 제외되어 불가능하다.&lt;/p&gt;
 
@@ -2393,7 +2513,38 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
     
       <item>
         <title>Memory Exploit Mitigations and How to Bypass them 01</title>
-        <description>&lt;p&gt;아직 윈도우 메모리 보호 기법은 다루지 못했다. 또한 다음 포스트로는 보호 기법 우회 실습을 다루려 한다.&lt;/p&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#0-memory-exploit-mitigation-techniques&quot; id=&quot;markdown-toc-0-memory-exploit-mitigation-techniques&quot;&gt;0. Memory Exploit Mitigation Techniques&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#01-linux&quot; id=&quot;markdown-toc-01-linux&quot;&gt;0.1. Linux&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#011-aslraddress-space-layout-randomization&quot; id=&quot;markdown-toc-011-aslraddress-space-layout-randomization&quot;&gt;0.1.1. ASLR(Address Space Layout Randomization)&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#012-ascii-armor&quot; id=&quot;markdown-toc-012-ascii-armor&quot;&gt;0.1.2. ASCII-Armor&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#013-fortify_source&quot; id=&quot;markdown-toc-013-fortify_source&quot;&gt;0.1.3. FORTIFY_SOURCE&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#014-nx-bitno-execute-bit&quot; id=&quot;markdown-toc-014-nx-bitno-execute-bit&quot;&gt;0.1.4. NX-bit(No-eXecute bit)&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#015-pieposition-independent-executable&quot; id=&quot;markdown-toc-015-pieposition-independent-executable&quot;&gt;0.1.5. PIE(Position Independent Executable)&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#016-relrorelocation-read-only&quot; id=&quot;markdown-toc-016-relrorelocation-read-only&quot;&gt;0.1.6. RELRO(RELocation Read-Only)&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#017-sspstack-smashing-protector&quot; id=&quot;markdown-toc-017-sspstack-smashing-protector&quot;&gt;0.1.7. SSP(Stack Smashing Protector)&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#1-how-to-bypass-them&quot; id=&quot;markdown-toc-1-how-to-bypass-them&quot;&gt;1. How to Bypass them&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#01-linux-1&quot; id=&quot;markdown-toc-01-linux-1&quot;&gt;0.1. Linux&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#011-aslraddress-space-layout-randomization-1&quot; id=&quot;markdown-toc-011-aslraddress-space-layout-randomization-1&quot;&gt;0.1.1. ASLR(Address Space Layout Randomization)&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#012-ascii-armor-1&quot; id=&quot;markdown-toc-012-ascii-armor-1&quot;&gt;0.1.2. ASCII-Armor&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#013-fortify_source-1&quot; id=&quot;markdown-toc-013-fortify_source-1&quot;&gt;0.1.3. FORTIFY_SOURCE&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#014-nx-bit&quot; id=&quot;markdown-toc-014-nx-bit&quot;&gt;0.1.4. NX-bit&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#015-pieposition-independent-executable-1&quot; id=&quot;markdown-toc-015-pieposition-independent-executable-1&quot;&gt;0.1.5. PIE(Position Independent Executable)&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#016-relrorelocation-read-only-1&quot; id=&quot;markdown-toc-016-relrorelocation-read-only-1&quot;&gt;0.1.6. RELRO(RELocation Read-Only)&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#017-sspstack-smashing-protector-1&quot; id=&quot;markdown-toc-017-sspstack-smashing-protector-1&quot;&gt;0.1.7. SSP(Stack Smashing Protector)&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;아직 윈도우 메모리 보호 기법은 다루지 못했다. 또한 다음 포스트로는 보호 기법 우회 실습을 다루려 한다.&lt;/p&gt;
 
 &lt;h1 id=&quot;0-memory-exploit-mitigation-techniques&quot;&gt;0. Memory Exploit Mitigation Techniques&lt;/h1&gt;
 
@@ -2610,7 +2761,48 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
     
       <item>
         <title>Protostar-stack5.c x86 &amp; x86-64</title>
-        <description>&lt;p&gt;학교 수업에서 풀이한 문제 중 하나로, x86에서의 RTL과 x86-64에서의 RTL을 모두 실습하기에 좋은 문제인 것 같아 블로그에 기록해본다.&lt;/p&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#0-x86에서의-rtl과-x64에서의-rtl&quot; id=&quot;markdown-toc-0-x86에서의-rtl과-x64에서의-rtl&quot;&gt;0. X86에서의 RTL과 X64에서의 RTL&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#01-rtl이란&quot; id=&quot;markdown-toc-01-rtl이란&quot;&gt;0.1. RTL이란&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#02-요점&quot; id=&quot;markdown-toc-02-요점&quot;&gt;0.2. 요점&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#1-x86-기반에서-rtl-수행하기&quot; id=&quot;markdown-toc-1-x86-기반에서-rtl-수행하기&quot;&gt;1. X86 기반에서 RTL 수행하기&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#11-파라미터가-스택에&quot; id=&quot;markdown-toc-11-파라미터가-스택에&quot;&gt;1.1. 파라미터가 스택에?&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#12-rtl을-위한-스택-조작&quot; id=&quot;markdown-toc-12-rtl을-위한-스택-조작&quot;&gt;1.2. RTL을 위한 스택 조작&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#13-실습&quot; id=&quot;markdown-toc-13-실습&quot;&gt;1.3. 실습&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#131-대상-프로그램-분석해-취약점-지정&quot; id=&quot;markdown-toc-131-대상-프로그램-분석해-취약점-지정&quot;&gt;1.3.1. 대상 프로그램 분석해 취약점 지정&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#132-bof-취약점-익스플로잇할-방법-지정&quot; id=&quot;markdown-toc-132-bof-취약점-익스플로잇할-방법-지정&quot;&gt;1.3.2. BOF 취약점 익스플로잇할 방법 지정&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#133-익스플로잇-생성&quot; id=&quot;markdown-toc-133-익스플로잇-생성&quot;&gt;1.3.3. 익스플로잇 생성&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2-x86-64-기반에서-rtl-수행하기&quot; id=&quot;markdown-toc-2-x86-64-기반에서-rtl-수행하기&quot;&gt;2. X86-64 기반에서 RTL 수행하기&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#21-페이로드가-왜-이-모양이야&quot; id=&quot;markdown-toc-21-페이로드가-왜-이-모양이야&quot;&gt;2.1. 페이로드가 왜 이 모양이야?&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#22-익스플로잇-생성&quot; id=&quot;markdown-toc-22-익스플로잇-생성&quot;&gt;2.2. 익스플로잇 생성&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#221-offset-byte의-크기-알기&quot; id=&quot;markdown-toc-221-offset-byte의-크기-알기&quot;&gt;2.2.1. Offset Byte의 크기 알기&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#222-gadget의-주소-알기&quot; id=&quot;markdown-toc-222-gadget의-주소-알기&quot;&gt;2.2.2. Gadget의 주소 알기&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#223-binsh과-system의-주소-알기&quot; id=&quot;markdown-toc-223-binsh과-system의-주소-알기&quot;&gt;2.2.3. “/bin/sh”과 system의 주소 알기&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#224-익스플로잇-생성&quot; id=&quot;markdown-toc-224-익스플로잇-생성&quot;&gt;2.2.4. 익스플로잇 생성&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#3-삽질이-남긴-지식&quot; id=&quot;markdown-toc-3-삽질이-남긴-지식&quot;&gt;3. 삽질이 남긴 지식&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#31-리눅스에서-프로그램-컴파일-시-refer되는-공유-라이브러리와-그-호출-과정&quot; id=&quot;markdown-toc-31-리눅스에서-프로그램-컴파일-시-refer되는-공유-라이브러리와-그-호출-과정&quot;&gt;3.1. 리눅스에서 프로그램 컴파일 시 refer되는 공유 라이브러리와 그 호출 과정&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#311-file-link&quot; id=&quot;markdown-toc-311-file-link&quot;&gt;3.1.1. File Link&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#312-gcc를-이용한-c-언어-컴파일-시-파일-실행-시의-행위&quot; id=&quot;markdown-toc-312-gcc를-이용한-c-언어-컴파일-시-파일-실행-시의-행위&quot;&gt;3.1.2. GCC를 이용한 C 언어 컴파일 시, 파일 실행 시의 행위&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#4-참고문헌&quot; id=&quot;markdown-toc-4-참고문헌&quot;&gt;4. 참고문헌&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;학교 수업에서 풀이한 문제 중 하나로, x86에서의 RTL과 x86-64에서의 RTL을 모두 실습하기에 좋은 문제인 것 같아 블로그에 기록해본다.&lt;/p&gt;
 
 &lt;p&gt;사실 이 문제는 BOF로 쉘코드를 넣으라고 만들어준 문제이긴 하지만, 1) 마음대로 RTL을 하기에도 괜찮아 보이고 2) 32bit로 컴파일 시 메인 함수의 에필로그가 달라지는 문제가 있기에 해결해 보고 싶어 선택했다.&lt;/p&gt;
 
@@ -3250,7 +3442,26 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
     
       <item>
         <title>System Hackig Step 5-3</title>
-        <description>&lt;h1 id=&quot;stage-5-3-bof-return-address-overwrite&quot;&gt;STAGE 5-3: BOF-Return Address Overwrite&lt;/h1&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#stage-5-3-bof-return-address-overwrite&quot; id=&quot;markdown-toc-stage-5-3-bof-return-address-overwrite&quot;&gt;STAGE 5-3: BOF-Return Address Overwrite&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#먼저-풀어보기&quot; id=&quot;markdown-toc-먼저-풀어보기&quot;&gt;먼저 풀어보기:&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#1-예제-코드-취약점-분석하기&quot; id=&quot;markdown-toc-1-예제-코드-취약점-분석하기&quot;&gt;1. 예제 코드 취약점 분석하기&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#2-페이로드-구상하기&quot; id=&quot;markdown-toc-2-페이로드-구상하기&quot;&gt;2. 페이로드 구상하기&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#3-익스플로잇-코드-작성하기&quot; id=&quot;markdown-toc-3-익스플로잇-코드-작성하기&quot;&gt;3. 익스플로잇 코드 작성하기&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#코스-내용-학습&quot; id=&quot;markdown-toc-코스-내용-학습&quot;&gt;코스 내용 학습:&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#1-취약점-분석&quot; id=&quot;markdown-toc-1-취약점-분석&quot;&gt;1. 취약점 분석&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#2-취약점-트리거&quot; id=&quot;markdown-toc-2-취약점-트리거&quot;&gt;2. 취약점 트리거&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#3-익스플로잇&quot; id=&quot;markdown-toc-3-익스플로잇&quot;&gt;3. 익스플로잇&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#취약점-패치&quot; id=&quot;markdown-toc-취약점-패치&quot;&gt;취약점 패치&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;stage-5-3-bof-return-address-overwrite&quot;&gt;STAGE 5-3: BOF-Return Address Overwrite&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Stack Buffer Overflow로 인해 가능한 Return Address 조작 공격을 실습&lt;/li&gt;
@@ -3455,7 +3666,30 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
     
       <item>
         <title>System Hackig Step 5-2</title>
-        <description>&lt;h1 id=&quot;stage-5-2&quot;&gt;STAGE 5-2&lt;/h1&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#stage-5-2&quot; id=&quot;markdown-toc-stage-5-2&quot;&gt;STAGE 5-2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#memory-corruption-stack-buffer-overflow&quot; id=&quot;markdown-toc-memory-corruption-stack-buffer-overflow&quot;&gt;Memory Corruption: Stack Buffer Overflow&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#목표&quot; id=&quot;markdown-toc-목표&quot;&gt;목표&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#주의점&quot; id=&quot;markdown-toc-주의점&quot;&gt;주의점&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#스택-버퍼-오버플로우와-악용-경우수&quot; id=&quot;markdown-toc-스택-버퍼-오버플로우와-악용-경우수&quot;&gt;스택 버퍼 오버플로우와 악용 경우수&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#1-버퍼-오버플로우&quot; id=&quot;markdown-toc-1-버퍼-오버플로우&quot;&gt;1. 버퍼 오버플로우&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#버퍼&quot; id=&quot;markdown-toc-버퍼&quot;&gt;버퍼:&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#버퍼-오버플로우&quot; id=&quot;markdown-toc-버퍼-오버플로우&quot;&gt;버퍼 오버플로우:&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#스택-버퍼-오버플로우&quot; id=&quot;markdown-toc-스택-버퍼-오버플로우&quot;&gt;스택 버퍼 오버플로우:&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#2-중요-데이터-변조&quot; id=&quot;markdown-toc-2-중요-데이터-변조&quot;&gt;2. 중요 데이터 변조&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#3-데이터-유출&quot; id=&quot;markdown-toc-3-데이터-유출&quot;&gt;3. 데이터 유출&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#4-실행-흐름-조작&quot; id=&quot;markdown-toc-4-실행-흐름-조작&quot;&gt;4. 실행 흐름 조작&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;stage-5-2&quot;&gt;STAGE 5-2&lt;/h1&gt;
 
 &lt;h1 id=&quot;memory-corruption-stack-buffer-overflow&quot;&gt;Memory Corruption: Stack Buffer Overflow&lt;/h1&gt;
 
@@ -3571,7 +3805,33 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
     
       <item>
         <title>System Hackig Step 5</title>
-        <description>&lt;h1 id=&quot;stage-5&quot;&gt;STAGE 5&lt;/h1&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#stage-5&quot; id=&quot;markdown-toc-stage-5&quot;&gt;STAGE 5&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#1-calling-convention&quot; id=&quot;markdown-toc-1-calling-convention&quot;&gt;1. Calling Convention&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2-함수-호출-규약의-종류&quot; id=&quot;markdown-toc-2-함수-호출-규약의-종류&quot;&gt;2. 함수 호출 규약의 종류&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#3-x86호출-규약-cdecl&quot; id=&quot;markdown-toc-3-x86호출-규약-cdecl&quot;&gt;3. x86호출 규약: cdecl&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#들어가기-전에&quot; id=&quot;markdown-toc-들어가기-전에&quot;&gt;들어가기 전에:&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#실습&quot; id=&quot;markdown-toc-실습&quot;&gt;실습&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#4-x86-64-호출-규약-sysv&quot; id=&quot;markdown-toc-4-x86-64-호출-규약-sysv&quot;&gt;4. x86-64 호출 규약: SYSV&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#gdb로-sysv-calling-convention-알아보기&quot; id=&quot;markdown-toc-gdb로-sysv-calling-convention-알아보기&quot;&gt;GDB로 SYSV Calling Convention 알아보기&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#코드-컴파일&quot; id=&quot;markdown-toc-코드-컴파일&quot;&gt;코드 컴파일&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#인자-전달&quot; id=&quot;markdown-toc-인자-전달&quot;&gt;인자 전달&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#반환-주소--스택-프레임-저장&quot; id=&quot;markdown-toc-반환-주소--스택-프레임-저장&quot;&gt;반환 주소 &amp;amp; 스택 프레임 저장&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#새로운-스택-프레임-할당&quot; id=&quot;markdown-toc-새로운-스택-프레임-할당&quot;&gt;새로운 스택 프레임 할당&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#반환값-전달&quot; id=&quot;markdown-toc-반환값-전달&quot;&gt;반환값 전달&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#반환&quot; id=&quot;markdown-toc-반환&quot;&gt;반환&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#5-부록-함수-호출-규약&quot; id=&quot;markdown-toc-5-부록-함수-호출-규약&quot;&gt;5. 부록-함수 호출 규약&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;stage-5&quot;&gt;STAGE 5&lt;/h1&gt;
 
 &lt;hr /&gt;
 
@@ -3952,7 +4212,26 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
     
       <item>
         <title>System Hackig Step 4-2: Shell_basic</title>
-        <description>&lt;h1 id=&quot;stage-4-2-shell_basic&quot;&gt;STAGE 4-2: Shell_basic&lt;/h1&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#stage-4-2-shell_basic&quot; id=&quot;markdown-toc-stage-4-2-shell_basic&quot;&gt;STAGE 4-2: Shell_basic&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#문제-풀이-과정-설정하기&quot; id=&quot;markdown-toc-문제-풀이-과정-설정하기&quot;&gt;문제 풀이 과정 설정하기&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#1-1-코드의-내용-확인&quot; id=&quot;markdown-toc-1-1-코드의-내용-확인&quot;&gt;1. (1) 코드의 내용 확인&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2-5-익스플로잇-코드-작성&quot; id=&quot;markdown-toc-2-5-익스플로잇-코드-작성&quot;&gt;2. (5) 익스플로잇 코드 작성&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#어셈블리어로-작성하기&quot; id=&quot;markdown-toc-어셈블리어로-작성하기&quot;&gt;어셈블리어로 작성하기&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#기계어로-변환하기&quot; id=&quot;markdown-toc-기계어로-변환하기&quot;&gt;기계어로 변환하기&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#3-문제-수정&quot; id=&quot;markdown-toc-3-문제-수정&quot;&gt;3. 문제 수정&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#1-null-byte&quot; id=&quot;markdown-toc-1-null-byte&quot;&gt;#1. NULL Byte&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#2-pwntools&quot; id=&quot;markdown-toc-2-pwntools&quot;&gt;#2. Pwntools&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#4-앞으로-고칠-점&quot; id=&quot;markdown-toc-4-앞으로-고칠-점&quot;&gt;4. 앞으로 고칠 점&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;stage-4-2-shell_basic&quot;&gt;STAGE 4-2: Shell_basic&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;이번 스테이지는 문제를 자율적으로 풀어보는 스테이지이다.&lt;/li&gt;
@@ -4228,7 +4507,34 @@ syscall
     
       <item>
         <title>System Hackig Step 4</title>
-        <description>&lt;h1 id=&quot;stage-4&quot;&gt;STAGE 4&lt;/h1&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#stage-4&quot; id=&quot;markdown-toc-stage-4&quot;&gt;STAGE 4&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#exploit-tech-shellcode&quot; id=&quot;markdown-toc-exploit-tech-shellcode&quot;&gt;Exploit Tech: ShellCode&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#셸코드란&quot; id=&quot;markdown-toc-셸코드란&quot;&gt;셸코드란?&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#orw-셸코드&quot; id=&quot;markdown-toc-orw-셸코드&quot;&gt;orw 셸코드&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#셸코드-작성하기&quot; id=&quot;markdown-toc-셸코드-작성하기&quot;&gt;셸코드 작성하기&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#1-int-fd--opentmpflag-o_rdonly-null&quot; id=&quot;markdown-toc-1-int-fd--opentmpflag-o_rdonly-null&quot;&gt;1. int fd = open(”/tmp/flag”, O_RDONLY, NULL)&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#2-readfd-buf-0x30&quot; id=&quot;markdown-toc-2-readfd-buf-0x30&quot;&gt;2. read(fd, buf, 0x30)&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#3-write1-buf-0x30&quot; id=&quot;markdown-toc-3-write1-buf-0x30&quot;&gt;3. write(1, buf, 0x30)&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#4-정말-중요한-이야기-헷갈리지-말자-rsp-rbp의-의미&quot; id=&quot;markdown-toc-4-정말-중요한-이야기-헷갈리지-말자-rsp-rbp의-의미&quot;&gt;4. 정말 중요한 이야기-헷갈리지 말자! (rsp, rbp의 의미)&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#5-종합&quot; id=&quot;markdown-toc-5-종합&quot;&gt;5. 종합&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#orw-셸코드-컴파일-및-실행&quot; id=&quot;markdown-toc-orw-셸코드-컴파일-및-실행&quot;&gt;orw 셸코드 컴파일 및 실행&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#execve-셸코드&quot; id=&quot;markdown-toc-execve-셸코드&quot;&gt;execve 셸코드&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#execvebinsh-null-null&quot; id=&quot;markdown-toc-execvebinsh-null-null&quot;&gt;execve(”/bin/sh”, null, null)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#objdump를-이용한-shellcode-추출&quot; id=&quot;markdown-toc-objdump를-이용한-shellcode-추출&quot;&gt;objdump를 이용한 shellcode 추출&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;stage-4&quot;&gt;STAGE 4&lt;/h1&gt;
 
 &lt;h1 id=&quot;exploit-tech-shellcode&quot;&gt;Exploit Tech: ShellCode&lt;/h1&gt;
 
@@ -4742,7 +5048,34 @@ syscall
     
       <item>
         <title>System Hackig Step 3-2</title>
-        <description>&lt;h1 id=&quot;stage-3-2&quot;&gt;STAGE 3-2&lt;/h1&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#stage-3-2&quot; id=&quot;markdown-toc-stage-3-2&quot;&gt;STAGE 3-2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#tool-pwntools&quot; id=&quot;markdown-toc-tool-pwntools&quot;&gt;Tool: PwnTools&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#pwntools-api-사용법&quot; id=&quot;markdown-toc-pwntools-api-사용법&quot;&gt;PwnTools API 사용법&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#1-process--remote&quot; id=&quot;markdown-toc-1-process--remote&quot;&gt;1. process &amp;amp; remote&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#2-send&quot; id=&quot;markdown-toc-2-send&quot;&gt;2. send&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#3-recv&quot; id=&quot;markdown-toc-3-recv&quot;&gt;3. recv&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#4-packing--unpacking&quot; id=&quot;markdown-toc-4-packing--unpacking&quot;&gt;4. packing &amp;amp; unpacking&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#5-interactive&quot; id=&quot;markdown-toc-5-interactive&quot;&gt;5. interactive&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#6-elf&quot; id=&quot;markdown-toc-6-elf&quot;&gt;6. ELF&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#7-contextlog&quot; id=&quot;markdown-toc-7-contextlog&quot;&gt;7. context.log&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#8-contextarch&quot; id=&quot;markdown-toc-8-contextarch&quot;&gt;8. context.arch&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#9-shellcraft&quot; id=&quot;markdown-toc-9-shellcraft&quot;&gt;9. shellcraft&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#10-asm&quot; id=&quot;markdown-toc-10-asm&quot;&gt;10. asm&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#pwntools-실습&quot; id=&quot;markdown-toc-pwntools-실습&quot;&gt;pwntools 실습&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#get_shell-함수의-시작-주소-알아내기&quot; id=&quot;markdown-toc-get_shell-함수의-시작-주소-알아내기&quot;&gt;get_shell() 함수의 시작 주소 알아내기&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#유저-입력값을-받을-당시-스택의-구조-확인하기&quot; id=&quot;markdown-toc-유저-입력값을-받을-당시-스택의-구조-확인하기&quot;&gt;유저 입력값을 받을 당시 스택의 구조 확인하기&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#실제-스택의-구조를-디버거로-확인하기&quot; id=&quot;markdown-toc-실제-스택의-구조를-디버거로-확인하기&quot;&gt;실제 스택의 구조를 디버거로 확인하기&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#익스플로잇-작성하기&quot; id=&quot;markdown-toc-익스플로잇-작성하기&quot;&gt;익스플로잇 작성하기&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;stage-3-2&quot;&gt;STAGE 3-2&lt;/h1&gt;
 
 &lt;h1 id=&quot;tool-pwntools&quot;&gt;Tool: PwnTools&lt;/h1&gt;
 
@@ -5165,7 +5498,28 @@ syscall
     
       <item>
         <title>System Hackig Step 3-1</title>
-        <description>&lt;h1 id=&quot;stage-3-1&quot;&gt;STAGE 3-1&lt;/h1&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#stage-3-1&quot; id=&quot;markdown-toc-stage-3-1&quot;&gt;STAGE 3-1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#gdb-사용하기-기초&quot; id=&quot;markdown-toc-gdb-사용하기-기초&quot;&gt;gdb 사용하기 기초&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#tldr&quot; id=&quot;markdown-toc-tldr&quot;&gt;TL;DR&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#prolog&quot; id=&quot;markdown-toc-prolog&quot;&gt;Prolog&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#context-pwndbg의-대시보드&quot; id=&quot;markdown-toc-context-pwndbg의-대시보드&quot;&gt;Context: pwndbg의 대시보드&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#breakcontinue&quot; id=&quot;markdown-toc-breakcontinue&quot;&gt;break&amp;amp;continue&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#run&quot; id=&quot;markdown-toc-run&quot;&gt;run&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#disassembly&quot; id=&quot;markdown-toc-disassembly&quot;&gt;disassembly&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#navigate-ni-si-finish&quot; id=&quot;markdown-toc-navigate-ni-si-finish&quot;&gt;navigate: ni, si, finish&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#examine-x&quot; id=&quot;markdown-toc-examine-x&quot;&gt;examine: x&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#telescope&quot; id=&quot;markdown-toc-telescope&quot;&gt;telescope&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#vmmap&quot; id=&quot;markdown-toc-vmmap&quot;&gt;vmmap&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#gdbpython&quot; id=&quot;markdown-toc-gdbpython&quot;&gt;gdb/python&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#그-외-자주-사용되는-명령어들과-그-단축키&quot; id=&quot;markdown-toc-그-외-자주-사용되는-명령어들과-그-단축키&quot;&gt;그 외 자주 사용되는 명령어들과, 그 단축키&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;stage-3-1&quot;&gt;STAGE 3-1&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;gdb 설치와 pwndbg 플러그인 설치하기.&lt;/li&gt;
@@ -5458,7 +5812,39 @@ syscall
     
       <item>
         <title>System Hackig Step 2-2</title>
-        <description>&lt;h1 id=&quot;stage-2&quot;&gt;STAGE 2&lt;/h1&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#stage-2&quot; id=&quot;markdown-toc-stage-2&quot;&gt;STAGE 2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#x86-assembly-part-1&quot; id=&quot;markdown-toc-x86-assembly-part-1&quot;&gt;x86 Assembly: Part 1&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#어셈블리어와-x86-64&quot; id=&quot;markdown-toc-어셈블리어와-x86-64&quot;&gt;어셈블리어와 x86-64&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#어셈블리어의-기본-구조&quot; id=&quot;markdown-toc-어셈블리어의-기본-구조&quot;&gt;어셈블리어의 기본 구조&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#어셈블리-명령어--중-알아두면-좋을-것&quot; id=&quot;markdown-toc-어셈블리-명령어--중-알아두면-좋을-것&quot;&gt;어셈블리 명령어  중 알아두면 좋을 것&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#어셈블리-명령어의-피연산자&quot; id=&quot;markdown-toc-어셈블리-명령어의-피연산자&quot;&gt;어셈블리 명령어의 피연산자&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#x86-64-어셈블리-명령어&quot; id=&quot;markdown-toc-x86-64-어셈블리-명령어&quot;&gt;x86-64 어셈블리 명령어&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#데이터-이동-명령어&quot; id=&quot;markdown-toc-데이터-이동-명령어&quot;&gt;데이터 이동 명령어&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#산술-연산-명령어&quot; id=&quot;markdown-toc-산술-연산-명령어&quot;&gt;산술 연산 명령어&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#논리-연산-명령어&quot; id=&quot;markdown-toc-논리-연산-명령어&quot;&gt;논리 연산 명령어&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#비교-연산-명령어&quot; id=&quot;markdown-toc-비교-연산-명령어&quot;&gt;비교 연산 명령어&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#분기-명령어&quot; id=&quot;markdown-toc-분기-명령어&quot;&gt;분기 명령어&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#x86-assembly-part-2&quot; id=&quot;markdown-toc-x86-assembly-part-2&quot;&gt;x86 Assembly: Part 2&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#x86-64-어셈블리-명령어-pt2&quot; id=&quot;markdown-toc-x86-64-어셈블리-명령어-pt2&quot;&gt;x86-64 어셈블리 명령어 Pt.2&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#스택&quot; id=&quot;markdown-toc-스택&quot;&gt;스택&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#프로시저&quot; id=&quot;markdown-toc-프로시저&quot;&gt;프로시저&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#시스템-콜&quot; id=&quot;markdown-toc-시스템-콜&quot;&gt;시스템 콜&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;stage-2&quot;&gt;STAGE 2&lt;/h1&gt;
 
 &lt;h1 id=&quot;x86-assembly-part-1&quot;&gt;x86 Assembly: Part 1&lt;/h1&gt;
 
@@ -6088,7 +6474,33 @@ rsp -= 8 //stack grows from high to low
     
       <item>
         <title>System Hackig Step 2</title>
-        <description>&lt;h1 id=&quot;stage-2&quot;&gt;STAGE 2&lt;/h1&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#stage-2&quot; id=&quot;markdown-toc-stage-2&quot;&gt;STAGE 2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#background-computer-architecture&quot; id=&quot;markdown-toc-background-computer-architecture&quot;&gt;Background: Computer Architecture&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#x86-64-architectureamd64-architecture&quot; id=&quot;markdown-toc-x86-64-architectureamd64-architecture&quot;&gt;X86-64 Architecture=AMD64 Architecture&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#x64-아키텍쳐의-레지스터&quot; id=&quot;markdown-toc-x64-아키텍쳐의-레지스터&quot;&gt;x64 아키텍쳐의 레지스터&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#레지스터-호환&quot; id=&quot;markdown-toc-레지스터-호환&quot;&gt;레지스터 호환&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#background-linux-memory-layout&quot; id=&quot;markdown-toc-background-linux-memory-layout&quot;&gt;Background: Linux Memory Layout&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#리눅스-프로세스의-메모리-구조&quot; id=&quot;markdown-toc-리눅스-프로세스의-메모리-구조&quot;&gt;리눅스 프로세스의 메모리 구조&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#5개-segment&quot; id=&quot;markdown-toc-5개-segment&quot;&gt;“5개 Segment”&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#code-segment&quot; id=&quot;markdown-toc-code-segment&quot;&gt;“Code Segment”&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#data-segment&quot; id=&quot;markdown-toc-data-segment&quot;&gt;“Data Segment”&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#bss-segment&quot; id=&quot;markdown-toc-bss-segment&quot;&gt;“BSS Segment”&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#stack-segment&quot; id=&quot;markdown-toc-stack-segment&quot;&gt;“Stack Segment”&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#heap-segment&quot; id=&quot;markdown-toc-heap-segment&quot;&gt;“Heap Segment”&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;stage-2&quot;&gt;STAGE 2&lt;/h1&gt;
 
 &lt;h1 id=&quot;background-computer-architecture&quot;&gt;Background: Computer Architecture&lt;/h1&gt;
 
