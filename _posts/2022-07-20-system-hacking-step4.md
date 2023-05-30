@@ -89,7 +89,7 @@ syscall 어셈블리 명령이 실행되면 CPU는 rax부터 쳐다본다. sysca
 
 리눅스 시스템 콜 중 open 시스템 콜의 용법은 아래와 같다.
 
-![Untitled](/assets/img/posts/syshack4/Untitled.jpeg)
+![Untitled](/assets/img/posts/syshack4/Untitled.jpeg){: width="100%" height="100%"}
 
 문서를 읽어 보니
 
@@ -244,7 +244,7 @@ C언어에서 어셈블리어 명령을 끼워넣으려면 `__asm__("one line")`
 
 아무튼, 이렇게 쓰고 컴파일을 돌렸는데…
 
-![어라? 이상한 오류가 생겼다.](/assets/img/posts/syshack4/Untitled%201.jpeg)
+![어라? 이상한 오류가 생겼다.](/assets/img/posts/syshack4/Untitled%201.jpeg){: width="100%" height="100%"}
 
 어라? 이상한 오류가 생겼다.
 
@@ -275,7 +275,7 @@ C언어에서 어셈블리어 명령을 끼워넣으려면 `__asm__("one line")`
 
 이제 `/tmp/flag` 파일을 만들어 그 안에 원하는 내용을(48 바이트 이내) 써둔 후, 컴파일한 셸코드를 실행하면 해당 내용이 콘솔에 출력되게끔 할 수 있다.
 
-![실제로 실행한 결과.](/assets/img/posts/syshack4/Untitled%202.jpeg)
+![실제로 실행한 결과.](/assets/img/posts/syshack4/Untitled%202.jpeg){: width="100%" height="100%"}
 
 실제로 실행한 결과.
 
@@ -365,7 +365,7 @@ run_sh();
 
 결과는 아래와 같았다.
 
-![거짓말처럼 에러가 떴다.](/assets/img/posts/syshack4/Untitled%203.jpeg)
+![거짓말처럼 에러가 떴다.](/assets/img/posts/syshack4/Untitled%203.jpeg){: width="100%" height="100%"}
 
 거짓말처럼 에러가 떴다.
 
@@ -375,7 +375,7 @@ push가 한 번 실행될 때 operand에 오는 값은 일반적으로 주소를
 
 궁금해서 데이터를 8bit씩 나누어 넣어 보았다. 그 결과, gdb를 통해 아래와 같은 실행 현황을 확인할 수 있었다.
 
-![ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ아놔](/assets/img/posts/syshack4/Untitled%204.jpeg)
+![ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ아놔](/assets/img/posts/syshack4/Untitled%204.jpeg){: width="100%" height="100%"}
 
 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ아놔
 
@@ -383,7 +383,7 @@ push가 한 번 실행될 때 operand에 오는 값은 일반적으로 주소를
 
 실제로 문자열의 시작 주소가 들어가게 만들어 둔 rdi의 값을 확인해 보니 아래와 같았다.
 
-![잘라서 인식한다!!!!!!!!!!!](/assets/img/posts/syshack4/Untitled%205.jpeg)
+![잘라서 인식한다!!!!!!!!!!!](/assets/img/posts/syshack4/Untitled%205.jpeg){: width="100%" height="100%"}
 
 잘라서 인식한다!!!!!!!!!!!
 
@@ -398,7 +398,7 @@ push가 한 번 실행될 때 operand에 오는 값은 일반적으로 주소를
 "push rax\n"
 ```
 
-![Untitled](/assets/img/posts/syshack4/Untitled%206.jpeg)
+![Untitled](/assets/img/posts/syshack4/Untitled%206.jpeg){: width="100%" height="100%"}
 
 익스플로잇에 성공할 수 있었다. 아이기뻐.
 
@@ -417,11 +417,11 @@ push가 한 번 실행될 때 operand에 오는 값은 일반적으로 주소를
     
     - 직전의 execve에 사용했던 셸코드를 독립적인 어셈블리 코드로 작성할 수 있게 수정해 execve.asm으로 저장했다.
         
-        ![Untitled](/assets/img/posts/syshack4/Untitled%207.jpeg)
+        ![Untitled](/assets/img/posts/syshack4/Untitled%207.jpeg){: width="100%" height="100%"}
         
     - 위 커맨드를 실행한 결과(elf 형식의 오브젝트 코드로 변환된 대상 코드의 덤프를 뜬 결과):
         
-        ![Untitled](/assets/img/posts/syshack4/Untitled%208.jpeg)
+        ![Untitled](/assets/img/posts/syshack4/Untitled%208.jpeg){: width="100%" height="100%"}
         
     - 이렇게 생성한 오브젝트 코드를 이제 정말로 바이트 코드로 바꿔주고, 해당 코드의 내용을 터미널에 표시한다.
         
@@ -432,7 +432,7 @@ push가 한 번 실행될 때 operand에 오는 값은 일반적으로 주소를
         
         그 결과 아래와 같은 값을 확인할 수 있었고, 출력 내용의 포맷을 없애는 옵션을 달아 당장 복사해 사용할 수 있는 hex 값을 출력하도록 하기도 했다.
         
-        ![Untitled](/assets/img/posts/syshack4/Untitled%209.jpeg)
+        ![Untitled](/assets/img/posts/syshack4/Untitled%209.jpeg){: width="100%" height="100%"}
         
         즉, execve.bin 쉘코드의 바이너리 값은 
         

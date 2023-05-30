@@ -84,7 +84,7 @@ cdecl calling convention을 직접 확인해 보기 위해 리눅스 환경에�
 
 컴파일 결과로 도출된 어셈블리어는 아래와 같았다.
 
-![Untitled](/assets/img/posts/syshack5/Untitled.jpeg)
+![Untitled](/assets/img/posts/syshack5/Untitled.jpeg){: width="100%" height="100%"}
 
 Callee 함수의 어셈블리 코드와 Caller 함수의 어셈블리 코드를 확인할 수 있었다. Caller 내부에서 Callee를 호출했으므로 해당 동작에 집중해 보자.
 
@@ -105,7 +105,7 @@ Caller에서 Callee에게 인자를 전달할 때, 코드 상에서는 Callee(1,
         - 그 외 위에 명시된 Specification/Definition을 이용해 컴파일되는 시스템 전용 정보를 가지고 있음
         - 즉, 컴파일과 매우 밀접한 연관 → 리눅스의 바이너리 파일들은 무조건 SYSV ABI와 연관되어 있음
             
-            ![실제로 file 명령어를 이용해 리눅스의 바이너리 파일들의 종류(타입)을 확인해 본 결과. SYSV에 명시된 규약을 따라 컴파일된 바이너리임을 알 수 있다.](/assets/img/posts/syshack5/Untitled%201.jpeg)
+            ![실제로 file 명령어를 이용해 리눅스의 바이너리 파일들의 종류(타입)을 확인해 본 결과. SYSV에 명시된 규약을 따라 컴파일된 바이너리임을 알 수 있다.](/assets/img/posts/syshack5/Untitled%201.jpeg){: width="100%" height="100%"}
             
             실제로 file 명령어를 이용해 리눅스의 바이너리 파일들의 종류(타입)을 확인해 본 결과. SYSV에 명시된 규약을 따라 컴파일된 바이너리임을 알 수 있다.
             
@@ -127,7 +127,7 @@ SYSV Calling Convention을 gdb로 자세히 알아보자.
 
 아래와 같은 코드를 컴파일하여 실행해 보자.
 
-![Untitled](/assets/img/posts/syshack5/Untitled%202.jpeg)
+![Untitled](/assets/img/posts/syshack5/Untitled%202.jpeg){: width="100%" height="100%"}
 
 컴파일 옵션은 아래와 같았다.
 
@@ -142,7 +142,7 @@ gcc -fno-asynchronous-unwind-tables -masm=intel \
 
 실행 결과 아래와 같은 Context를 확인할 수 있었다.
 
-![Untitled](/assets/img/posts/syshack5/Untitled%203.jpeg)
+![Untitled](/assets/img/posts/syshack5/Untitled%203.jpeg){: width="100%" height="100%"}
 
 Caller는 Callee에게 전달할 인자를 거꾸로 저장한다. 혹시라도 인자를 6개 초과하여 줄 때를 대비해, 즉 스택을 사용할 때를 대비해 전달할 인자를 거꾸로 저장하는 것 같았다.(추측)
 
@@ -150,7 +150,7 @@ Caller는 Callee에게 전달할 인자를 거꾸로 저장한다. 혹시라도 
 
 이제 Callee 함수를 호출하기 전까지 실행해 보자. `b *caller+47` 로 중단점을 걸고 `c` 명령어로 해당 중단점까지 실행하면 된다.
 
-![Untitled](/assets/img/posts/syshack5/Untitled%204.jpeg)
+![Untitled](/assets/img/posts/syshack5/Untitled%204.jpeg){: width="100%" height="100%"}
 
 위의 REGISTER Context를 확인하면 rdi, rsi, rdx, rcx, r8, r9의 레지스터에 전달하고자 하는 인자가 들어가 있고, RSP즉 스택의 맨 꼭대기에 레지스터에 들어가지 못한 인자가 담겨 있음을 볼 수 있다. 
 
@@ -160,7 +160,7 @@ Caller는 Callee에게 전달할 인자를 거꾸로 저장한다. 혹시라도 
 
 이제 si 명령어로 Callee의 내부로 들어가 보자.
 
-![Untitled](/assets/img/posts/syshack5/Untitled%205.jpeg)
+![Untitled](/assets/img/posts/syshack5/Untitled%205.jpeg){: width="100%" height="100%"}
 
 무엇보다 눈에 띄는 건 STACK context에서 확인할 수 있는 스택 구조이다. 
 
@@ -172,11 +172,11 @@ Caller는 Callee에게 전달할 인자를 거꾸로 저장한다. 혹시라도 
         
         +) rbp는 스택 프레임의 밑바닥을 가리키는 포인터이기 때문에 SFP(Stack Frame Pointer)라고도 부른다.
         
-        ![push rbp가 수행되기 직전의 스택 상태. 아직 Caller의 rbp가 저장되지 않았다.](/assets/img/posts/syshack5/Untitled%206.jpeg)
+        ![push rbp가 수행되기 직전의 스택 상태. 아직 Caller의 rbp가 저장되지 않았다.](/assets/img/posts/syshack5/Untitled%206.jpeg){: width="100%" height="100%"}
         
         push rbp가 수행되기 직전의 스택 상태. 아직 Caller의 rbp가 저장되지 않았다.
         
-        ![push rbp가 수행된 직후의 스택 상태. rsp에 현재 rbp의 값이 저장되어 있는 것을 볼 수 있다.](/assets/img/posts/syshack5/Untitled%207.jpeg)
+        ![push rbp가 수행된 직후의 스택 상태. rsp에 현재 rbp의 값이 저장되어 있는 것을 볼 수 있다.](/assets/img/posts/syshack5/Untitled%207.jpeg){: width="100%" height="100%"}
         
         push rbp가 수행된 직후의 스택 상태. rsp에 현재 rbp의 값이 저장되어 있는 것을 볼 수 있다.
         
@@ -185,17 +185,17 @@ Caller는 Callee에게 전달할 인자를 거꾸로 저장한다. 혹시라도 
 
 `push rbp` 다음 인스트럭션인 `push rbp, rsp` 를 실행해 보자. 즉, rsp 값을 rbp에 넣음으로써 **Callee를 위한 새로운 스택 프레임을 할당**하는 것이다.
 
-![rsp와 rbp가 일치하는 상황인 것을 확인할 수 있다. 이렇게 새로운 스택 프레임의 기반이 완성된다!](/assets/img/posts/syshack5/Untitled%208.jpeg)
+![rsp와 rbp가 일치하는 상황인 것을 확인할 수 있다. 이렇게 새로운 스택 프레임의 기반이 완성된다!](/assets/img/posts/syshack5/Untitled%208.jpeg){: width="100%" height="100%"}
 
 rsp와 rbp가 일치하는 상황인 것을 확인할 수 있다. 이렇게 새로운 스택 프레임의 기반이 완성된다!
 
 만일 Callee에서 지역 변수를 선언했다면 스택에 지역 변수를 저장해야 하기 때문에 rsp의 값을 뺄 텐데, 지역 변수를 선언하지 않기 때문에 아래 인스트럭션에서 볼 수 있듯 rsp의 값을 빼지 않고 그대로 진행된다.
 
-![Untitled](/assets/img/posts/syshack5/Untitled%209.jpeg)
+![Untitled](/assets/img/posts/syshack5/Untitled%209.jpeg){: width="100%" height="100%"}
 
 **어? 그런데 이상한 점이 있다. Callee 함수를 다시 보자.**
 
-![Untitled](/assets/img/posts/syshack5/Untitled%202.jpeg)
+![Untitled](/assets/img/posts/syshack5/Untitled%202.jpeg){: width="100%" height="100%"}
 
 **Callee 함수는 ret이라는 지역 변수를 선언한다! 그런데 Callee 함수의 인스트럭션을 보면 rsp에는 변동이 없다.**
 
@@ -205,11 +205,11 @@ rsp와 rbp가 일치하는 상황인 것을 확인할 수 있다. 이렇게 새�
 
 ### 반환값 전달
 
-![Untitled](/assets/img/posts/syshack5/Untitled%2010.jpeg)
+![Untitled](/assets/img/posts/syshack5/Untitled%2010.jpeg){: width="100%" height="100%"}
 
 Callee 함수의 전체 인스트럭션을 살펴 보자. 계속해서 주어진 인자들을 더하다가, 마지막 `<callee+79>` ~ `<callee+91>` 에서 **리턴할 값을 rax에 저장하고, 함수를 마무리**짓고 있다. 즉, **함수의 Epilogue를 확인**할 수 있다. 이제 `<callee+91>`, 즉 함수를 리턴하는 인스트럭션에 중단점을 걸고 rax를 확인해 보자.
 
-![Untitled](/assets/img/posts/syshack5/Untitled%2011.jpeg)
+![Untitled](/assets/img/posts/syshack5/Untitled%2011.jpeg){: width="100%" height="100%"}
 
 Callee에 전달했던 7개 인자의 합을 확인할 수 있다.
 
@@ -217,7 +217,7 @@ Callee에 전달했던 7개 인자의 합을 확인할 수 있다.
 
 반환은 저장해뒀던 Caller의 스택 프레임과 반환 인스트럭션 주소를 꺼내는 과정이다. 
 
-![Untitled](/assets/img/posts/syshack5/Untitled%2012.jpeg)
+![Untitled](/assets/img/posts/syshack5/Untitled%2012.jpeg){: width="100%" height="100%"}
 
 Callee 함수가 지역 변수를 선언하지 않았기 때문에(리턴값을 담는 변수 제외) 스택 프레임을 만들지 않았고, 따라서 단순히 pop rbp로만 스택 프레임을 꺼내고 끝나는 것을 확인할 수 있다. 그러나, 일반적인 경우-즉, 지역 변수를 선언하는 경우에는 스택 프레임이 생성되었기 때문에 leave로 스택 프레임을 꺼낸다는 점을 꼭 염두에 두자.
 
@@ -227,11 +227,11 @@ Callee 함수가 지역 변수를 선언하지 않았기 때문에(리턴값을 
 
 스택 프레임을 꺼낸 이후에는 ret으로 Caller에게 복귀한다. 복귀할 때 변화하는 것은 앞서 설명했듯 rbp와 rip이므로 ret 인스트럭션을 수행한 직후 그 둘을 살펴보았다.
 
-![rbp가 Caller의 rbp로 바뀐 모습.](/assets/img/posts/syshack5/Untitled%2013.jpeg)
+![rbp가 Caller의 rbp로 바뀐 모습.](/assets/img/posts/syshack5/Untitled%2013.jpeg){: width="100%" height="100%"}
 
 rbp가 Caller의 rbp로 바뀐 모습.
 
-![rip가 리턴 주소로 설정되어 있는 모습.](/assets/img/posts/syshack5/Untitled%2014.jpeg)
+![rip가 리턴 주소로 설정되어 있는 모습.](/assets/img/posts/syshack5/Untitled%2014.jpeg){: width="100%" height="100%"}
 
 rip가 리턴 주소로 설정되어 있는 모습.
 

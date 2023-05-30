@@ -248,7 +248,7 @@ permalink: /blog/dreamhack_system_hacking/step3-2
     
     결과:
     
-    ![Untitled](/assets/img/posts/syshack3-2/Untitled.jpeg)
+    ![Untitled](/assets/img/posts/syshack3-2/Untitled.jpeg){: width="100%" height="100%"}
     
 
 ---
@@ -257,17 +257,17 @@ permalink: /blog/dreamhack_system_hacking/step3-2
 
 아래의 코드에서 get_shell() 함수를 실행시키는 것이 목적이다. (시스템 해킹의 목적은 셸을 딴 후 루트 권한을 탈취하는 것이기 때문이다)
 
-![Untitled](/assets/img/posts/syshack3-2/Untitled%201.jpeg)
+![Untitled](/assets/img/posts/syshack3-2/Untitled%201.jpeg){: width="100%" height="100%"}
 
 먼저 이전에 배웠던 내용을 다시 돌아볼 필요가 있다. 
 
 어떤 함수의 스택 프레임이 생성될 때 직전까지 rip가 위치해 있던 함수의 스택 프레임과의 관계는 아래와 같다.
 
-![Untitled](/assets/img/posts/syshack3-2/Untitled%202.jpeg)
+![Untitled](/assets/img/posts/syshack3-2/Untitled%202.jpeg){: width="100%" height="100%"}
 
 또한 리눅스의 프로세스에게 할당되는 메모리 구조는 아래와 같다.
 
-![Untitled](/assets/img/posts/syshack3-2/Untitled%203.jpeg)
+![Untitled](/assets/img/posts/syshack3-2/Untitled%203.jpeg){: width="100%" height="100%"}
 
 이제 배운 내용을 기반으로 하여 주어진 문제를 어떻게 해결할지 계획을 세워 보자.
 
@@ -290,13 +290,13 @@ permalink: /blog/dreamhack_system_hacking/step3-2
 
 이제 gdb를 이용해 get_shell() 함수의 위치를 알아내 보자. 
 
-![Untitled](/assets/img/posts/syshack3-2/Untitled%204.jpeg)
+![Untitled](/assets/img/posts/syshack3-2/Untitled%204.jpeg){: width="100%" height="100%"}
 
 딱히 난독화하지 않았기 때문에 심볼이 그대로 살아 있다. 브레이크 포인트를 get_shell에 걺으로써 get_shell의 주소를 알아낼 수 있었다.
 
 추가적으로, main() 함수의 주소는 아래와 같다.
 
-![Untitled](/assets/img/posts/syshack3-2/Untitled%205.jpeg)
+![Untitled](/assets/img/posts/syshack3-2/Untitled%205.jpeg){: width="100%" height="100%"}
 
 코드상에서 get_shell보다 아래에 main이 쓰여 있었기 때문에 메모리의 코드 영역에도 main이 get_shell보다 뒤에 로딩된 것을 확인할 수 있다.
 
@@ -304,7 +304,7 @@ permalink: /blog/dreamhack_system_hacking/step3-2
 
 위에서 짚어본 것처럼, 새롭게 콜된 함수의 스택 프레임과 이전 함수의 스택 프레임 간의 관계는 아래와 같다.
 
-![Untitled](/assets/img/posts/syshack3-2/Untitled%202.jpeg)
+![Untitled](/assets/img/posts/syshack3-2/Untitled%202.jpeg){: width="100%" height="100%"}
 
 스택에는 로컬 변수가 저장되기 때문에 우리가 BOF의 매개로 사용하는 buf[0x28] 변수 또한 스택에 있을 것을 예상하고 있다. 또한 변수는 선언된 순서대로 스택에 들어가므로 buf 변수는 main 함수의 rbp에 위치해 있을  것이다. 따라서 우리가 익스플로잇할 당시의 스택의 구조는 아래와 같다.
 
@@ -338,7 +338,7 @@ permalink: /blog/dreamhack_system_hacking/step3-2
 
 주어진 함수를 gcc로 컴파일할 때 스택 카나리를 끄고(-fno-stack-protector) PIE를 끔으로써 ASLR도 적용되지 않도록(-no-pie) 해두었기 때문에 아마 스택의 구조는 비교적 간단할 것이다. 목표 프로세스인 `rao` 에 gdb를 붙여서 사용자 입력값을 받고 저장하는 시점의 스택의 구조를 해당 시점에서의 rbp까지 포함되도록 확인해 보았다.
 
-![Untitled](/assets/img/posts/syshack3-2/Untitled%206.jpeg)
+![Untitled](/assets/img/posts/syshack3-2/Untitled%206.jpeg){: width="100%" height="100%"}
 
 흰색으로 하이라이트한 부분, 즉 `0x7fffffffdf80` 이 rbp이며, 스택의 구조 자체는 예상했던 바와 일치함을 확인할 수 있었다. 그러나, 딱 한 가지 다른 부분이 있었다.
 

@@ -117,7 +117,7 @@ printf(buf);
 
 그렇다면 `printf` 함수에서 인자는 어떤 식으로 전달될까? 익스플잇할 대상 프로그램에 직접 디버거를 붙여 확인해 보았다.
 
-![Untitled](/assets/img/posts/format1/Untitled.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled.jpeg){: width="100%" height="100%"}
 
 - `rdi` , 즉 첫 번째 인자로 프린트할 스트링의 시작 주소가 주어졌고
 - `rsi` , 즉 두번째 인자로 현재 프로세스의 적재 위치가 주어졌다.
@@ -162,21 +162,21 @@ printf(buf);
 
 **주의:** `argv[1][0]` 은 사실 아래 그림과 같은 식으로 존재하지 않는다. 아무래도 이중 배열이니 `argv[0]` 이 진짜로 있는 곳 바로 아래에 `argv[1]` 이 있고, 그게 가리키는 곳에 `argv[1][0]` 이 있을 거라… `main` 의 스택 프레임 내부에서 `argv[1][0]` 이 보일 리가 없다. 그러나 설명의 용이를 위해 아래와 같이 그린 점 감안해 주십사…
 
-![Untitled](/assets/img/posts/format1/Untitled%201.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%201.jpeg){: width="100%" height="100%"}
 
  `vuln` 함수가 콜되었을 때의 스택 프레임이다. 함수를 시작할 때 패스했던 인자의 시작 주소는 이중 배열인 `argv` 의 두 번째 인덱스에 저장되고, 이 시작 주소 `argv[1][0]` 은 `vuln()` 함수에게 인자로 전달된다. 
 
-![Untitled](/assets/img/posts/format1/Untitled%202.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%202.jpeg){: width="100%" height="100%"}
 
 그리고 `vuln()` 스택 프레임 안에서 `printf()` 함수를 콜했을 때의 스택 프레임이다. `printf()` 에게 첫 번째 인자로 주어진 `string`, 실제로는 `argv[1][0]` 가 포인터의 형태로 `rdi` 에 들어간 것을 확인할 수 있다.
 
-![Untitled](/assets/img/posts/format1/Untitled%203.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%203.jpeg){: width="100%" height="100%"}
 
 그렇다면 `format1` 프로그램에게 인자로 `%5$p.%4$x.$n` 을 준다면 어떻게 될까? 아래 사진은 읽어들인 내용이 모두 보이도록 `%{int}${format}` 의 형식을 취하지 않았고, 균일한 형식으로 보이게 하기 위해 동일한 `%p` 포맷 스트링을 사용했으나 개수를 기준으로 설명하겠다.
 
-![Untitled](/assets/img/posts/format1/Untitled%204.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%204.jpeg){: width="100%" height="100%"}
 
-![Untitled](/assets/img/posts/format1/Untitled%205.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%205.jpeg){: width="100%" height="100%"}
 
 직전의 스택 프레임 사진을 고려하면 
 
@@ -199,21 +199,21 @@ printf(buf);
 
 이를 알기 위해 pwndbg를 붙여 main을 디스어셈블해서 전체적인 흐름을 파악하고 실제로 실행해서 스택 구성이 어떻게 되었는지 확인해 보았다.
 
-![main 함수의 디스어셈블 결과.](/assets/img/posts/format1/Untitled%206.jpeg)
+![main 함수의 디스어셈블 결과.](/assets/img/posts/format1/Untitled%206.jpeg){: width="100%" height="100%"}
 
 main 함수의 디스어셈블 결과.
 
 하얗게 하이라이트가 된 부분이 바로 `argv[0][0]` 의 위치다. 바로 위의 `rbp-0x4` 는 확보한 공간으로 미루어볼 때 int type인 argv일 것이다. 그렇다면 `argv[1][0]` 은 아마 `argv[0][0]` 의 바로 다음 바이트에 있을 것이다. `argv` 는 `char **` 타입이기 때문이다. 그렇다면 당연히 확보 공간도 1바이트겠지!
 
-![Untitled](/assets/img/posts/format1/Untitled%207.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%207.jpeg){: width="100%" height="100%"}
 
 `rbp-0x10` 이 `rsp` 의 위치인 것을 확인했다. 이중배열답게 두 번 참조한 모습이다. 따라서 `argv[1]` 은 `0x7fffffffe088` 의 바로 다음 주소인 `0x7fffffffe090` 일 것이다. 그리고 해당 주소에 담긴 값이 바로 `argv[1][0]` 일 테다.
 
-![Untitled](/assets/img/posts/format1/Untitled%208.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%208.jpeg){: width="100%" height="100%"}
 
 `0x7fffffffe3f0` 이 `argv[1][0]` 의 주소임을 확인했다. 해당 주소에 정말로 내가 인자로 입력했던 문자열이 저장되어 있는지 확인해 보았다.
 
-![Untitled](/assets/img/posts/format1/Untitled%209.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%209.jpeg){: width="100%" height="100%"}
 
 확인 완료!
 
@@ -225,11 +225,11 @@ main 함수의 디스어셈블 결과.
 
 즉, 만약 5개의 레지스터 + 142개의 주소를 읽어 온다면 맨 마지막에 내가 입력해준 문자열인 ‘AAAAAAAA’가 확인될 것이다. 예상이 맞는지 직접 프로그램에 인자를 주어 실행해 보았다.
 
-![Untitled](/assets/img/posts/format1/Untitled%2010.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%2010.jpeg){: width="100%" height="100%"}
 
 어? 내 입력값을 읽어온 건 맞는데…. 처음 4바이트가 잘렸다. 왜지?
 
-![Untitled](/assets/img/posts/format1/Untitled%2011.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%2011.jpeg){: width="100%" height="100%"}
 
 아하… 입력값 길이가 달라지면 문자열의 시작 주소도 달라지는 모양이다.(이걸 보고 스택의 높이가 변한다고 하고(참), root 계정으로 파이썬 익스플로잇을 만들어야 스택의 높이가 변하지 않는다고 하더라(확인되지 않음. 정말 카더라임) )
 
@@ -239,15 +239,15 @@ main 함수의 디스어셈블 결과.
 
 아무튼, 근사치를 구해 보면,
 
-![Untitled](/assets/img/posts/format1/Untitled%2012.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%2012.jpeg){: width="100%" height="100%"}
 
 아무래도 뒤의 A 4개 대신 `target`의 주소를 넣는 게 맞을 것 같다. `target`의 주소는 objdump를 떠서도 구할 수 있는데, 나는 pwndbg를 이용해 구했다.
 
-![Untitled](/assets/img/posts/format1/Untitled%2013.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%2013.jpeg){: width="100%" height="100%"}
 
 `0x0060103c`인 것으로 확인되었다.
 
-![Untitled](/assets/img/posts/format1/Untitled%2014.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%2014.jpeg){: width="100%" height="100%"}
 
 64비트 환경에서 포인터 타입의 데이터는 1byte로 인식되기 때문에, `0x000000000060103c` 를 입력값으로 넣을 수 있도록…. 했는데
 
@@ -275,7 +275,7 @@ main 함수의 디스어셈블 결과.
 
 length=x(null 제외) 문자열을 넣었을 때
 
-![Untitled](/assets/img/posts/format1/Untitled%2015.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%2015.jpeg){: width="100%" height="100%"}
 
 문자열의 끝 주소: 0x7fffffffe401인데 null이 여기 오는 거 감안하면 0x7fffffffe400을 끝 주소로 봐도 무방함 
 
@@ -293,10 +293,10 @@ length=x(null 제외) 문자열을 넣었을 때
 
 그러나 논리상 맞는데 이상하게 오차가 생겼다. 왜인지 확인해 보니…
 
-![Untitled](/assets/img/posts/format1/Untitled%2016.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%2016.jpeg){: width="100%" height="100%"}
 
 입력값 길이가 달라지면… 달라진 입력값 길이/8 을 올림한 만큼…. 스택은 더 위로 이동하는 것 같았다. 이곳저곳에 조언을 구해 보니, 입력값이 늘어나면 늘어날수록 시스템이 더 큰 공간을 할당해 주고, 거기에 문제가 없도록 여유 공간 또한 주기 때문에 스택 프레임의 위치가 더 위로 이동하게 된다고 하더라. (아래 그림과 위 그림 비교)
 
-![Untitled](/assets/img/posts/format1/Untitled%205.jpeg)
+![Untitled](/assets/img/posts/format1/Untitled%205.jpeg){: width="100%" height="100%"}
 
 그래서 그것까지 계산하느니 그냥 근사값 가지고 때려 맞추는 게 더 나을 것 같아서 수학적 계산은 그만뒀다.

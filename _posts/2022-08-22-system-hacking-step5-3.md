@@ -72,11 +72,11 @@ int main(){
 
 해당 프로그램을 컴파일한 후, gdb에 물려 스택의 상황과 인스트럭션을 확인해 보았더니 아래와 같았다.
 
-![main 함수에서 선언된 지역 변수의 크기는 0x28인데, 스택은 0x30만큼을 확보하는 모습.](/assets/img/posts/syshack53/Untitled.jpeg)
+![main 함수에서 선언된 지역 변수의 크기는 0x28인데, 스택은 0x30만큼을 확보하는 모습.](/assets/img/posts/syshack53/Untitled.jpeg){: width="100%" height="100%"}
 
 main 함수에서 선언된 지역 변수의 크기는 0x28인데, 스택은 0x30만큼을 확보하는 모습.
 
-![흰색 블록 처리된 부분의 왼쪽은 SFP, 오른쪽은 rip ret add 이다.](/assets/img/posts/syshack53/Untitled%201.jpeg)
+![흰색 블록 처리된 부분의 왼쪽은 SFP, 오른쪽은 rip ret add 이다.](/assets/img/posts/syshack53/Untitled%201.jpeg){: width="100%" height="100%"}
 
 흰색 블록 처리된 부분의 왼쪽은 SFP, 오른쪽은 rip ret add 이다.
 
@@ -88,7 +88,7 @@ main 함수에서 선언된 지역 변수의 크기는 0x28인데, 스택은 0x3
 
 이제 get_shell의 주소를 구해 보자.
 
-![Untitled](/assets/img/posts/syshack53/Untitled%202.jpeg)
+![Untitled](/assets/img/posts/syshack53/Untitled%202.jpeg){: width="100%" height="100%"}
 
 `0x4011dd` 로 확인되었다. 
 
@@ -98,13 +98,13 @@ main 함수에서 선언된 지역 변수의 크기는 0x28인데, 스택은 0x3
 
 ## 3. 익스플로잇 코드 작성하기
 
-![작성한 익스플로잇 코드.](/assets/img/posts/syshack53/Untitled%203.jpeg)
+![작성한 익스플로잇 코드.](/assets/img/posts/syshack53/Untitled%203.jpeg){: width="100%" height="100%"}
 
 작성한 익스플로잇 코드.
 
 위의 코드를 실행한 결과는 아래와 같았다.
 
-![쉘을 획득하는 데 성공했다.](/assets/img/posts/syshack53/Untitled%204.jpeg)
+![쉘을 획득하는 데 성공했다.](/assets/img/posts/syshack53/Untitled%204.jpeg){: width="100%" height="100%"}
 
 쉘을 획득하는 데 성공했다.
 
@@ -137,7 +137,7 @@ main 함수에서 선언된 지역 변수의 크기는 0x28인데, 스택은 0x3
 
 프로그램을 실행한 후, 프로그램의 입장에서는 말도 안 될 만큼 긴 입력(64byte)를 줘 보았다. 
 
-![Untitled](/assets/img/posts/syshack53/Untitled%205.jpeg)
+![Untitled](/assets/img/posts/syshack53/Untitled%205.jpeg){: width="100%" height="100%"}
 
 그 결과, ‘Segmentation fault’ 라는 에러가 출력되면서 프로그램이 강제 종료된다. Segmentation은 앞에서 배웠듯 운영체제가 관리하는 프로세스의 메모리 구조인데, 이러한 구조에 문제가 생겼다는 뜻으로 해석된다. 
 
@@ -179,5 +179,5 @@ main 함수에서 선언된 지역 변수의 크기는 0x28인데, 스택은 0x3
 > C언어에서 자주 사용되는 문자열 입력 함수들의 패턴을 알고, 적절히 사용해야 한다.
 > 
 
-![Untitled](/assets/img/posts/syshack53/Untitled%206.jpeg)
+![Untitled](/assets/img/posts/syshack53/Untitled%206.jpeg){: width="100%" height="100%"}
 - 널 종결: 문자열의 끝에 널이 있어서 문자열의 끝이 명시되는 것.

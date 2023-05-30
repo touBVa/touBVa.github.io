@@ -27,7 +27,7 @@ permalink: /blog/dreamhack_system_hacking/step6/ssp_001
 
 먼저 `ssp_001` 바이너리에 gdb를 물려 해당 바이너리 내부에서 사용되었던 functions들의 목록을 찾아 보았다. 바이너리가 ripped 되지 않았고, 난독화되지 않은 상태라면 쉽게 functions들의 목록을 불러올 수 있을 것이다.
 
-![Untitled](/assets/img/posts/ssp_001/Untitled.jpeg)
+![Untitled](/assets/img/posts/ssp_001/Untitled.jpeg){: width="100%" height="100%"}
 
 당장 확인되는 functions들 중 눈에 띄는 건 `system@plt` 와 `get_shell` 이다. 전자가 존재한다는 것은 타겟 시스템에 ASLR이 걸려 있더라도 got, plt overwrite 방식으로 우회하여 쉘을 딸 수 있다는 의미이고, 후자는 누가 봐도 함수의 코드 플로우를 조작해 접근해야 하는 목표물처럼 보이기 때문이다.
 
@@ -39,7 +39,7 @@ permalink: /blog/dreamhack_system_hacking/step6/ssp_001
 
 카나리를 다루는 모습이다. 32비트 프로그램이므로 `ebp-0x8` 에 `gs:0x14` 가 들어간다. 관련한 내용은 [여기](https://toubva.github.io/blog/dreamhack_system_hacking/step6-1#/)에서 복습하자!
 
-![Untitled](/assets/img/posts/ssp_001/Untitled%201.jpeg)
+![Untitled](/assets/img/posts/ssp_001/Untitled%201.jpeg){: width="100%" height="100%"}
 
 <br>
 
@@ -47,11 +47,11 @@ permalink: /blog/dreamhack_system_hacking/step6/ssp_001
 
 해당 바이너리의 실행 모습(선택지가 나오고, 사용자가 선택한 선택지에 따라 다른 내용의 프로그램 branch가 전개되는 형식)을 감안했을 때, 아마 main 함수 혹은 선택지를 제시하기 위해 call 되는 함수 내부에는 최소 3개 이상의 cmp-jmp 구문이 존재할 것이다. 해당 구간을 찾아 보았다.
 
-![Untitled](/assets/img/posts/ssp_001/Untitled%202.jpeg)
+![Untitled](/assets/img/posts/ssp_001/Untitled%202.jpeg){: width="100%" height="100%"}
 
 추측이 맞았다. 3개의 cmp-jmp 쌍이 존재했고, 각각의 쌍은 main 함수의 특정 부분으로 점프하는 모습을 보여준다. main 함수 내부에서 모든 작업이 이루어지는 것으로 생각되며, 해당 구문은 if - if - if - else 형식의 문법을 취하고 있는 것으로 보인다. 또한 cmp하는 대상이 각각 아스키 코드로 ‘F’, ‘P’, ‘E’인 것으로 봤을 때, 프로그램을 실행했을 때 바로 나오는 아래의 선택지 부분임을 알 수 있다.
 
-![Untitled](/assets/img/posts/ssp_001/Untitled%203.jpeg)
+![Untitled](/assets/img/posts/ssp_001/Untitled%203.jpeg){: width="100%" height="100%"}
 
 이제 각 선택지에 따른 동작을 확인해 보자.
 
@@ -61,7 +61,7 @@ permalink: /blog/dreamhack_system_hacking/step6/ssp_001
 
 선택지 P의 경우인 어셈블리 라인은 `main+192` 부터 시작하므로 `main+155~main+187` 까지의 라인이 선택지 F에 해당된다.
 
-![Untitled](/assets/img/posts/ssp_001/Untitled%204.jpeg)
+![Untitled](/assets/img/posts/ssp_001/Untitled%204.jpeg){: width="100%" height="100%"}
 
 해당 라인의 핵심은 `read` 함수와 연관이 깊어 보인다. `read(0, eax([ebp-0x88]), 0x40)` 을 호출하는 정황으로 미루어 보았을 때, 사용자의 input 0x40개를 `ebp-0x88` 에 저장하는 것으로 보인다. 아마 실제 소스에서는 `read(0, buf, 0x40)`쯤 될 것이다.
 
@@ -69,7 +69,7 @@ permalink: /blog/dreamhack_system_hacking/step6/ssp_001
 
 ### 1.2.3. 선택지 [P]의 경우
 
-![Untitled](/assets/img/posts/ssp_001/Untitled%205.jpeg)
+![Untitled](/assets/img/posts/ssp_001/Untitled%205.jpeg){: width="100%" height="100%"}
 
 선택지 P를 처리하는 어셈블리 라인에서는 주목할 만한 행위 두 가지가 보인다. 바로 `scanf("{some words}{format_string}", *(ebp-0x94))` 와 `print_box` 를 콜하는 것이다. 먼저 `ebp-0x94` 에 저장되는 것은 어셈블리어만을 보고 알 수는 없다. 32비트 환경에서의 주소값과 int 값은 동일한 4byte로 어셈블리어 상에서 구분이 안 되기 때문이다. 따라서 동적으로 분석해야만 한다. 그 결과, `ebp-0x94` 에는 int가 저장되는 것을 확인할 수 있었다.
 
@@ -77,7 +77,7 @@ permalink: /blog/dreamhack_system_hacking/step6/ssp_001
 
 그렇다면 이제 `print_box(ebp-0x88, ebp-0x94)` 가 어떤 일을 하는지 알아보자.  
 
-![Untitled](/assets/img/posts/ssp_001/Untitled%206.jpeg)
+![Untitled](/assets/img/posts/ssp_001/Untitled%206.jpeg){: width="100%" height="100%"}
 
 `ebp-0xc` 는 인자로 줬던 `ebp-0x94` 가 저장된 곳이고, `ebp-0x8`은 인자로 줬던 `ebp-0x88`이 저장된 곳이다. 
 
@@ -89,7 +89,7 @@ permalink: /blog/dreamhack_system_hacking/step6/ssp_001
 
 ### 1.2.4. 선택지 [E]의 경우
 
-![Untitled](/assets/img/posts/ssp_001/Untitled%207.jpeg)
+![Untitled](/assets/img/posts/ssp_001/Untitled%207.jpeg){: width="100%" height="100%"}
 
 `scanf`와 `read`함수를 사용하는 것이 눈에 띈다. 아까부터 각 branch별로 특정 함수들을 강조하는데, 그 이유는 이들이 사용자와 interaction하는, 취약성을 내재할 확률이 가장 큰 부분이기 때문이다.
 
@@ -116,7 +116,7 @@ permalink: /blog/dreamhack_system_hacking/step6/ssp_001
 - F 옵션: 사용자의 입력을 buf에 저장한다.
 - P 옵션: 사용자의 int type 입력 x 를 받아 buf[x]를 참조해 출력한다. 여기에서 OOB로 인한 Memory Leak이 가능하다. (아래 사진 참고-buf는 0x40 길이이므로 인덱스의 한계는 63이지만 70번 인덱스에 접근 가능하다)
     
-    ![Untitled](/assets/img/posts/ssp_001/Untitled%208.jpeg)
+    ![Untitled](/assets/img/posts/ssp_001/Untitled%208.jpeg){: width="100%" height="100%"}
     
 - E 옵션: 사용자로부터 입력값의 길이 y를 받고, read 함수로 y 만큼의 입력을 받아 buf2에 저장한다. 해당 작업이 끝나면 프로그램을 종료한다. 여기에서 잘못된 boundary check로 인한 BOF 취약점이 발생한다.
 
@@ -126,7 +126,7 @@ permalink: /blog/dreamhack_system_hacking/step6/ssp_001
 
 1. 해당 프로그램에 걸려 있는 보호 기법의 목록
     
-    ![Untitled](/assets/img/posts/ssp_001/Untitled%209.jpeg)
+    ![Untitled](/assets/img/posts/ssp_001/Untitled%209.jpeg){: width="100%" height="100%"}
     
     - ASLR은 꺼져 있을 것이다.(현재 커리큘럼상)
     - NX enabled 이므로 스택에는 실행 권한이 없다. 즉, RTL이나 PLT&GOT overwrite 등으로 우회해야만 한다.
@@ -151,23 +151,23 @@ permalink: /blog/dreamhack_system_hacking/step6/ssp_001
 
 P 옵션을 줬을 때 읽어오는 항목인 box 배열의 시작 지점이 스택의 어디에 할당되었는지 확인해 보자.
 
-![Untitled](/assets/img/posts/ssp_001/Untitled%2010.jpeg)
+![Untitled](/assets/img/posts/ssp_001/Untitled%2010.jpeg){: width="100%" height="100%"}
 
 ebp-0x88 지점이다.
 
 그렇다면 스택 카나리는 어디에 저장되는지 확인해 보자.
 
-![Untitled](/assets/img/posts/ssp_001/Untitled%2011.jpeg)
+![Untitled](/assets/img/posts/ssp_001/Untitled%2011.jpeg){: width="100%" height="100%"}
 
 ebp-0x8 지점이다.
 
 즉, box[0x80] 지점이 스택 카나리의 시작점일 것으로 추정된다. 정말인지 확인해 보자.
 
-![Untitled](/assets/img/posts/ssp_001/Untitled%2012.jpeg)
+![Untitled](/assets/img/posts/ssp_001/Untitled%2012.jpeg){: width="100%" height="100%"}
 
 메모리를 낮은 주소에서부터 읽어오는 점, 그리고 현재 프로세서가 리틀 엔디안이라는 점을 감안하면 아마 스택 카나리의 값은 0x1e831700일 것이다.
 
-![Untitled](/assets/img/posts/ssp_001/Untitled%2013.jpeg)
+![Untitled](/assets/img/posts/ssp_001/Untitled%2013.jpeg){: width="100%" height="100%"}
 
 실제로 확인해 보니 일치하는 것을 알 수 있었다.
 
@@ -179,7 +179,7 @@ ebp-0x8 지점이다.
 
 E 옵션을 줬을 때, 사용자가 입력할 길이를 지정하게 한 다음 입력을 받는다. 그렇다면 사용자의 입력을 받아 저장하는 버퍼의 위치는 어디일까?
 
-![Untitled](/assets/img/posts/ssp_001/Untitled%2014.jpeg)
+![Untitled](/assets/img/posts/ssp_001/Untitled%2014.jpeg){: width="100%" height="100%"}
 
  read 함수의 두번째 인자로 저장될 버퍼의 주소가 들어가므로 현재 `main+302` 에서 `eax` 에 들어간 `ebp-0x48` 이 인자가 저장될 주소이다.
 
@@ -197,9 +197,9 @@ E 옵션을 줬을 때, 사용자가 입력할 길이를 지정하게 한 다음
 
 1.1.에서 확인한 함수들의 이름 중 수상한 것이 두 개 있었다. 바로 `system` 과 `get_shell` 이었다. 전자를 사용할 수도 있지만 후자를 한 번 확인해 보고, 둘 중 무엇으로 코드 플로우를 변경하는 것이 효율적일지 고민해 보자.
 
-![Untitled](/assets/img/posts/ssp_001/Untitled%2015.jpeg)
+![Untitled](/assets/img/posts/ssp_001/Untitled%2015.jpeg){: width="100%" height="100%"}
 
-![Untitled](/assets/img/posts/ssp_001/Untitled%2016.jpeg)
+![Untitled](/assets/img/posts/ssp_001/Untitled%2016.jpeg){: width="100%" height="100%"}
 
 진짜로 KTX 타고 백덤블링하면서 봐도 system(”/bin/sh”)를 실행해 주는 함수다.
 

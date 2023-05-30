@@ -98,13 +98,13 @@ int main()
 
 puts의 got 위치를 찾는 방법은 아래와 같다.
 
-![Untitled](/assets/img/posts/pltgot/Untitled%201.jpeg)
+![Untitled](/assets/img/posts/pltgot/Untitled%201.jpeg){: width="100%" height="100%"}
 
 pwndbg를 이용해 `disas main`을 하면, main+121지점에서 puts를 콜할 때 명시적 주소를 콜하는 것을 확인할 수 있다.
 
 이 때 0x400520에는 무엇이 있길래 그쪽으로 rip를 이동시켜 주는 걸까? 직접 알아보면 아래와 같은 결과를 볼 수 있다.
 
-![Untitled](/assets/img/posts/pltgot/Untitled%202.jpeg)
+![Untitled](/assets/img/posts/pltgot/Untitled%202.jpeg){: width="100%" height="100%"}
 
 **plt는 got의 특정 위치에 저장된 puts 함수의 주소로 rip를 포워딩**해 주는 역할을 하고 있었다. 
 
@@ -116,7 +116,7 @@ jmp 인스트럭션이 위치한 `0x400520` 이 아닌 바로 다음 인스트�
 
  
 
-![Untitled](/assets/img/posts/pltgot/Untitled%203.jpeg)
+![Untitled](/assets/img/posts/pltgot/Untitled%203.jpeg){: width="100%" height="100%"}
 
 got의 `0x601018` 지점에는 `0x400526`이 저장되어 있었고, `0x400526`으로 이동하면 `0x601010`으로 점프하게 되어 있다. `0x601010`은 `0x601018`과 값이 가깝기 때문에 아마 got의 일부분일 것으로 예상되어 `0x601010` 지점에 저장된 값 `0x7ffff7dea8f0` 주소의 인스트럭션을 확인해 보니 `dl_resolve` 계열의 함수임을 알 수 있었다.
 
@@ -192,4 +192,4 @@ p.interactive()
 
 익스플로잇을 실행한 결과 아래와 같이 쉘을 딸 수 있었다.
 
-![Untitled](/assets/img/posts/pltgot/Untitled%204.jpeg)
+![Untitled](/assets/img/posts/pltgot/Untitled%204.jpeg){: width="100%" height="100%"}

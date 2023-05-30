@@ -53,7 +53,7 @@ permalink: /blog/dreamhack_system_hacking/step4-2
 
 어셈블리어로 먼저 작성한 후, 기계어로 변환한 값을 넣어야 주어진 코드가 실행할 수 있을 것이다.
 
-![Untitled](/assets/img/posts/syshack42/Untitled.jpeg)
+![Untitled](/assets/img/posts/syshack42/Untitled.jpeg){: width="100%" height="100%"}
 
 위의 사진과 같이 선언된 부분에 내가 작성한 코드가 올라가고, 해당 코드의 시작 부분부터 종료까지를 실행하는 구조이기 때문이다.(나도 태어나서 이런 식으로 포인터 자료형을 바꾸어 데이터를 코드로 읽게끔 하는 플로우는 처음 보았기 때문에, 코드를 이해하며 많이 배웠다)
 
@@ -127,13 +127,13 @@ xxd execve.bin
 xxd -i execve.bin
 ```
 
-![마지막 명령어까지 수행한 결과. hex값이 출력되었다.](/assets/img/posts/syshack42/Untitled%201.jpeg)
+![마지막 명령어까지 수행한 결과. hex값이 출력되었다.](/assets/img/posts/syshack42/Untitled%201.jpeg){: width="100%" height="100%"}
 
 마지막 명령어까지 수행한 결과. hex값이 출력되었다.
 
 그렇게 나온 hex값을 쉘코드 형태로 가공해 입력해 보았다. 그 결과,
 
-![아니 외않되](/assets/img/posts/syshack42/Untitled%202.jpeg)
+![아니 외않되](/assets/img/posts/syshack42/Untitled%202.jpeg){: width="100%" height="100%"}
 
 아니 외않되
 
@@ -178,19 +178,19 @@ push r8
 
 해당 어셈블리어를 어셈블한 결과는 아래와 같았다.
 
-![Untitled](/assets/img/posts/syshack42/Untitled%203.jpeg)
+![Untitled](/assets/img/posts/syshack42/Untitled%203.jpeg){: width="100%" height="100%"}
 
 해당 결과를 파이프를 이용해 텍스트 파일에 저장하고, 쉘코드 형태로 가공한 후 원격 서버에 입력해 보았다.
 
 그 결과,
 
-![아외또않되](/assets/img/posts/syshack42/Untitled%204.jpeg)
+![아외또않되](/assets/img/posts/syshack42/Untitled%204.jpeg){: width="100%" height="100%"}
 
 아외또않되
 
 안된다… C 언어로 짠 스켈레톤 코드에 올려서 gdb를 붙여서 확인해 봤는데, 분명히 제대로 되고 있었다. 심지어 flag 파일의 경로에 해당 파일을 만들어서 컴파일된 프로그램을 돌려 보았더니 제대로 파일의 값이 읽혀 나왔던 것까지 확인했는데 말이다.
 
-![로컬 환경에서는 제대로 되는 모습을 확인.](/assets/img/posts/syshack42/Untitled%205.jpeg)
+![로컬 환경에서는 제대로 되는 모습을 확인.](/assets/img/posts/syshack42/Untitled%205.jpeg){: width="100%" height="100%"}
 
 로컬 환경에서는 제대로 되는 모습을 확인.
 

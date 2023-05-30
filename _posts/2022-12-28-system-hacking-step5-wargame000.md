@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
 
 <br>
 
-![Untitled](/assets/img/posts/basic_exploitation_000/Untitled.jpeg)
+![Untitled](/assets/img/posts/basic_exploitation_000/Untitled.jpeg){: width="100%" height="100%"}
 
 먼저 기존의 방법이다. 기존의 방법이 자주 사용되는 이유는, esp의 위치를 고려하기 편하기 때문이었다. 직전 함수의 epilogue로 인해 자동으로 esp가 ebp가 가리키던 위치를 가리키게 된다는 점이 핵심이다.
 
@@ -91,11 +91,11 @@ int main(int argc, char *argv[]) {
 
  <br>
 
-![Untitled](/assets/img/posts/basic_exploitation_000/Untitled%201.jpeg)
+![Untitled](/assets/img/posts/basic_exploitation_000/Untitled%201.jpeg){: width="100%" height="100%"}
 
 바로 위의 그림처럼 말이다. 그러나 해당 방법이 성공하려면 stack에 execute 권한이 있어야 한다. 즉, NX-bit가 걸려있지 않아야 한다. gdb를 이용해 스택의 권한을 확인해 보자.
 
-![Untitled](/assets/img/posts/basic_exploitation_000/Untitled%202.jpeg)
+![Untitled](/assets/img/posts/basic_exploitation_000/Untitled%202.jpeg){: width="100%" height="100%"}
 
 가장 아래의 [stack]에는 read, write, execution 권한이 있고, private(copy on write)로 설정되어 있다. p가 올 자리에 s가 왔다면 그건 프로세스가 해당 영역을 변경하는 것이 비밀이 아니라는(shared) 뜻이다.
 
@@ -200,11 +200,11 @@ shellcode= encoders.i386.ascii_shellcode.encode(tmp_shellcode, avoid)
 
 gdb를 이용해 buf 변수에 몇 바이트가 할당되었는지 확인해 보자.
 
-![Untitled](/assets/img/posts/basic_exploitation_000/Untitled%203.jpeg)
+![Untitled](/assets/img/posts/basic_exploitation_000/Untitled%203.jpeg){: width="100%" height="100%"}
 
 이 부분을 봐도 되고,
 
-![Untitled](/assets/img/posts/basic_exploitation_000/Untitled%204.jpeg)
+![Untitled](/assets/img/posts/basic_exploitation_000/Untitled%204.jpeg){: width="100%" height="100%"}
 
 이 부분을 봐도 된다. 첫 번째 사진의 경우 `esp`에 `-0x80`을 더하고 있고(저 시점에서는 `ebp`==`esp`이다) 두번째 사진에서는 scanf의 두번째 인자(입력값이 저장될 주소)로 `ebp-0x80`을 하고 있다.
 

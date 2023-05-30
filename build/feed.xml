@@ -5,8 +5,8 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 30 May 2023 18:05:45 +0900</pubDate>
-    <lastBuildDate>Tue, 30 May 2023 18:05:45 +0900</lastBuildDate>
+    <pubDate>Tue, 30 May 2023 18:16:35 +0900</pubDate>
+    <lastBuildDate>Tue, 30 May 2023 18:16:35 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
     
@@ -726,7 +726,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;먼저 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssp_001&lt;/code&gt; 바이너리에 gdb를 물려 해당 바이너리 내부에서 사용되었던 functions들의 목록을 찾아 보았다. 바이너리가 ripped 되지 않았고, 난독화되지 않은 상태라면 쉽게 functions들의 목록을 불러올 수 있을 것이다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;당장 확인되는 functions들 중 눈에 띄는 건 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;system@plt&lt;/code&gt; 와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;get_shell&lt;/code&gt; 이다. 전자가 존재한다는 것은 타겟 시스템에 ASLR이 걸려 있더라도 got, plt overwrite 방식으로 우회하여 쉘을 딸 수 있다는 의미이고, 후자는 누가 봐도 함수의 코드 플로우를 조작해 접근해야 하는 목표물처럼 보이기 때문이다.&lt;/p&gt;
 
@@ -738,7 +738,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;카나리를 다루는 모습이다. 32비트 프로그램이므로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebp-0x8&lt;/code&gt; 에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gs:0x14&lt;/code&gt; 가 들어간다. 관련한 내용은 &lt;a href=&quot;https://toubva.github.io/blog/dreamhack_system_hacking/step6-1#/&quot;&gt;여기&lt;/a&gt;에서 복습하자!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -746,11 +746,11 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;해당 바이너리의 실행 모습(선택지가 나오고, 사용자가 선택한 선택지에 따라 다른 내용의 프로그램 branch가 전개되는 형식)을 감안했을 때, 아마 main 함수 혹은 선택지를 제시하기 위해 call 되는 함수 내부에는 최소 3개 이상의 cmp-jmp 구문이 존재할 것이다. 해당 구간을 찾아 보았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;추측이 맞았다. 3개의 cmp-jmp 쌍이 존재했고, 각각의 쌍은 main 함수의 특정 부분으로 점프하는 모습을 보여준다. main 함수 내부에서 모든 작업이 이루어지는 것으로 생각되며, 해당 구문은 if - if - if - else 형식의 문법을 취하고 있는 것으로 보인다. 또한 cmp하는 대상이 각각 아스키 코드로 ‘F’, ‘P’, ‘E’인 것으로 봤을 때, 프로그램을 실행했을 때 바로 나오는 아래의 선택지 부분임을 알 수 있다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;이제 각 선택지에 따른 동작을 확인해 보자.&lt;/p&gt;
 
@@ -760,7 +760,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;선택지 P의 경우인 어셈블리 라인은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main+192&lt;/code&gt; 부터 시작하므로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main+155~main+187&lt;/code&gt; 까지의 라인이 선택지 F에 해당된다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;해당 라인의 핵심은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;read&lt;/code&gt; 함수와 연관이 깊어 보인다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;read(0, eax([ebp-0x88]), 0x40)&lt;/code&gt; 을 호출하는 정황으로 미루어 보았을 때, 사용자의 input 0x40개를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebp-0x88&lt;/code&gt; 에 저장하는 것으로 보인다. 아마 실제 소스에서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;read(0, buf, 0x40)&lt;/code&gt;쯤 될 것이다.&lt;/p&gt;
 
@@ -768,7 +768,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;h3 id=&quot;123-선택지-p의-경우&quot;&gt;1.2.3. 선택지 [P]의 경우&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;선택지 P를 처리하는 어셈블리 라인에서는 주목할 만한 행위 두 가지가 보인다. 바로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scanf(&quot;{some words}{format_string}&quot;, *(ebp-0x94))&lt;/code&gt; 와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;print_box&lt;/code&gt; 를 콜하는 것이다. 먼저 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebp-0x94&lt;/code&gt; 에 저장되는 것은 어셈블리어만을 보고 알 수는 없다. 32비트 환경에서의 주소값과 int 값은 동일한 4byte로 어셈블리어 상에서 구분이 안 되기 때문이다. 따라서 동적으로 분석해야만 한다. 그 결과, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebp-0x94&lt;/code&gt; 에는 int가 저장되는 것을 확인할 수 있었다.&lt;/p&gt;
 
@@ -776,7 +776,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;그렇다면 이제 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;print_box(ebp-0x88, ebp-0x94)&lt;/code&gt; 가 어떤 일을 하는지 알아보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%206.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%206.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebp-0xc&lt;/code&gt; 는 인자로 줬던 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebp-0x94&lt;/code&gt; 가 저장된 곳이고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebp-0x8&lt;/code&gt;은 인자로 줬던 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebp-0x88&lt;/code&gt;이 저장된 곳이다.&lt;/p&gt;
 
@@ -788,7 +788,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;h3 id=&quot;124-선택지-e의-경우&quot;&gt;1.2.4. 선택지 [E]의 경우&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%207.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%207.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scanf&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;read&lt;/code&gt;함수를 사용하는 것이 눈에 띈다. 아까부터 각 branch별로 특정 함수들을 강조하는데, 그 이유는 이들이 사용자와 interaction하는, 취약성을 내재할 확률이 가장 큰 부분이기 때문이다.&lt;/p&gt;
 
@@ -817,7 +817,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
   &lt;li&gt;
     &lt;p&gt;P 옵션: 사용자의 int type 입력 x 를 받아 buf[x]를 참조해 출력한다. 여기에서 OOB로 인한 Memory Leak이 가능하다. (아래 사진 참고-buf는 0x40 길이이므로 인덱스의 한계는 63이지만 70번 인덱스에 접근 가능하다)&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%208.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%208.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;E 옵션: 사용자로부터 입력값의 길이 y를 받고, read 함수로 y 만큼의 입력을 받아 buf2에 저장한다. 해당 작업이 끝나면 프로그램을 종료한다. 여기에서 잘못된 boundary check로 인한 BOF 취약점이 발생한다.&lt;/li&gt;
 &lt;/ul&gt;
@@ -830,7 +830,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
   &lt;li&gt;
     &lt;p&gt;해당 프로그램에 걸려 있는 보호 기법의 목록&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%209.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%209.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;ASLR은 꺼져 있을 것이다.(현재 커리큘럼상)&lt;/li&gt;
@@ -865,23 +865,23 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;P 옵션을 줬을 때 읽어오는 항목인 box 배열의 시작 지점이 스택의 어디에 할당되었는지 확인해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%2010.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%2010.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;ebp-0x88 지점이다.&lt;/p&gt;
 
 &lt;p&gt;그렇다면 스택 카나리는 어디에 저장되는지 확인해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%2011.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%2011.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;ebp-0x8 지점이다.&lt;/p&gt;
 
 &lt;p&gt;즉, box[0x80] 지점이 스택 카나리의 시작점일 것으로 추정된다. 정말인지 확인해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%2012.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%2012.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;메모리를 낮은 주소에서부터 읽어오는 점, 그리고 현재 프로세서가 리틀 엔디안이라는 점을 감안하면 아마 스택 카나리의 값은 0x1e831700일 것이다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%2013.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%2013.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;실제로 확인해 보니 일치하는 것을 알 수 있었다.&lt;/p&gt;
 
@@ -893,7 +893,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;E 옵션을 줬을 때, 사용자가 입력할 길이를 지정하게 한 다음 입력을 받는다. 그렇다면 사용자의 입력을 받아 저장하는 버퍼의 위치는 어디일까?&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%2014.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%2014.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;read 함수의 두번째 인자로 저장될 버퍼의 주소가 들어가므로 현재 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main+302&lt;/code&gt; 에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eax&lt;/code&gt; 에 들어간 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebp-0x48&lt;/code&gt; 이 인자가 저장될 주소이다.&lt;/p&gt;
 
@@ -911,9 +911,9 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;1.1.에서 확인한 함수들의 이름 중 수상한 것이 두 개 있었다. 바로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;system&lt;/code&gt; 과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;get_shell&lt;/code&gt; 이었다. 전자를 사용할 수도 있지만 후자를 한 번 확인해 보고, 둘 중 무엇으로 코드 플로우를 변경하는 것이 효율적일지 고민해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%2015.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%2015.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%2016.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ssp_001/Untitled%2016.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;진짜로 KTX 타고 백덤블링하면서 봐도 system(”/bin/sh”)를 실행해 주는 함수다.&lt;/p&gt;
 
@@ -1085,7 +1085,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;해당 옵션을 줘서 스택 카나리가 꺼진 프로그램을 실행해 스택 버퍼 오버플로우를 일으켜 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;SEGFAULT가 뜨면서 프로그램 작동이 멈춘다. 당연하다. 버퍼에게 할당된 범위를 넘어서는 길이의 입력값을 줬는데, 그 입력값이 RET addr를 오염시킬 정도의 길이였기 때문이다.&lt;/p&gt;
 
@@ -1097,7 +1097,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;그렇다면 해당 옵션을 주지 않고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gcc -o&lt;/code&gt; 옵션만으로 빌드해 스택 버퍼 오버플로우를 시도해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;직전의 카나리가 비활성화된 경우와 비교했을 때, ‘stack smashing detected; terminated’, ‘Aborted’ 메시지가 뜨며 프로세스가 강제 종료된 것을 확인할 수 있다. 스택 카나리가 변조된 것이 탐지되어 시스템에서 강제로 프로세스를 종료한 것이다.&lt;/p&gt;
 
@@ -1111,17 +1111,17 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;카나리를 켠 버전의 디스어셈블 결과:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;카나리를 끈 버전의 디스어셈블 결과:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;둘을 비교한 결과, &lt;strong&gt;함수의 프롤로그와 에필로그에서 카나리를 켠 버전에 추가된 부분&lt;/strong&gt;이 눈에 띄었다.&lt;/p&gt;
 
 &lt;p&gt;먼저 &lt;strong&gt;프롤로그&lt;/strong&gt;에 추가된 부분을 확인해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;FS레지스터로부터 8byte 주소를 가져온다.&lt;/p&gt;
 
@@ -1192,29 +1192,29 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;gdb에서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;info reg system&lt;/code&gt; 명령어를 통해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fs_base&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gs_base&lt;/code&gt; 등의 시스템 레지스터 내역을 출력할 수 있다. 단순히 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;info reg&lt;/code&gt; 를 통해 얻을 수 있는 레지스터들의 목록에는 표시되지 않는 레지스터들이 출력되니 중요한 명령어다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;현재 분석 대상 프로그램은 64비트로 컴파일되었으므로, fs 레지스터가 TCB 구조체를 refer할 것이다. 추측컨대, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fs_base&lt;/code&gt;는 TCB 구조체의 시작 주소를 항상 가지고 있는 게 아닐까 싶다… &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fs:[{hex}]&lt;/code&gt;일 땐 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fs_base+hex&lt;/code&gt; 를 참조하는 것 같고.&lt;/p&gt;
 
 &lt;p&gt;아무튼, TCB 구조체 시작 주소의 심볼이 fs_base인 것을 알았으니 이제 스택 카나리가 저장된 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FS:[0x28]&lt;/code&gt;에 접근해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%206.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%206.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;LSB가 NULL인 값이 나온다. 확실히 스택 카나리의 포맷에 맞는다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%207.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%207.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;그리고 실제로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FS:[0x28]&lt;/code&gt;에 접근해 rax에 스택 카나리를 복사해 넣는 인스트럭션이 진행된 후의 rax 값과 동일하다. 즉, 스택 카나리 값에 성공적으로 접근했다!&lt;/p&gt;
 
 &lt;p&gt;이제까지 프롤로그에 추가된 부분을 확인해 보았다. 다음으로 &lt;strong&gt;에필로그에 추가&lt;/strong&gt;된 부분을 분석해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%208.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%208.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;read&lt;/code&gt; 함수를 부른 이후 eax를 정리하는 과정 바로 다음에 추가된 4줄의 인스트럭션이다.&lt;/p&gt;
 
 &lt;p&gt;함수의 에필로그에서 저장되었던 스택 카나리를 불러와 TCB에 저장된 원본 스택 카나리와 xor 한다. 즉, 같은지 확인한다. 그 결과 같다면, 즉 xor 결과가 0이기 때문에 ZF가 1으로 세팅된다면 함수를 정상적으로 종료하도록 한다&lt;sup id=&quot;fnref:je&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:je&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. 그러나 만일 다르다면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_stack_chk_fail&lt;/code&gt; 함수를 콜하게 된다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;앞서 보았던 이 메시지를 출력하는 함수가 바로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_stack_chk_fail&lt;/code&gt; 함수이다.&lt;/p&gt;
 
@@ -1262,15 +1262,15 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;gdb에는 특정 행위가 발생했을 때 곧바로 프로세스 흐름을 중단하는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;catch&lt;/code&gt; 라는 명령어가 있다. 해당 명령어를 이용해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;arch_prctl&lt;/code&gt; 시스콜이 발생하는 지점을 찾아보자. (이런 식으로 설정된 정지 지점은 breakpoint로 취급되기 때문에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;info b&lt;/code&gt; 명령어로 리스트를 뽑아 볼 수 있다)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%209.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%209.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;이제 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r&lt;/code&gt; 명령어로 프로그램을 실행해 보자. 플로우가 멈췄을 때의 콜스택은 아래와 같다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2010.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2010.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;arch_prctl&lt;/code&gt; 이 요청되고 나서 해당 요청을 수행하기 위한 과정의 초입이다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 명령어로 쭉 따라가 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2011.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2011.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;init_tls&lt;/code&gt; 함수가 콜된 상황이다. 이 시점에서 해당 함수의 내부에 정의된 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__tls_init_tp&lt;/code&gt; 매크로가 실행된다.&lt;/p&gt;
 
@@ -1325,23 +1325,23 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;정말로 그런지 확인해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2012.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2012.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TLS_INIT_TP&lt;/code&gt; 가 콜되기 직전에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rdi&lt;/code&gt; 에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x1002&lt;/code&gt; 가 들어간 게 보인다. 콜되기 전에 미리 파라미터가 레지스터에 들어간 것으로 미루어 보았을 때 아마도 컴파일러의 최적화 때문에 순서가 당겨진 것 같다.&lt;/p&gt;
 
 &lt;p&gt;그리고 같은 이유로 인해 이미 시스콜이 수행되며 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r12&lt;/code&gt;에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TLS&lt;/code&gt; 의 시작값이 들어간 것이 확인되었다&lt;sup id=&quot;fnref:r12&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:r12&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;. 실제로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fs&lt;/code&gt; 에 할당된 값이 맞는지 명령어를 통해 확인해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2013.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2013.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;맞는 것으로 확인되었다.&lt;/p&gt;
 
 &lt;p&gt;앞에 $가 붙은 것은 gdb상에서 심볼로 취급되므로 명령어 인라인에 사용할 수 있다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fs_base&lt;/code&gt; 가 가리키는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TLS&lt;/code&gt; 에 무엇이 저장되었는지 확인해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2014.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2014.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;그렇다면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fs_base+0x28&lt;/code&gt;, 즉 스택 카나리가 저장되는 위치에 스택 카나리가 저장되어 있는지 확인해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2015.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2015.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;아직은 아무것도 저장되어 있지 않은 것을 확인할 수 있다.&lt;/p&gt;
 
@@ -1353,19 +1353,19 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fs_base+0x28&lt;/code&gt; 위치의 값이 변경될 때가 바로 스택 카나리가 저장될 때일 것이다. 따라서 gdb의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;watch&lt;/code&gt; 명령어로 해당 위치의 값이 변경될 때 코드 플로우를 멈추도록 해 보았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2016.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2016.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt; 심볼은 참조한다는 뜻이다. 즉, 해당 주소를 참조해 내부의 값을 감시한다는 뜻이 되기 때문에 특정 주소의 값 변화를 감시하기 위해서는 반드시 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt; 심볼을 사용해야 한다.&lt;/p&gt;
 
 &lt;p&gt;프로세스를  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;c&lt;/code&gt; 명령어로 이어서 수행한 결과, 아래와 같은 결과가 나왔다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2017.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2017.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;값이 변화되자 코드 플로우가 멈추고 값이 어떻게 변화했는지가 출력된다. 정지하는 시점에서 실행되던 함수는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;security_init&lt;/code&gt; 라고 명시되어 있다. 이제 실제로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fs_base+0x28&lt;/code&gt; 위치의 값이 어떻게 되었는지 확인해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2018.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2018.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2019.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2019.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;스택 카나리 값이 저장된 것이 확인되었다.&lt;/p&gt;
 
@@ -1377,7 +1377,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;이제 실제로 해당 값이 main 함수에서 사용되는지 확인해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2020.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2020.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mov rax, qword prt fs:[0x28]&lt;/code&gt; 명령어가 실행된 직후의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rax&lt;/code&gt; 를 확인해 보니, 정말로 직전에 확인했던 스택 카나리 값이 저장된 것을 볼 수 있었다.&lt;/p&gt;
 
@@ -1452,11 +1452,11 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;이를 그림으로 본다면 아래와 같다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2021.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2021.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;위와 같았던 메모리를&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2022.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2022.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt; 변수에 9byte를 넣음으로써 스택 카나리의 최하위 비트인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\x00&lt;/code&gt; 이 지워지게 만들었다.&lt;/p&gt;
 
@@ -1530,11 +1530,11 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;해당 익스플로잇을 실행한 결과는 아래와 같았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2023.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2023.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; 함수의 가장 마지막 부분에서 스택 카나리 원본과 스택에 저장된 스택 카나리 값을 비교하고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main+183&lt;/code&gt; 에서 만일 값이 같다면 정상적으로 프로세스를 종료하고 만일 아니라면 오류를 내보내도록 되어 있다. 따라서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main+183&lt;/code&gt; 에 브레이크 포인트를 걸고 continue해 보았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2024.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2024.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;그 결과, rbp의 바로 아래인 ret addr에 내가 의도했던 리턴값이 들어가 있고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rbp-0x8&lt;/code&gt; 에는 스택 카나리 값이 그대로 들어가 있어 분기 조건에 부합하여 정상적으로 프로그램이 종료되는 루틴을 확인할 수 있었다.&lt;/p&gt;
 
@@ -1578,7 +1578,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;이 관계를 그림으로 그리면 아래와 같다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2025.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/sys6/Untitled%2025.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;EPROCESS는 ETHREAD를 refer하지만, PEB와 TEB의 연결 관계는 없다.&lt;/p&gt;
 
@@ -1683,7 +1683,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/basic_exploitation_000/Untitled.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/basic_exploitation_000/Untitled.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;먼저 기존의 방법이다. 기존의 방법이 자주 사용되는 이유는, esp의 위치를 고려하기 편하기 때문이었다. 직전 함수의 epilogue로 인해 자동으로 esp가 ebp가 가리키던 위치를 가리키게 된다는 점이 핵심이다.&lt;/p&gt;
 
@@ -1693,11 +1693,11 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/basic_exploitation_000/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/basic_exploitation_000/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;바로 위의 그림처럼 말이다. 그러나 해당 방법이 성공하려면 stack에 execute 권한이 있어야 한다. 즉, NX-bit가 걸려있지 않아야 한다. gdb를 이용해 스택의 권한을 확인해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/basic_exploitation_000/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/basic_exploitation_000/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;가장 아래의 [stack]에는 read, write, execution 권한이 있고, private(copy on write)로 설정되어 있다. p가 올 자리에 s가 왔다면 그건 프로세스가 해당 영역을 변경하는 것이 비밀이 아니라는(shared) 뜻이다.&lt;/p&gt;
 
@@ -1801,11 +1801,11 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;gdb를 이용해 buf 변수에 몇 바이트가 할당되었는지 확인해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/basic_exploitation_000/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/basic_exploitation_000/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;이 부분을 봐도 되고,&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/basic_exploitation_000/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/basic_exploitation_000/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;이 부분을 봐도 된다. 첫 번째 사진의 경우 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esp&lt;/code&gt;에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-0x80&lt;/code&gt;을 더하고 있고(저 시점에서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebp&lt;/code&gt;==&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esp&lt;/code&gt;이다) 두번째 사진에서는 scanf의 두번째 인자(입력값이 저장될 주소)로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebp-0x80&lt;/code&gt;을 하고 있다.&lt;/p&gt;
 
@@ -2041,13 +2041,13 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;puts의 got 위치를 찾는 방법은 아래와 같다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/pltgot/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/pltgot/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;pwndbg를 이용해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;disas main&lt;/code&gt;을 하면, main+121지점에서 puts를 콜할 때 명시적 주소를 콜하는 것을 확인할 수 있다.&lt;/p&gt;
 
 &lt;p&gt;이 때 0x400520에는 무엇이 있길래 그쪽으로 rip를 이동시켜 주는 걸까? 직접 알아보면 아래와 같은 결과를 볼 수 있다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/pltgot/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/pltgot/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;plt는 got의 특정 위치에 저장된 puts 함수의 주소로 rip를 포워딩&lt;/strong&gt;해 주는 역할을 하고 있었다.&lt;/p&gt;
 
@@ -2057,7 +2057,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;해당 주소(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x601018&lt;/code&gt;)에 저장된 값을 확인해 보았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/pltgot/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/pltgot/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;got의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x601018&lt;/code&gt; 지점에는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x400526&lt;/code&gt;이 저장되어 있었고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x400526&lt;/code&gt;으로 이동하면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x601010&lt;/code&gt;으로 점프하게 되어 있다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x601010&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x601018&lt;/code&gt;과 값이 가깝기 때문에 아마 got의 일부분일 것으로 예상되어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x601010&lt;/code&gt; 지점에 저장된 값 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x7ffff7dea8f0&lt;/code&gt; 주소의 인스트럭션을 확인해 보니 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dl_resolve&lt;/code&gt; 계열의 함수임을 알 수 있었다.&lt;/p&gt;
 
@@ -2133,7 +2133,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;익스플로잇을 실행한 결과 아래와 같이 쉘을 딸 수 있었다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/pltgot/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/pltgot/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 21 Dec 2022 11:15:23 +0900</pubDate>
         <link>http://localhost:4000/blog/system_hacking/plt-got-overwrite</link>
@@ -2319,7 +2319,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;그렇다면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;printf&lt;/code&gt; 함수에서 인자는 어떤 식으로 전달될까? 익스플잇할 대상 프로그램에 직접 디버거를 붙여 확인해 보았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rdi&lt;/code&gt; , 즉 첫 번째 인자로 프린트할 스트링의 시작 주소가 주어졌고&lt;/li&gt;
@@ -2371,21 +2371,21 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;&lt;strong&gt;주의:&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argv[1][0]&lt;/code&gt; 은 사실 아래 그림과 같은 식으로 존재하지 않는다. 아무래도 이중 배열이니 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argv[0]&lt;/code&gt; 이 진짜로 있는 곳 바로 아래에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argv[1]&lt;/code&gt; 이 있고, 그게 가리키는 곳에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argv[1][0]&lt;/code&gt; 이 있을 거라… &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; 의 스택 프레임 내부에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argv[1][0]&lt;/code&gt; 이 보일 리가 없다. 그러나 설명의 용이를 위해 아래와 같이 그린 점 감안해 주십사…&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vuln&lt;/code&gt; 함수가 콜되었을 때의 스택 프레임이다. 함수를 시작할 때 패스했던 인자의 시작 주소는 이중 배열인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argv&lt;/code&gt; 의 두 번째 인덱스에 저장되고, 이 시작 주소 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argv[1][0]&lt;/code&gt; 은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vuln()&lt;/code&gt; 함수에게 인자로 전달된다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;그리고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vuln()&lt;/code&gt; 스택 프레임 안에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;printf()&lt;/code&gt; 함수를 콜했을 때의 스택 프레임이다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;printf()&lt;/code&gt; 에게 첫 번째 인자로 주어진 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;string&lt;/code&gt;, 실제로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argv[1][0]&lt;/code&gt; 가 포인터의 형태로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rdi&lt;/code&gt; 에 들어간 것을 확인할 수 있다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;그렇다면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;format1&lt;/code&gt; 프로그램에게 인자로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%5$p.%4$x.$n&lt;/code&gt; 을 준다면 어떻게 될까? 아래 사진은 읽어들인 내용이 모두 보이도록 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%{int}${format}&lt;/code&gt; 의 형식을 취하지 않았고, 균일한 형식으로 보이게 하기 위해 동일한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%p&lt;/code&gt; 포맷 스트링을 사용했으나 개수를 기준으로 설명하겠다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;직전의 스택 프레임 사진을 고려하면&lt;/p&gt;
 
@@ -2412,21 +2412,21 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;이를 알기 위해 pwndbg를 붙여 main을 디스어셈블해서 전체적인 흐름을 파악하고 실제로 실행해서 스택 구성이 어떻게 되었는지 확인해 보았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%206.jpeg&quot; alt=&quot;main 함수의 디스어셈블 결과.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%206.jpeg&quot; alt=&quot;main 함수의 디스어셈블 결과.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;main 함수의 디스어셈블 결과.&lt;/p&gt;
 
 &lt;p&gt;하얗게 하이라이트가 된 부분이 바로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argv[0][0]&lt;/code&gt; 의 위치다. 바로 위의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rbp-0x4&lt;/code&gt; 는 확보한 공간으로 미루어볼 때 int type인 argv일 것이다. 그렇다면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argv[1][0]&lt;/code&gt; 은 아마 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argv[0][0]&lt;/code&gt; 의 바로 다음 바이트에 있을 것이다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argv&lt;/code&gt; 는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;char **&lt;/code&gt; 타입이기 때문이다. 그렇다면 당연히 확보 공간도 1바이트겠지!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%207.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%207.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rbp-0x10&lt;/code&gt; 이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rsp&lt;/code&gt; 의 위치인 것을 확인했다. 이중배열답게 두 번 참조한 모습이다. 따라서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argv[1]&lt;/code&gt; 은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x7fffffffe088&lt;/code&gt; 의 바로 다음 주소인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x7fffffffe090&lt;/code&gt; 일 것이다. 그리고 해당 주소에 담긴 값이 바로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argv[1][0]&lt;/code&gt; 일 테다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%208.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%208.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x7fffffffe3f0&lt;/code&gt; 이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argv[1][0]&lt;/code&gt; 의 주소임을 확인했다. 해당 주소에 정말로 내가 인자로 입력했던 문자열이 저장되어 있는지 확인해 보았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%209.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%209.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;확인 완료!&lt;/p&gt;
 
@@ -2438,11 +2438,11 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;즉, 만약 5개의 레지스터 + 142개의 주소를 읽어 온다면 맨 마지막에 내가 입력해준 문자열인 ‘AAAAAAAA’가 확인될 것이다. 예상이 맞는지 직접 프로그램에 인자를 주어 실행해 보았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%2010.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%2010.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;어? 내 입력값을 읽어온 건 맞는데…. 처음 4바이트가 잘렸다. 왜지?&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%2011.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%2011.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;아하… 입력값 길이가 달라지면 문자열의 시작 주소도 달라지는 모양이다.(이걸 보고 스택의 높이가 변한다고 하고(참), root 계정으로 파이썬 익스플로잇을 만들어야 스택의 높이가 변하지 않는다고 하더라(확인되지 않음. 정말 카더라임) )&lt;/p&gt;
 
@@ -2452,15 +2452,15 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;아무튼, 근사치를 구해 보면,&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%2012.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%2012.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;아무래도 뒤의 A 4개 대신 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt;의 주소를 넣는 게 맞을 것 같다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt;의 주소는 objdump를 떠서도 구할 수 있는데, 나는 pwndbg를 이용해 구했다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%2013.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%2013.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x0060103c&lt;/code&gt;인 것으로 확인되었다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%2014.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%2014.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;64비트 환경에서 포인터 타입의 데이터는 1byte로 인식되기 때문에, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x000000000060103c&lt;/code&gt; 를 입력값으로 넣을 수 있도록…. 했는데&lt;/p&gt;
 
@@ -2487,7 +2487,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;length=x(null 제외) 문자열을 넣었을 때&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%2015.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%2015.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;문자열의 끝 주소: 0x7fffffffe401인데 null이 여기 오는 거 감안하면 0x7fffffffe400을 끝 주소로 봐도 무방함&lt;/p&gt;
 
@@ -2505,11 +2505,11 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;그러나 논리상 맞는데 이상하게 오차가 생겼다. 왜인지 확인해 보니…&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%2016.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%2016.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;입력값 길이가 달라지면… 달라진 입력값 길이/8 을 올림한 만큼…. 스택은 더 위로 이동하는 것 같았다. 이곳저곳에 조언을 구해 보니, 입력값이 늘어나면 늘어날수록 시스템이 더 큰 공간을 할당해 주고, 거기에 문제가 없도록 여유 공간 또한 주기 때문에 스택 프레임의 위치가 더 위로 이동하게 된다고 하더라. (아래 그림과 위 그림 비교)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/format1/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;그래서 그것까지 계산하느니 그냥 근사값 가지고 때려 맞추는 게 더 나을 것 같아서 수학적 계산은 그만뒀다.&lt;/p&gt;
 </description>
@@ -2856,7 +2856,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
       &lt;li&gt;
         &lt;p&gt;컴퓨터구조를 배운 사람들이라면 레지스터 메모리가 가장 빠른 메모리임을 알 것이다. 메모리들의 가용 용량/속도의 관계를 나타낸 이미지를 첨부한다.&lt;/p&gt;
 
-        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;가장 빈번하게 읽어와야 하는 것이 함수의 파라미터이기 때문에 속도의 효율성을 위해 레지스터에 파라미터를 저장하는 것으로 함수의 calling convention을 정의하게 되었다. 그렇게 하더라도 저장 성능 오버헤드 대비 속도 이득이 훨씬 높기 때문이다.&lt;/li&gt;
     &lt;/ul&gt;
@@ -3035,7 +3035,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;disas main&lt;/code&gt; 명령어로 얻은 어셈블리 덤프는 아래와 같다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;main 함수가 파라미터를 받는 형식이라 해당 파라미터를 내부적으로 처리하기 위해 공간을 확보한다. 그러나 그것에 신경쓸 필요 없이, gets 심볼이 딸린 call 직전의 어셈블리어에 집중하다.&lt;/p&gt;
 
@@ -3070,24 +3070,24 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
     &lt;p&gt;이후 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;p system&lt;/code&gt; 명령어를 입력하면 아래와 같은 결과를 볼 수 있다.&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
     &lt;p&gt;이제 ‘/bin/sh’ 문자열을 찾아야 한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find &amp;amp;system,+999999999,&quot;/bin/sh&quot;&lt;/code&gt; 명령어를 이용하면 쉽게 찾을 수 있다. system 함수의 시작 주소부터 명시된 숫자만큼 올려가며 주어진 문자열을 찾으라는 명령어다.&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;libc에서 찾기&lt;/p&gt;
 
     &lt;p&gt;타겟 프로그램이 사용하는 라이브러리와 그것이 적재되는 주소를 알아낼 수 있는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ldd {program_name}&lt;/code&gt; 명령어를 사용한다.&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
     &lt;p&gt;libc 라이브러리의 디렉토리상의 위치와 실질 메모리상 적재 위치를 알 수 있다.&lt;/p&gt;
 
     &lt;p&gt;그럼 objdump를 이용해 libc.so.6 상에 위치하는 system 함수의 오프셋을 알아내면 된다.&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
     &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x3d3d0&lt;/code&gt;이 system 함수의 오프셋인 것처럼 보인다. 실제로 libc.so.6의 시작 주소인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0xf7dde000&lt;/code&gt; 에 오프셋인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x3d3d0&lt;/code&gt;을 더하면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0xf7e1b3d0&lt;/code&gt;으로 system 함수의 시작 주소가 맞다.&lt;/p&gt;
 
@@ -3108,7 +3108,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
     &lt;p&gt;위의 코드를 이용하면 아래와 같은 결과가 나온다.&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%206.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%206.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
@@ -3125,7 +3125,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;32 bit로 컴파일하면서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mpreferred-stack-boundary&lt;/code&gt; 를 제대로 설정하지 않으면 아래와 같은 에필로그가 나온다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%207.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%207.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;아무래도 해당 옵션의 디폴트 값이 4라서 16의 배수로 스택 프레임의 꼭대기가 끝나는 상황인지라, 필요한 것보다 더 할당된 스택을 정리하기 위해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lea esp,[ecx-0x4]&lt;/code&gt; 인스트럭션이 추가되어 있다.&lt;/p&gt;
 
@@ -3133,13 +3133,13 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;추가로 말하자면, 위와 같은 상황일 때 함수의 프롤로그도 새로운 형식이 되어 나타난다. 애초에 16의 배수로 스택 시작점을 align할 필요가 없는 32bit 프로그램이다 보니 억지로 ebp 주소를 16의 배수로 맞추기 위해 아래와 같은 프롤로그가 보인다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%208.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%208.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0xfffffff0&lt;/code&gt; 과 and 연산을 함으로써 무조건 16의 배수로 만든 esp를 ebp에 넣어서 스택의 바닥을 지정하는 부분이 보인다.&lt;/p&gt;
 
 &lt;p&gt;다시 핵심으로 돌아와, 대상 파일을 컴파일해 앞의 과정을 다시 밟은 이후 페이로드를 지정한다면 아래처럼 쉘을 딸 수 있다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%209.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%209.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;물론 스크립트를 작성해 익스플로잇을 수행할 수도 있다.&lt;/p&gt;
 
@@ -3210,7 +3210,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;disas main&lt;/code&gt; 명령어를 이용한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2010.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2010.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;gets에 들어가는 첫 번째 인자를 저장하는 rdi에 들어가는 값을 확인해 보면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rbp-0x40&lt;/code&gt; 임을 알 수 있다. 즉, rbp까지를 오염시키기 위해 0x48 bytes가 필요함을 알 수 있다.&lt;/p&gt;
 
@@ -3220,7 +3220,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;목표하는 gadget은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pop rdi;ret;&lt;/code&gt; 이다. 이를 찾기 위해 pwntools를 이용한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2011.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2011.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;타겟 프로그램은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/lib/x86_64-linux-gnu/libc.so.6&lt;/code&gt; 을 사용하고 있음을 확인했다.&lt;/p&gt;
 
@@ -3238,11 +3238,11 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;스크립트 실행 결과는 아래와 같았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2012.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2012.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;앞서 알아둔 라이브러리 시작 주소가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x7ffff7a0364f&lt;/code&gt; 이고, 가젯의 오프셋이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x2164f&lt;/code&gt; 이므로 둘을 더한 결과값인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x7ffff7a0364f&lt;/code&gt; 에 정말로 가젯이 적재되어 있는지 gdb로 확인해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2013.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2013.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;적재되어 있다.&lt;/p&gt;
 
@@ -3309,7 +3309,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;system&lt;/code&gt; 함수는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;do_system&lt;/code&gt; 함수를 콜하고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;do_system&lt;/code&gt; 함수는 거의 끄트머리에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;execve&lt;/code&gt; 함수를 콜하면서 인자를 넘겨주는 형식이다. 즉, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;do_system&lt;/code&gt; 함수 내부로 들어갔을 때 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;execve&lt;/code&gt; 를 콜하기도 전에 SEGFAULT가 나는 이유를 알아내는 것이 현재 디버깅의 목적이다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2014.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2014.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;c&lt;/code&gt;를 누르고 보면 위 부분에서 rip가 freezed 된 것이 보인다.&lt;/p&gt;
 
@@ -3362,7 +3362,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;스크립트 실행 결과 아래와 같이 쉘을 딸 수 있었다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2015.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2015.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -3376,11 +3376,11 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;먼저 pwndbg에서 vmmap을 이용해 어떤 라이브러리가 링킹되어 있는지 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2016.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2016.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc-2.27.so&lt;/code&gt; 파일과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ld-2.27.so&lt;/code&gt; 파일이 링킹되어 있는 게 보인다. 엥? 그런데 이상하다. 분명히 우리가 ldd, 즉 libc database 커맨드로 확인했을 때 사용된 라이브러리는 아래와 같았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;아니 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc.so.6&lt;/code&gt; 이랑 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ld-linux.so.2&lt;/code&gt; 썼다며? 그런데 왜 정작 사용된 건 다른 거야??&lt;/p&gt;
 
@@ -3395,7 +3395,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
   &lt;li&gt;
     &lt;p&gt;소프트 링크는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ln -s {original file} {linked file}&lt;/code&gt; 명령어로 생성한다. 이 경우 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ls -li&lt;/code&gt; 명령어로 inode와 파일 정보를 확인한다면 원본 파일과 링크된 파일의 inode 번호가 다르며, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-&amp;gt;&lt;/code&gt; 기호로 링크가 표시되어 있음을 확인할 수 있다. 이로 인해 원본 파일의 위치가 바뀌면 링크된 파일을 실행했을 때 링크가 원본 파일을 찾지 못한다. 아래 사진은 소프트 링크를 확인했을 때의 사진이다.&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2017.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2017.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
     &lt;p&gt;가장 첫 번째에 보이는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc-2.27.so&lt;/code&gt; 파일의 inode num은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;6816882&lt;/code&gt; 인데, 해당 파일에 소프트 링크가 걸려 있는 가장 마지막의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc.so.6&lt;/code&gt; 파일의 inode num은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;6816904&lt;/code&gt; 로 서로 다르다는 것을 확인할 수 있다.&lt;/p&gt;
   &lt;/li&gt;
@@ -3403,7 +3403,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;좋아, 그렇다면 파일 실행 시 &lt;strong&gt;공유 라이브러리&lt;/strong&gt;로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc.so.6&lt;/code&gt; 을 썼기 때문에 소프트 링크의 오리지널 파일인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libc-2.27.so&lt;/code&gt; 가 사용됐고 &lt;strong&gt;Dynamic Loader&lt;/strong&gt;로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ld-linux.so.2&lt;/code&gt; 를 썼기 때문에 링크가 걸린 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ld-2.27.so&lt;/code&gt; 가 사용됐다고 치자. (아래 사진 참고)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2018.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/protostar5/Untitled%2018.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;그런데 또 궁금한 게 생긴다. so 파일이 뭔지는 알겠는데… &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;so.2&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;so.6&lt;/code&gt;은 대체 무슨 뜻이야?&lt;/p&gt;
 
@@ -3526,11 +3526,11 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;해당 프로그램을 컴파일한 후, gdb에 물려 스택의 상황과 인스트럭션을 확인해 보았더니 아래와 같았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack53/Untitled.jpeg&quot; alt=&quot;main 함수에서 선언된 지역 변수의 크기는 0x28인데, 스택은 0x30만큼을 확보하는 모습.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack53/Untitled.jpeg&quot; alt=&quot;main 함수에서 선언된 지역 변수의 크기는 0x28인데, 스택은 0x30만큼을 확보하는 모습.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;main 함수에서 선언된 지역 변수의 크기는 0x28인데, 스택은 0x30만큼을 확보하는 모습.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack53/Untitled%201.jpeg&quot; alt=&quot;흰색 블록 처리된 부분의 왼쪽은 SFP, 오른쪽은 rip ret add 이다.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack53/Untitled%201.jpeg&quot; alt=&quot;흰색 블록 처리된 부분의 왼쪽은 SFP, 오른쪽은 rip ret add 이다.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;흰색 블록 처리된 부분의 왼쪽은 SFP, 오른쪽은 rip ret add 이다.&lt;/p&gt;
 
@@ -3542,7 +3542,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;이제 get_shell의 주소를 구해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack53/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack53/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x4011dd&lt;/code&gt; 로 확인되었다.&lt;/p&gt;
 
@@ -3552,13 +3552,13 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;h2 id=&quot;3-익스플로잇-코드-작성하기&quot;&gt;3. 익스플로잇 코드 작성하기&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack53/Untitled%203.jpeg&quot; alt=&quot;작성한 익스플로잇 코드.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack53/Untitled%203.jpeg&quot; alt=&quot;작성한 익스플로잇 코드.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;작성한 익스플로잇 코드.&lt;/p&gt;
 
 &lt;p&gt;위의 코드를 실행한 결과는 아래와 같았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack53/Untitled%204.jpeg&quot; alt=&quot;쉘을 획득하는 데 성공했다.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack53/Untitled%204.jpeg&quot; alt=&quot;쉘을 획득하는 데 성공했다.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;쉘을 획득하는 데 성공했다.&lt;/p&gt;
 
@@ -3601,7 +3601,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;프로그램을 실행한 후, 프로그램의 입장에서는 말도 안 될 만큼 긴 입력(64byte)를 줘 보았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack53/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack53/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;그 결과, ‘Segmentation fault’ 라는 에러가 출력되면서 프로그램이 강제 종료된다. Segmentation은 앞에서 배웠듯 운영체제가 관리하는 프로세스의 메모리 구조인데, 이러한 구조에 문제가 생겼다는 뜻으로 해석된다.&lt;/p&gt;
 
@@ -3661,7 +3661,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack53/Untitled%206.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack53/Untitled%206.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;널 종결: 문자열의 끝에 널이 있어서 문자열의 끝이 명시되는 것.&lt;/li&gt;
 &lt;/ul&gt;
@@ -3775,7 +3775,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;예제를 분석하며 BOF의 감을 잡아 보자. 사실 나는 저번에 풀었던 문제 정도를 예상하고 에이 똑같은 이야긴가~ 하며 방심했는데, 전혀 아니었다. 설명을 읽고 뒤통수를 한 대 맞은 기분이었기 때문에, 나와 비슷한 초보자 분들도 이건 꼭 보셨으면 좋겠다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack52/Untitled.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack52/Untitled.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;원래 main 함수가 따로 있는데, 가장 중요한 check_auth 함수만 잘라서 가져왔다. 여기에서 집중해볼 것은, temp[16]과 strncpy(temp, password, strlen(password))이다. strncpy 자체가 BOF에 취약한 함수인 데다가 temp[16]은 16바이트로 크기가 정해진 배열이다.&lt;/p&gt;
 
@@ -3953,7 +3953,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;컴파일 결과로 도출된 어셈블리어는 아래와 같았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Callee 함수의 어셈블리 코드와 Caller 함수의 어셈블리 코드를 확인할 수 있었다. Caller 내부에서 Callee를 호출했으므로 해당 동작에 집중해 보자.&lt;/p&gt;
 
@@ -3978,7 +3978,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
           &lt;li&gt;
             &lt;p&gt;즉, 컴파일과 매우 밀접한 연관 → 리눅스의 바이너리 파일들은 무조건 SYSV ABI와 연관되어 있음&lt;/p&gt;
 
-            &lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%201.jpeg&quot; alt=&quot;실제로 file 명령어를 이용해 리눅스의 바이너리 파일들의 종류(타입)을 확인해 본 결과. SYSV에 명시된 규약을 따라 컴파일된 바이너리임을 알 수 있다.&quot; /&gt;&lt;/p&gt;
+            &lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%201.jpeg&quot; alt=&quot;실제로 file 명령어를 이용해 리눅스의 바이너리 파일들의 종류(타입)을 확인해 본 결과. SYSV에 명시된 규약을 따라 컴파일된 바이너리임을 알 수 있다.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
             &lt;p&gt;실제로 file 명령어를 이용해 리눅스의 바이너리 파일들의 종류(타입)을 확인해 본 결과. SYSV에 명시된 규약을 따라 컴파일된 바이너리임을 알 수 있다.&lt;/p&gt;
           &lt;/li&gt;
@@ -4009,7 +4009,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;아래와 같은 코드를 컴파일하여 실행해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;컴파일 옵션은 아래와 같았다.&lt;/p&gt;
 
@@ -4023,7 +4023,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;실행 결과 아래와 같은 Context를 확인할 수 있었다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Caller는 Callee에게 전달할 인자를 거꾸로 저장한다. 혹시라도 인자를 6개 초과하여 줄 때를 대비해, 즉 스택을 사용할 때를 대비해 전달할 인자를 거꾸로 저장하는 것 같았다.(추측)&lt;/p&gt;
 
@@ -4031,7 +4031,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;이제 Callee 함수를 호출하기 전까지 실행해 보자. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b *caller+47&lt;/code&gt; 로 중단점을 걸고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;c&lt;/code&gt; 명령어로 해당 중단점까지 실행하면 된다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;위의 REGISTER Context를 확인하면 rdi, rsi, rdx, rcx, r8, r9의 레지스터에 전달하고자 하는 인자가 들어가 있고, RSP즉 스택의 맨 꼭대기에 레지스터에 들어가지 못한 인자가 담겨 있음을 볼 수 있다.&lt;/p&gt;
 
@@ -4041,7 +4041,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;이제 si 명령어로 Callee의 내부로 들어가 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;무엇보다 눈에 띄는 건 STACK context에서 확인할 수 있는 스택 구조이다.&lt;/p&gt;
 
@@ -4059,11 +4059,11 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
         &lt;p&gt;+) rbp는 스택 프레임의 밑바닥을 가리키는 포인터이기 때문에 SFP(Stack Frame Pointer)라고도 부른다.&lt;/p&gt;
 
-        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%206.jpeg&quot; alt=&quot;push rbp가 수행되기 직전의 스택 상태. 아직 Caller의 rbp가 저장되지 않았다.&quot; /&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%206.jpeg&quot; alt=&quot;push rbp가 수행되기 직전의 스택 상태. 아직 Caller의 rbp가 저장되지 않았다.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
         &lt;p&gt;push rbp가 수행되기 직전의 스택 상태. 아직 Caller의 rbp가 저장되지 않았다.&lt;/p&gt;
 
-        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%207.jpeg&quot; alt=&quot;push rbp가 수행된 직후의 스택 상태. rsp에 현재 rbp의 값이 저장되어 있는 것을 볼 수 있다.&quot; /&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%207.jpeg&quot; alt=&quot;push rbp가 수행된 직후의 스택 상태. rsp에 현재 rbp의 값이 저장되어 있는 것을 볼 수 있다.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
         &lt;p&gt;push rbp가 수행된 직후의 스택 상태. rsp에 현재 rbp의 값이 저장되어 있는 것을 볼 수 있다.&lt;/p&gt;
       &lt;/li&gt;
@@ -4075,17 +4075,17 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;push rbp&lt;/code&gt; 다음 인스트럭션인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;push rbp, rsp&lt;/code&gt; 를 실행해 보자. 즉, rsp 값을 rbp에 넣음으로써 &lt;strong&gt;Callee를 위한 새로운 스택 프레임을 할당&lt;/strong&gt;하는 것이다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%208.jpeg&quot; alt=&quot;rsp와 rbp가 일치하는 상황인 것을 확인할 수 있다. 이렇게 새로운 스택 프레임의 기반이 완성된다!&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%208.jpeg&quot; alt=&quot;rsp와 rbp가 일치하는 상황인 것을 확인할 수 있다. 이렇게 새로운 스택 프레임의 기반이 완성된다!&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;rsp와 rbp가 일치하는 상황인 것을 확인할 수 있다. 이렇게 새로운 스택 프레임의 기반이 완성된다!&lt;/p&gt;
 
 &lt;p&gt;만일 Callee에서 지역 변수를 선언했다면 스택에 지역 변수를 저장해야 하기 때문에 rsp의 값을 뺄 텐데, 지역 변수를 선언하지 않기 때문에 아래 인스트럭션에서 볼 수 있듯 rsp의 값을 빼지 않고 그대로 진행된다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%209.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%209.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;어? 그런데 이상한 점이 있다. Callee 함수를 다시 보자.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Callee 함수는 ret이라는 지역 변수를 선언한다! 그런데 Callee 함수의 인스트럭션을 보면 rsp에는 변동이 없다.&lt;/strong&gt;&lt;/p&gt;
 
@@ -4095,11 +4095,11 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;h3 id=&quot;반환값-전달&quot;&gt;반환값 전달&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%2010.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%2010.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Callee 함수의 전체 인스트럭션을 살펴 보자. 계속해서 주어진 인자들을 더하다가, 마지막 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;callee+79&amp;gt;&lt;/code&gt; ~ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;callee+91&amp;gt;&lt;/code&gt; 에서 &lt;strong&gt;리턴할 값을 rax에 저장하고, 함수를 마무리&lt;/strong&gt;짓고 있다. 즉, &lt;strong&gt;함수의 Epilogue를 확인&lt;/strong&gt;할 수 있다. 이제 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;callee+91&amp;gt;&lt;/code&gt;, 즉 함수를 리턴하는 인스트럭션에 중단점을 걸고 rax를 확인해 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%2011.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%2011.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Callee에 전달했던 7개 인자의 합을 확인할 수 있다.&lt;/p&gt;
 
@@ -4107,7 +4107,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;반환은 저장해뒀던 Caller의 스택 프레임과 반환 인스트럭션 주소를 꺼내는 과정이다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%2012.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%2012.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Callee 함수가 지역 변수를 선언하지 않았기 때문에(리턴값을 담는 변수 제외) 스택 프레임을 만들지 않았고, 따라서 단순히 pop rbp로만 스택 프레임을 꺼내고 끝나는 것을 확인할 수 있다. 그러나, 일반적인 경우-즉, 지역 변수를 선언하는 경우에는 스택 프레임이 생성되었기 때문에 leave로 스택 프레임을 꺼낸다는 점을 꼭 염두에 두자.&lt;/p&gt;
 
@@ -4128,11 +4128,11 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;스택 프레임을 꺼낸 이후에는 ret으로 Caller에게 복귀한다. 복귀할 때 변화하는 것은 앞서 설명했듯 rbp와 rip이므로 ret 인스트럭션을 수행한 직후 그 둘을 살펴보았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%2013.jpeg&quot; alt=&quot;rbp가 Caller의 rbp로 바뀐 모습.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%2013.jpeg&quot; alt=&quot;rbp가 Caller의 rbp로 바뀐 모습.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;rbp가 Caller의 rbp로 바뀐 모습.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%2014.jpeg&quot; alt=&quot;rip가 리턴 주소로 설정되어 있는 모습.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack5/Untitled%2014.jpeg&quot; alt=&quot;rip가 리턴 주소로 설정되어 있는 모습.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;rip가 리턴 주소로 설정되어 있는 모습.&lt;/p&gt;
 
@@ -4280,7 +4280,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;어셈블리어로 먼저 작성한 후, 기계어로 변환한 값을 넣어야 주어진 코드가 실행할 수 있을 것이다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack42/Untitled.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack42/Untitled.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;위의 사진과 같이 선언된 부분에 내가 작성한 코드가 올라가고, 해당 코드의 시작 부분부터 종료까지를 실행하는 구조이기 때문이다.(나도 태어나서 이런 식으로 포인터 자료형을 바꾸어 데이터를 코드로 읽게끔 하는 플로우는 처음 보았기 때문에, 코드를 이해하며 많이 배웠다)&lt;/p&gt;
 
@@ -4357,13 +4357,13 @@ syscall
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xxd&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;execve.bin&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack42/Untitled%201.jpeg&quot; alt=&quot;마지막 명령어까지 수행한 결과. hex값이 출력되었다.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack42/Untitled%201.jpeg&quot; alt=&quot;마지막 명령어까지 수행한 결과. hex값이 출력되었다.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;마지막 명령어까지 수행한 결과. hex값이 출력되었다.&lt;/p&gt;
 
 &lt;p&gt;그렇게 나온 hex값을 쉘코드 형태로 가공해 입력해 보았다. 그 결과,&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack42/Untitled%202.jpeg&quot; alt=&quot;아니 외않되&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack42/Untitled%202.jpeg&quot; alt=&quot;아니 외않되&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;아니 외않되&lt;/p&gt;
 
@@ -4407,19 +4407,19 @@ push r8
 
 &lt;p&gt;해당 어셈블리어를 어셈블한 결과는 아래와 같았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack42/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack42/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;해당 결과를 파이프를 이용해 텍스트 파일에 저장하고, 쉘코드 형태로 가공한 후 원격 서버에 입력해 보았다.&lt;/p&gt;
 
 &lt;p&gt;그 결과,&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack42/Untitled%204.jpeg&quot; alt=&quot;아외또않되&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack42/Untitled%204.jpeg&quot; alt=&quot;아외또않되&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;아외또않되&lt;/p&gt;
 
 &lt;p&gt;안된다… C 언어로 짠 스켈레톤 코드에 올려서 gdb를 붙여서 확인해 봤는데, 분명히 제대로 되고 있었다. 심지어 flag 파일의 경로에 해당 파일을 만들어서 컴파일된 프로그램을 돌려 보았더니 제대로 파일의 값이 읽혀 나왔던 것까지 확인했는데 말이다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack42/Untitled%205.jpeg&quot; alt=&quot;로컬 환경에서는 제대로 되는 모습을 확인.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack42/Untitled%205.jpeg&quot; alt=&quot;로컬 환경에서는 제대로 되는 모습을 확인.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;로컬 환경에서는 제대로 되는 모습을 확인.&lt;/p&gt;
 
@@ -4660,7 +4660,7 @@ syscall
 
 &lt;p&gt;리눅스 시스템 콜 중 open 시스템 콜의 용법은 아래와 같다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;문서를 읽어 보니&lt;/p&gt;
 
@@ -4821,7 +4821,7 @@ mov rax, 0x01
 
 &lt;p&gt;아무튼, 이렇게 쓰고 컴파일을 돌렸는데…&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%201.jpeg&quot; alt=&quot;어라? 이상한 오류가 생겼다.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%201.jpeg&quot; alt=&quot;어라? 이상한 오류가 생겼다.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;어라? 이상한 오류가 생겼다.&lt;/p&gt;
 
@@ -4853,7 +4853,7 @@ mov rax, 0x01
 
 &lt;p&gt;이제 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/tmp/flag&lt;/code&gt; 파일을 만들어 그 안에 원하는 내용을(48 바이트 이내) 써둔 후, 컴파일한 셸코드를 실행하면 해당 내용이 콘솔에 출력되게끔 할 수 있다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%202.jpeg&quot; alt=&quot;실제로 실행한 결과.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%202.jpeg&quot; alt=&quot;실제로 실행한 결과.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;실제로 실행한 결과.&lt;/p&gt;
 
@@ -4966,7 +4966,7 @@ syscall
 
 &lt;p&gt;결과는 아래와 같았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%203.jpeg&quot; alt=&quot;거짓말처럼 에러가 떴다.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%203.jpeg&quot; alt=&quot;거짓말처럼 에러가 떴다.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;거짓말처럼 에러가 떴다.&lt;/p&gt;
 
@@ -4976,7 +4976,7 @@ syscall
 
 &lt;p&gt;궁금해서 데이터를 8bit씩 나누어 넣어 보았다. 그 결과, gdb를 통해 아래와 같은 실행 현황을 확인할 수 있었다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%204.jpeg&quot; alt=&quot;ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ아놔&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%204.jpeg&quot; alt=&quot;ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ아놔&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ아놔&lt;/p&gt;
 
@@ -4984,7 +4984,7 @@ syscall
 
 &lt;p&gt;실제로 문자열의 시작 주소가 들어가게 만들어 둔 rdi의 값을 확인해 보니 아래와 같았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%205.jpeg&quot; alt=&quot;잘라서 인식한다!!!!!!!!!!!&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%205.jpeg&quot; alt=&quot;잘라서 인식한다!!!!!!!!!!!&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;잘라서 인식한다!!!!!!!!!!!&lt;/p&gt;
 
@@ -4998,7 +4998,7 @@ syscall
 &lt;span class=&quot;s&quot;&gt;&quot;push rax&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%206.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%206.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;익스플로잇에 성공할 수 있었다. 아이기뻐.&lt;/p&gt;
 
@@ -5020,12 +5020,12 @@ syscall
       &lt;li&gt;
         &lt;p&gt;직전의 execve에 사용했던 셸코드를 독립적인 어셈블리 코드로 작성할 수 있게 수정해 execve.asm으로 저장했다.&lt;/p&gt;
 
-        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%207.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%207.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
         &lt;p&gt;위 커맨드를 실행한 결과(elf 형식의 오브젝트 코드로 변환된 대상 코드의 덤프를 뜬 결과):&lt;/p&gt;
 
-        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%208.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%208.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
         &lt;p&gt;이렇게 생성한 오브젝트 코드를 이제 정말로 바이트 코드로 바꿔주고, 해당 코드의 내용을 터미널에 표시한다.&lt;/p&gt;
@@ -5036,7 +5036,7 @@ syscall
 
         &lt;p&gt;그 결과 아래와 같은 값을 확인할 수 있었고, 출력 내용의 포맷을 없애는 옵션을 달아 당장 복사해 사용할 수 있는 hex 값을 출력하도록 하기도 했다.&lt;/p&gt;
 
-        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%209.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack4/Untitled%209.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
         &lt;p&gt;즉, execve.bin 쉘코드의 바이너리 값은&lt;/p&gt;
 
@@ -5355,7 +5355,7 @@ syscall
 
     &lt;p&gt;결과:&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -5365,17 +5365,17 @@ syscall
 
 &lt;p&gt;아래의 코드에서 get_shell() 함수를 실행시키는 것이 목적이다. (시스템 해킹의 목적은 셸을 딴 후 루트 권한을 탈취하는 것이기 때문이다)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled%201.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;먼저 이전에 배웠던 내용을 다시 돌아볼 필요가 있다.&lt;/p&gt;
 
 &lt;p&gt;어떤 함수의 스택 프레임이 생성될 때 직전까지 rip가 위치해 있던 함수의 스택 프레임과의 관계는 아래와 같다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;또한 리눅스의 프로세스에게 할당되는 메모리 구조는 아래와 같다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;이제 배운 내용을 기반으로 하여 주어진 문제를 어떻게 해결할지 계획을 세워 보자.&lt;/p&gt;
 
@@ -5408,13 +5408,13 @@ syscall
 
 &lt;p&gt;이제 gdb를 이용해 get_shell() 함수의 위치를 알아내 보자.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;딱히 난독화하지 않았기 때문에 심볼이 그대로 살아 있다. 브레이크 포인트를 get_shell에 걺으로써 get_shell의 주소를 알아낼 수 있었다.&lt;/p&gt;
 
 &lt;p&gt;추가적으로, main() 함수의 주소는 아래와 같다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled%205.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;코드상에서 get_shell보다 아래에 main이 쓰여 있었기 때문에 메모리의 코드 영역에도 main이 get_shell보다 뒤에 로딩된 것을 확인할 수 있다.&lt;/p&gt;
 
@@ -5422,7 +5422,7 @@ syscall
 
 &lt;p&gt;위에서 짚어본 것처럼, 새롭게 콜된 함수의 스택 프레임과 이전 함수의 스택 프레임 간의 관계는 아래와 같다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled%202.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;스택에는 로컬 변수가 저장되기 때문에 우리가 BOF의 매개로 사용하는 buf[0x28] 변수 또한 스택에 있을 것을 예상하고 있다. 또한 변수는 선언된 순서대로 스택에 들어가므로 buf 변수는 main 함수의 rbp에 위치해 있을  것이다. 따라서 우리가 익스플로잇할 당시의 스택의 구조는 아래와 같다.&lt;/p&gt;
 
@@ -5456,7 +5456,7 @@ syscall
 
 &lt;p&gt;주어진 함수를 gcc로 컴파일할 때 스택 카나리를 끄고(-fno-stack-protector) PIE를 끔으로써 ASLR도 적용되지 않도록(-no-pie) 해두었기 때문에 아마 스택의 구조는 비교적 간단할 것이다. 목표 프로세스인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rao&lt;/code&gt; 에 gdb를 붙여서 사용자 입력값을 받고 저장하는 시점의 스택의 구조를 해당 시점에서의 rbp까지 포함되도록 확인해 보았다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled%206.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/syshack3-2/Untitled%206.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;흰색으로 하이라이트한 부분, 즉 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x7fffffffdf80&lt;/code&gt; 이 rbp이며, 스택의 구조 자체는 예상했던 바와 일치함을 확인할 수 있었다. 그러나, 딱 한 가지 다른 부분이 있었다.&lt;/p&gt;
 
@@ -5551,7 +5551,7 @@ syscall
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readelf -h {file path}&lt;/code&gt; 를 실행해 대상 실행 파일의 헤더 정보를 읽어온 결과는 아래와 같이 표시된다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled.jpeg&quot; alt=&quot;readelf로 elf 파일의 헤더 정보를 읽어온 결과&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled.jpeg&quot; alt=&quot;readelf로 elf 파일의 헤더 정보를 읽어온 결과&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;readelf로 elf 파일의 헤더 정보를 읽어온 결과&lt;/p&gt;
 
@@ -5572,7 +5572,7 @@ syscall
   &lt;li&gt;
     &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;start&lt;/code&gt; 명령어를 입력한다.&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%201.jpeg&quot; alt=&quot;start 명령어를 실행한 결과.&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%201.jpeg&quot; alt=&quot;start 명령어를 실행한 결과.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
     &lt;p&gt;start 명령어를 실행한 결과.&lt;/p&gt;
 
@@ -5585,7 +5585,7 @@ syscall
           &lt;li&gt;
             &lt;p&gt;아니 앞에서는 EP 주소가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x1060&lt;/code&gt; 인데 왜 main의 엔트리는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x1149&lt;/code&gt; 인 거야???&lt;/p&gt;
 
-            &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%202.jpeg&quot; alt=&quot;이해가 안 돼서 main의 엔트리와 원래 엔트리로 예상되는 주소의 데이터를 체크해 보았다.&quot; /&gt;&lt;/p&gt;
+            &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%202.jpeg&quot; alt=&quot;이해가 안 돼서 main의 엔트리와 원래 엔트리로 예상되는 주소의 데이터를 체크해 보았다.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
             &lt;p&gt;이해가 안 돼서 main의 엔트리와 원래 엔트리로 예상되는 주소의 데이터를 체크해 보았다.&lt;/p&gt;
 
@@ -5607,7 +5607,7 @@ syscall
 
 &lt;p&gt;pwndbg의 context는 크게 4개의 영역으로 구분된다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%203.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Registers: 레지스터의 상태를 보여준다. 레지스터의 종류가 뭐였지? 라는 의문이 든다면 &lt;a href=&quot;https://toubva.github.io/blog/system-hacking-step2/#/&quot;&gt;System Hacking Step2: Computer Architecture&lt;/a&gt; 참고.&lt;/li&gt;
@@ -5651,12 +5651,12 @@ syscall
   &lt;li&gt;
     &lt;p&gt;함수 이름을 인자로 전달하면 해당 함수가 리턴될 때까지 전부 디스어셈블해 보여준다.&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%204.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;pwndbg에서는 &lt;strong&gt;u, nearpc, pdisassemble&lt;/strong&gt;을 제공한다. 디스어셈블된 코드를 가독성 좋게 출력해준다는 점에서 쓸 만하다!&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%205.jpeg&quot; alt=&quot;확실히 낫다.&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%205.jpeg&quot; alt=&quot;확실히 낫다.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
     &lt;p&gt;확실히 낫다.&lt;/p&gt;
   &lt;/li&gt;
@@ -5714,7 +5714,7 @@ syscall
       &lt;li&gt;
         &lt;p&gt;rsp 기준으로 8개의 메모리 주소를 보여주기 때문에 콜스택의 역사를 알 수 있다.&lt;/p&gt;
 
-        &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%206.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%206.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -5729,7 +5729,7 @@ syscall
   &lt;li&gt;
     &lt;p&gt;cat /proc/{pid}/maps와 동일한 일을 한다. 물론 가독성은 훨씬 좋다.&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%207.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%207.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -5756,7 +5756,7 @@ syscall
       &lt;li&gt;
         &lt;p&gt;사용예:&lt;/p&gt;
 
-        &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%208.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%208.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -5766,7 +5766,7 @@ syscall
       &lt;li&gt;
         &lt;p&gt;사용예: *(해당 프로그램은 인자와 입력값 모두를 요구하기 때문에 첫번째 방식과 두번째 방식이 함께 쓰였다.)&lt;/p&gt;
 
-        &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%209.jpeg&quot; alt=&quot;Untitled&quot; /&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;img src=&quot;/assets/img/syshack3-1/Untitled%209.jpeg&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;

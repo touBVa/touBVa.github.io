@@ -51,7 +51,7 @@ permalink: /blog/system_hacking/protostar-stack5-x86-x64/
     - 64bit 구조가 되면서 메모리 주소 체계도 달라져 프로세스에 할당 가능한 가상 메모리 크기가 16EB까지 올라갔다. 그로 인해 원래 레지스터가 감당해야 했던 저장의 필요성이 사라지며 잉여 레지스터들이 생기게 되었다.
     - 컴퓨터구조를 배운 사람들이라면 레지스터 메모리가 가장 빠른 메모리임을 알 것이다. 메모리들의 가용 용량/속도의 관계를 나타낸 이미지를 첨부한다.
         
-        ![Untitled](/assets/img/posts/protostar5/Untitled.jpeg)
+        ![Untitled](/assets/img/posts/protostar5/Untitled.jpeg){: width="100%" height="100%"}
         
     - 가장 빈번하게 읽어와야 하는 것이 함수의 파라미터이기 때문에 속도의 효율성을 위해 레지스터에 파라미터를 저장하는 것으로 함수의 calling convention을 정의하게 되었다. 그렇게 하더라도 저장 성능 오버헤드 대비 속도 이득이 훨씬 높기 때문이다.
 4.  이로 인해 RTL 기법을 이용한 익스플로잇 수행 시 입력해야 할 페이로드의 형태가 달라졌다. 다음 장에서 자세히 설명할 것이므로 아래에는 페이로드의 구성만 언급한다.
@@ -188,7 +188,7 @@ gcc -m32 -mpreferred-stack-boundary=4 -fno-stack-protector -z execstack -no-pie 
 
 `disas main` 명령어로 얻은 어셈블리 덤프는 아래와 같다.
 
-![Untitled](/assets/img/posts/protostar5/Untitled%201.jpeg)
+![Untitled](/assets/img/posts/protostar5/Untitled%201.jpeg){: width="100%" height="100%"}
 
 main 함수가 파라미터를 받는 형식이라 해당 파라미터를 내부적으로 처리하기 위해 공간을 확보한다. 그러나 그것에 신경쓸 필요 없이, gets 심볼이 딸린 call 직전의 어셈블리어에 집중하다.
 
@@ -223,23 +223,23 @@ execl("/bin/sh", "sh", "-c", command, (char *)NULL);
     
     이후 `p system` 명령어를 입력하면 아래와 같은 결과를 볼 수 있다.
     
-    ![Untitled](/assets/img/posts/protostar5/Untitled%202.jpeg)
+    ![Untitled](/assets/img/posts/protostar5/Untitled%202.jpeg){: width="100%" height="100%"}
     
     이제 ‘/bin/sh’ 문자열을 찾아야 한다. `find &system,+999999999,"/bin/sh"` 명령어를 이용하면 쉽게 찾을 수 있다. system 함수의 시작 주소부터 명시된 숫자만큼 올려가며 주어진 문자열을 찾으라는 명령어다.
     
-    ![Untitled](/assets/img/posts/protostar5/Untitled%203.jpeg)
+    ![Untitled](/assets/img/posts/protostar5/Untitled%203.jpeg){: width="100%" height="100%"}
     
 2. libc에서 찾기
     
     타겟 프로그램이 사용하는 라이브러리와 그것이 적재되는 주소를 알아낼 수 있는 `ldd {program_name}` 명령어를 사용한다.
     
-    ![Untitled](/assets/img/posts/protostar5/Untitled%204.jpeg)
+    ![Untitled](/assets/img/posts/protostar5/Untitled%204.jpeg){: width="100%" height="100%"}
     
     libc 라이브러리의 디렉토리상의 위치와 실질 메모리상 적재 위치를 알 수 있다.
     
     그럼 objdump를 이용해 libc.so.6 상에 위치하는 system 함수의 오프셋을 알아내면 된다.
     
-    ![Untitled](/assets/img/posts/protostar5/Untitled%205.jpeg)
+    ![Untitled](/assets/img/posts/protostar5/Untitled%205.jpeg){: width="100%" height="100%"}
     
     `0x3d3d0`이 system 함수의 오프셋인 것처럼 보인다. 실제로 libc.so.6의 시작 주소인 `0xf7dde000` 에 오프셋인 `0x3d3d0`을 더하면 `0xf7e1b3d0`으로 system 함수의 시작 주소가 맞다.
     
@@ -260,7 +260,7 @@ execl("/bin/sh", "sh", "-c", command, (char *)NULL);
     
     위의 코드를 이용하면 아래와 같은 결과가 나온다.
     
-    ![Untitled](/assets/img/posts/protostar5/Untitled%206.jpeg)
+    ![Untitled](/assets/img/posts/protostar5/Untitled%206.jpeg){: width="100%" height="100%"}
     
 
 ### 1.3.3. 익스플로잇 생성
@@ -277,7 +277,7 @@ execl("/bin/sh", "sh", "-c", command, (char *)NULL);
 
 32 bit로 컴파일하면서 `mpreferred-stack-boundary` 를 제대로 설정하지 않으면 아래와 같은 에필로그가 나온다.
 
-![Untitled](/assets/img/posts/protostar5/Untitled%207.jpeg)
+![Untitled](/assets/img/posts/protostar5/Untitled%207.jpeg){: width="100%" height="100%"}
 
 아무래도 해당 옵션의 디폴트 값이 4라서 16의 배수로 스택 프레임의 꼭대기가 끝나는 상황인지라, 필요한 것보다 더 할당된 스택을 정리하기 위해 `lea esp,[ecx-0x4]` 인스트럭션이 추가되어 있다. 
 
@@ -285,13 +285,13 @@ execl("/bin/sh", "sh", "-c", command, (char *)NULL);
 
 추가로 말하자면, 위와 같은 상황일 때 함수의 프롤로그도 새로운 형식이 되어 나타난다. 애초에 16의 배수로 스택 시작점을 align할 필요가 없는 32bit 프로그램이다 보니 억지로 ebp 주소를 16의 배수로 맞추기 위해 아래와 같은 프롤로그가 보인다.
 
-![Untitled](/assets/img/posts/protostar5/Untitled%208.jpeg)
+![Untitled](/assets/img/posts/protostar5/Untitled%208.jpeg){: width="100%" height="100%"}
 
 `0xfffffff0` 과 and 연산을 함으로써 무조건 16의 배수로 만든 esp를 ebp에 넣어서 스택의 바닥을 지정하는 부분이 보인다.
 
 다시 핵심으로 돌아와, 대상 파일을 컴파일해 앞의 과정을 다시 밟은 이후 페이로드를 지정한다면 아래처럼 쉘을 딸 수 있다.
 
-![Untitled](/assets/img/posts/protostar5/Untitled%209.jpeg)
+![Untitled](/assets/img/posts/protostar5/Untitled%209.jpeg){: width="100%" height="100%"}
 
 물론 스크립트를 작성해 익스플로잇을 수행할 수도 있다.
 
@@ -358,7 +358,7 @@ offset bytes + Gadget address(pop rdi;ret;) + parameter address + Library functi
 
 `disas main` 명령어를 이용한다.
 
-![Untitled](/assets/img/posts/protostar5/Untitled%2010.jpeg)
+![Untitled](/assets/img/posts/protostar5/Untitled%2010.jpeg){: width="100%" height="100%"}
 
 gets에 들어가는 첫 번째 인자를 저장하는 rdi에 들어가는 값을 확인해 보면 `rbp-0x40` 임을 알 수 있다. 즉, rbp까지를 오염시키기 위해 0x48 bytes가 필요함을 알 수 있다.
 
@@ -368,7 +368,7 @@ gets에 들어가는 첫 번째 인자를 저장하는 rdi에 들어가는 값�
 
 목표하는 gadget은 `pop rdi;ret;` 이다. 이를 찾기 위해 pwntools를 이용한다.
 
-![Untitled](/assets/img/posts/protostar5/Untitled%2011.jpeg)
+![Untitled](/assets/img/posts/protostar5/Untitled%2011.jpeg){: width="100%" height="100%"}
 
 타겟 프로그램은 `/lib/x86_64-linux-gnu/libc.so.6` 을 사용하고 있음을 확인했다.
 
@@ -387,11 +387,11 @@ print('/bin/sh=', hex(list(libc.search(b'/bin/sh'))[0]))
 
 스크립트 실행 결과는 아래와 같았다.
 
-![Untitled](/assets/img/posts/protostar5/Untitled%2012.jpeg)
+![Untitled](/assets/img/posts/protostar5/Untitled%2012.jpeg){: width="100%" height="100%"}
 
 앞서 알아둔 라이브러리 시작 주소가 `0x7ffff7a0364f` 이고, 가젯의 오프셋이 `0x2164f` 이므로 둘을 더한 결과값인 `0x7ffff7a0364f` 에 정말로 가젯이 적재되어 있는지 gdb로 확인해 보자.
 
-![Untitled](/assets/img/posts/protostar5/Untitled%2013.jpeg)
+![Untitled](/assets/img/posts/protostar5/Untitled%2013.jpeg){: width="100%" height="100%"}
 
 적재되어 있다.
 
@@ -458,7 +458,7 @@ p.interactive()
 
 `system` 함수는 `do_system` 함수를 콜하고, `do_system` 함수는 거의 끄트머리에서 `execve` 함수를 콜하면서 인자를 넘겨주는 형식이다. 즉, `do_system` 함수 내부로 들어갔을 때 `execve` 를 콜하기도 전에 SEGFAULT가 나는 이유를 알아내는 것이 현재 디버깅의 목적이다.
 
-![Untitled](/assets/img/posts/protostar5/Untitled%2014.jpeg)
+![Untitled](/assets/img/posts/protostar5/Untitled%2014.jpeg){: width="100%" height="100%"}
 
 `c`를 누르고 보면 위 부분에서 rip가 freezed 된 것이 보인다.
 
@@ -513,7 +513,7 @@ p.interactive()
 
 스크립트 실행 결과 아래와 같이 쉘을 딸 수 있었다.
 
-![Untitled](/assets/img/posts/protostar5/Untitled%2015.jpeg)
+![Untitled](/assets/img/posts/protostar5/Untitled%2015.jpeg){: width="100%" height="100%"}
 
 ---
 
@@ -527,11 +527,11 @@ p.interactive()
 
 먼저 pwndbg에서 vmmap을 이용해 어떤 라이브러리가 링킹되어 있는지 보자.
 
-![Untitled](/assets/img/posts/protostar5/Untitled%2016.jpeg)
+![Untitled](/assets/img/posts/protostar5/Untitled%2016.jpeg){: width="100%" height="100%"}
 
 `libc-2.27.so` 파일과 `ld-2.27.so` 파일이 링킹되어 있는 게 보인다. 엥? 그런데 이상하다. 분명히 우리가 ldd, 즉 libc database 커맨드로 확인했을 때 사용된 라이브러리는 아래와 같았다.
 
-![Untitled](/assets/img/posts/protostar5/Untitled%204.jpeg)
+![Untitled](/assets/img/posts/protostar5/Untitled%204.jpeg){: width="100%" height="100%"}
 
 아니 `libc.so.6` 이랑 `ld-linux.so.2` 썼다며? 그런데 왜 정작 사용된 건 다른 거야??
 
@@ -544,14 +544,14 @@ p.interactive()
 - 하드 링크는 `ln {original file} {linked file}` 명령어로 생성한다. 이 경우 `ls -li` 명령어로 inode를 확인한다면 원본 파일과 링크된 파일의 inode 번호가 동일함을 확인할 수 있다. 이로 인해 원본 파일의 위치가 바뀌더라도 링크된 파일을 실행하면 원본 파일이 실행된다.
 - 소프트 링크는 `ln -s {original file} {linked file}` 명령어로 생성한다. 이 경우 `ls -li` 명령어로 inode와 파일 정보를 확인한다면 원본 파일과 링크된 파일의 inode 번호가 다르며, `->` 기호로 링크가 표시되어 있음을 확인할 수 있다. 이로 인해 원본 파일의 위치가 바뀌면 링크된 파일을 실행했을 때 링크가 원본 파일을 찾지 못한다. 아래 사진은 소프트 링크를 확인했을 때의 사진이다.
     
-    ![Untitled](/assets/img/posts/protostar5/Untitled%2017.jpeg)
+    ![Untitled](/assets/img/posts/protostar5/Untitled%2017.jpeg){: width="100%" height="100%"}
     
     가장 첫 번째에 보이는 `libc-2.27.so` 파일의 inode num은 `6816882` 인데, 해당 파일에 소프트 링크가 걸려 있는 가장 마지막의 `libc.so.6` 파일의 inode num은 `6816904` 로 서로 다르다는 것을 확인할 수 있다.
     
 
 좋아, 그렇다면 파일 실행 시 **공유 라이브러리**로는 `libc.so.6` 을 썼기 때문에 소프트 링크의 오리지널 파일인 `libc-2.27.so` 가 사용됐고 **Dynamic Loader**로는 `ld-linux.so.2` 를 썼기 때문에 링크가 걸린 `ld-2.27.so` 가 사용됐다고 치자. (아래 사진 참고)
 
-![Untitled](/assets/img/posts/protostar5/Untitled%2018.jpeg)
+![Untitled](/assets/img/posts/protostar5/Untitled%2018.jpeg){: width="100%" height="100%"}
 
 그런데 또 궁금한 게 생긴다. so 파일이 뭔지는 알겠는데… `so.2`와 `so.6`은 대체 무슨 뜻이야?
 
