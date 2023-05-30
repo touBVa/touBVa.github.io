@@ -5,14 +5,15 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 30 May 2023 14:52:08 +0900</pubDate>
-    <lastBuildDate>Tue, 30 May 2023 14:52:08 +0900</lastBuildDate>
+    <pubDate>Tue, 30 May 2023 18:05:45 +0900</pubDate>
+    <lastBuildDate>Tue, 30 May 2023 18:05:45 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
     
       <item>
         <title>[논문 스터디] Air-Fi: Leaking Data From Air-Gapped Computers Using Wi-Fi Frequencies</title>
         <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#마인드맵-정리본&quot; id=&quot;markdown-toc-마인드맵-정리본&quot;&gt;마인드맵 정리본&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#들어가기에-앞서&quot; id=&quot;markdown-toc-들어가기에-앞서&quot;&gt;들어가기에 앞서&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#sec3-공격-모델-이원적&quot; id=&quot;markdown-toc-sec3-공격-모델-이원적&quot;&gt;Sec3) 공격 모델: 이원적&lt;/a&gt;    &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#개요&quot; id=&quot;markdown-toc-개요&quot;&gt;개요&lt;/a&gt;&lt;/li&gt;
@@ -55,6 +56,12 @@
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;마인드맵-정리본&quot;&gt;마인드맵 정리본&lt;/h1&gt;
+&lt;div style=&quot;position: relative; width: 100%; height: 0; overflow: hidden; padding-bottom: 100%;&quot;&gt;
+&lt;iframe src=&quot;https://xmind.app/embed/iUU64D&quot; style=&quot;position: absolute; top:0; left:0; width:100%; height: 100%;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 

@@ -16,6 +16,13 @@ permalink: /blog/paper_study/air-fi
 
 <br>
 
+# 마인드맵 정리본
+<div style="position: relative; width: 100%; height: 0; overflow: hidden; padding-bottom: 100%;">
+<iframe src="https://xmind.app/embed/iUU64D" style="position: absolute; top:0; left:0; width:100%; height: 100%;" frameborder="0" scrolling="no"></iframe></div>
+
+
+<br>
+
 # 들어가기에 앞서
 
 <br>
