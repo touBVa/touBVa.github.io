@@ -451,7 +451,7 @@ header {
 
 #blog-post-container{
     margin-top: 20px;
-    margin-left: 0px;
+    margin-left: 10px;
 }
 
 .snipcart-modal__container {
@@ -817,9 +817,9 @@ footer {
 
 @media screen and (min-width: 768px) {
     .main-container{
-        margin-left: auto;
-        margin-right: 315px;
-        width: 90vw;
+        margin-left: 5vw;
+        margin-right: 20vw;
+        width: 75vw;
         max-width: 1440px;
     }
 }

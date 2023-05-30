@@ -124,7 +124,7 @@ header { background-color: var(--main-background-color); box-shadow: 0px; height
 
 .breadcrumb { margin-top: 45px !important; /* margin-right: 20px !important; */ margin-bottom: 20px !important; font-size: 15px; background-color: var(--card-background-color) !important; }
 
-#blog-post-container { margin-top: 20px; margin-left: 0px; }
+#blog-post-container { margin-top: 20px; margin-left: 10px; }
 
 .snipcart-modal__container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow-y: auto; overflow-x: hidden; min-height: 100vh; z-index: 10; margin-top: 60px !important; padding: 5px !important; background-color: var(--main-background-color) !important; }
 
@@ -260,7 +260,7 @@ header { background-color: var(--main-background-color); box-shadow: 0px; height
 footer { width: 100%; height: 70px; text-align: center; padding: 20px; background-color: var(--main-background-color); color: var(--main-text-color); }
 
 /* Responsive Media Queries */
-@media screen and (min-width: 768px) { .main-container { margin-left: auto; margin-right: 315px; width: 90vw; max-width: 1440px; } }
+@media screen and (min-width: 768px) { .main-container { margin-left: 5vw; margin-right: 20vw; width: 75vw; max-width: 1440px; } }
 
 /* ##Device = Low Resolution Tablets, Mobiles (Landscape) ##Screen = B/w 320px to 480px */
 @media (min-width: 320px) and (max-width: 480px) { header { height: auto; text-align: center; background-color: var(--main-background-color); box-shadow: 0px; height: auto; width: 100%; padding: 1px; } header #author-img { margin-left: auto; margin-right: auto; width: 100%; } header #author_details { text-align: center; } #mc-embedded-subscribe-form { width: 100%; padding: 50px; } #mc_embed_signup_scroll_footer { margin-left: 5%; margin-right: 5%; text-align: center; font-size: 12px; } #mce-EMAIL_footer { width: 200px; padding: 14px; color: #111; border-color: #fff; text-align: center; text-transform: capitalize; border: 1px solid #fff; } #mc-embedded-subscribe_footer { margin-top: 30px; } .blog-post { width: 100%; height: auto; margin: 20px !important; } .product { width: auto; float: left; } #topNav { padding-left: 0px; padding-right: 0px; } .navbar-brand { display: inline-block; padding-top: .3rem; padding-bottom: .3rem; margin-right: 1rem; font-size: 1.25rem; line-height: inherit; white-space: nowrap; } .jumbotron { padding: 10rem 1rem !important; } }
