@@ -232,8 +232,8 @@ header {
     margin-top: 10px !important;
 }
 .card {
-    margin: 0px !important;
-    padding: 0px !important;
+    margin: 5px !important;
+    padding: 5px !important;
     background-color: var(--main-background-color) !important;
 }
 
@@ -818,7 +818,7 @@ footer {
 @media screen and (min-width: 768px) {
     .main-container{
         margin-left: auto;
-        margin-right: 305px;
+        margin-right: 315px;
         width: 90vw;
         max-width: 1440px;
     }
@@ -1247,9 +1247,9 @@ footer {
         position: fixed;
         top: 60px;
         bottom: 0;
-        padding-right: 50px;
-        left: calc(100vw - 325px);
-        width: 300px;
+        padding-right: 30px;
+        left: 79vw;
+        width: 20vw;
         max-height: 90vh;
         background-color: var(--main-background-color);
         z-index: 1;
