@@ -819,7 +819,8 @@ footer {
     .main-container{
         margin-left: auto;
         margin-right: 305px;
-        width: 90%;
+        width: 90vw;
+        max-width: 1440px;
     }
 }
 
