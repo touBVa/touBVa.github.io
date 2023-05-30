@@ -51,7 +51,7 @@ permalink: /blog/system_hacking/plt-got-overwrite
 
 위의 기능이 언제나 가능하도록 만들기 위해 **“plt의 주소는 언제나 고정되어 있다”.**
 
-![최초로 함수의 주소를 알아올 때 plt와 got의 행위를 나타낸 도식.](/assets/img/posts/pltgot/Untitled.jpeg)
+![최초로 함수의 주소를 알아올 때 plt와 got의 행위를 나타낸 도식.](/assets/img/posts/pltgot/Untitled.jpeg){: width="100%" height="100%"}
 
 최초로 함수의 주소를 알아올 때 plt와 got의 행위를 나타낸 도식.
 

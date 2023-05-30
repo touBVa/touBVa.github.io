@@ -5,8 +5,8 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 30 May 2023 22:28:33 +0900</pubDate>
-    <lastBuildDate>Tue, 30 May 2023 22:28:33 +0900</lastBuildDate>
+    <pubDate>Tue, 30 May 2023 22:33:35 +0900</pubDate>
+    <lastBuildDate>Tue, 30 May 2023 22:33:35 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
     
@@ -1984,7 +1984,7 @@ WiFi 물리 레이어 모니터링용 프로세스나 스레드 시작
 
 &lt;p&gt;위의 기능이 언제나 가능하도록 만들기 위해 &lt;strong&gt;“plt의 주소는 언제나 고정되어 있다”.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/pltgot/Untitled.jpeg&quot; alt=&quot;최초로 함수의 주소를 알아올 때 plt와 got의 행위를 나타낸 도식.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/pltgot/Untitled.jpeg&quot; alt=&quot;최초로 함수의 주소를 알아올 때 plt와 got의 행위를 나타낸 도식.&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;최초로 함수의 주소를 알아올 때 plt와 got의 행위를 나타낸 도식.&lt;/p&gt;
 
