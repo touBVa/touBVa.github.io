@@ -121,8 +121,17 @@ ol, ul {
     position: fixed;
     width: 100%;
     overflow: hidden;
+    transition: top 0.2s ease-in-out;
     z-index: 1;
-    margin-top: 17px;
+    top: 49px;
+}
+
+#progress-bar.toUp {
+    top: 0px;
+}
+
+#progress-bar.toDown {
+    top: 49px;
 }
 
 body {
@@ -213,7 +222,6 @@ header {
     padding: 11px;
 }
 
-
 /* bootstrap override */
 .container-fluid {
     padding: 0px !important;
@@ -228,12 +236,28 @@ header {
     background-color: var(--main-background-color) !important;
 }
 
-#topNav{
+
+#topNav {
     padding-left: 15%;
     padding-right: 15%;
     max-height: 50px;
+    transition: top 0s ease-in-out;
     background-color: var(--main-background-color) !important;
     box-shadow: #000 0px 0px 8px;
+}
+
+#topNav.nav-up {
+
+    top: -50px;
+
+}
+
+#topNav.nav-down {
+    top: 0px;
+}
+
+.nav-down {
+    top: 0;
 }
 
 #navbar-hamburger, #navbar-search{
@@ -1224,6 +1248,7 @@ footer {
         position: fixed;
         top: 100px;
         bottom: 0;
+        padding-right: 50px;
         left: calc(100vw - 325px);
         width: 300px;
         max-height: 90vh;
