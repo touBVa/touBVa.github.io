@@ -67,13 +67,11 @@ header { background-color: var(--main-background-color); box-shadow: 0px; height
 
 #topNav.nav-down { top: 0px; }
 
-.nav-down { top: 0; }
-
 #navbar-hamburger, #navbar-search { color: var(--bold-color) !important; }
 
 .navbar-dark .navbar-brand { color: #ff7601 !important; }
 
-.navbar-dark .navbar-nav .nav-link { color: var(--nav-link-color) !important; }
+.navbar-dark .navbar-nav .nav-link { color: var(--nav-link-color) !important; background-color: rgba(19, 19, 19, 0.755); }
 
 .navbar-dark .navbar-toggler { border-color: transparent !important; }
 

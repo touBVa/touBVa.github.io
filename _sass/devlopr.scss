@@ -256,10 +256,6 @@ header {
     top: 0px;
 }
 
-.nav-down {
-    top: 0;
-}
-
 #navbar-hamburger, #navbar-search{
     color: var(--bold-color) !important;
 }
@@ -270,6 +266,7 @@ header {
 
 .navbar-dark .navbar-nav .nav-link {
     color: var(--nav-link-color) !important;
+    background-color: rgba(19, 19, 19, 0.755);
 }
 .navbar-dark .navbar-toggler {
     border-color:transparent !important;
