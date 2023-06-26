@@ -1,7 +1,7 @@
 ---
 name: TouBVA
 username: TouBVa
-bio: "A Security Researcher, now concentrating on Security Consulting."
+bio: "A Security Researcher, never stop being inquisitive."
 site: https://toubva.github.io
 avatar: toubva.jpeg
 email: touBVa@gmail.com
