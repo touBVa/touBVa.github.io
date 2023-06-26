@@ -1,6 +1,6 @@
  User-agent: *
- Allow: *
  Disallow: /admin
  Disallow: /SECURITY
+ Allow: *
 
  Sitemap: https://toubva.github.io/sitemap.xml
