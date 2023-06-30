@@ -41,7 +41,7 @@ Reproduce 타겟 논문은 “GAIROSCOPE: Injecting Data from Air-Gapped Compute
     2. y축은 Driving Direction 으로 칭한다.
 4. 센서에는 Proof mass라는 물질이 발려 있다(사진의 파란색)
     1. 이 물질은 미세전류의 영향 하에 y축 방향으로 진행한다.
-    2. 이 때, z축에 대해 $\Omega$의 각속도로 센서가 회전할 경우 코리올리 효과로 인해 x축으로의 가속력이 발생한다.
+    2. 이 때, z축에 대해 $$\Omega$$의 각속도로 센서가 회전할 경우 코리올리 효과로 인해 x축으로의 가속력이 발생한다.
     3. 기본은 이러한 x축, y축의 각속도 값을 이용해 센서의 위상을 알아내는 것이다.
     4. 그러나 x축 방향으로의 움직임에서 관성력과 원심력 요소를 감안해 제거해야 한다.
     5. 이를 위해 proof mass를 하나 더 발라두고 y축 정반대 방향으로 진행케 해 잡음 신호를 상쇄시킨다. (위 사진에서 파란색 사각형이 두 개인 이유)
@@ -73,7 +73,7 @@ Reproduce 타겟 논문은 “GAIROSCOPE: Injecting Data from Air-Gapped Compute
         
         → ‘전압’과 ‘rad/s’는 비례하는가?
         
-        → 아날로그 센서는 $\Omega$에 비례해 전압을 발생, 디지털 센서는 $\Omega_{axis}$에 비례해 dps(degree per second)/LSB(최소비트변화) 발생
+        → 아날로그 센서는 $$\Omega$$에 비례해 전압을 발생, 디지털 센서는 $$\Omega_{axis}$$에 비례해 dps(degree per second)/LSB(최소비트변화) 발생
         
         → 즉, 디지털 센서가 주는 값을 공진 탐지에 사용할 수 있다(각속도를 매개변수로 사용하여 아날로그의 신호와 디지털의 신호 간 비례관계를 밝힐 수 있기 때문). 그러나, x, y, z축 중 어느 축이 영향을 받았는지 구분해 내야 한다.
         
