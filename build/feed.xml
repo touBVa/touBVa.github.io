@@ -5,8 +5,8 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 30 Jun 2023 16:07:46 +0900</pubDate>
-    <lastBuildDate>Fri, 30 Jun 2023 16:07:46 +0900</lastBuildDate>
+    <pubDate>Fri, 30 Jun 2023 17:10:54 +0900</pubDate>
+    <lastBuildDate>Fri, 30 Jun 2023 17:10:54 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
     
@@ -78,7 +78,7 @@
   &lt;li&gt;센서에는 Proof mass라는 물질이 발려 있다(사진의 파란색)
     &lt;ol&gt;
       &lt;li&gt;이 물질은 미세전류의 영향 하에 y축 방향으로 진행한다.&lt;/li&gt;
-      &lt;li&gt;이 때, z축에 대해 $\Omega$의 각속도로 센서가 회전할 경우 코리올리 효과로 인해 x축으로의 가속력이 발생한다.&lt;/li&gt;
+      &lt;li&gt;이 때, z축에 대해 \(\Omega\)의 각속도로 센서가 회전할 경우 코리올리 효과로 인해 x축으로의 가속력이 발생한다.&lt;/li&gt;
       &lt;li&gt;기본은 이러한 x축, y축의 각속도 값을 이용해 센서의 위상을 알아내는 것이다.&lt;/li&gt;
       &lt;li&gt;그러나 x축 방향으로의 움직임에서 관성력과 원심력 요소를 감안해 제거해야 한다.&lt;/li&gt;
       &lt;li&gt;이를 위해 proof mass를 하나 더 발라두고 y축 정반대 방향으로 진행케 해 잡음 신호를 상쇄시킨다. (위 사진에서 파란색 사각형이 두 개인 이유)&lt;/li&gt;
@@ -124,7 +124,7 @@
 
         &lt;p&gt;→ ‘전압’과 ‘rad/s’는 비례하는가?&lt;/p&gt;
 
-        &lt;p&gt;→ 아날로그 센서는 $\Omega$에 비례해 전압을 발생, 디지털 센서는 $\Omega_{axis}$에 비례해 dps(degree per second)/LSB(최소비트변화) 발생&lt;/p&gt;
+        &lt;p&gt;→ 아날로그 센서는 \(\Omega\)에 비례해 전압을 발생, 디지털 센서는 \(\Omega_{axis}\)에 비례해 dps(degree per second)/LSB(최소비트변화) 발생&lt;/p&gt;
 
         &lt;p&gt;→ 즉, 디지털 센서가 주는 값을 공진 탐지에 사용할 수 있다(각속도를 매개변수로 사용하여 아날로그의 신호와 디지털의 신호 간 비례관계를 밝힐 수 있기 때문). 그러나, x, y, z축 중 어느 축이 영향을 받았는지 구분해 내야 한다.&lt;/p&gt;
       &lt;/li&gt;
@@ -150,7 +150,6 @@
   &lt;/li&gt;
   &lt;li&gt;자이로스코프의 공진 여부를 감지해 바이너리 데이터로 변환하는 프로그램이 설치된 핸드폰을 음파가 닿을 수 있는 책상에 놓고 앱 실행&lt;/li&gt;
   &lt;li&gt;에어갭으로 분리된 네트워크상에 존재하는 데이터가 핸드폰으로 전송&lt;/li&gt;
-  &lt;li&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -356,7 +355,9 @@
 &lt;h2 id=&quot;21-데모-영상&quot;&gt;2.1. 데모 영상&lt;/h2&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/MZGVMOy3WaA&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;div style=&quot;position: relative; width: 100%; height: 0; overflow: hidden; padding-bottom: 80%;&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/MZGVMOy3WaA&quot; style=&quot;position: absolute; top:0; left:0; width: 80%; height: 80%; max-width: 1080px; max-height: 720px;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -978,7 +979,7 @@
 
     &lt;p&gt;원본대로 할 때 진동수의 측정값: 고주파는 1, 저주파는 0으로, 진동 빈도의 변화를 이용해 0과 1을 구분한다. 이는 일반적인 DFSK에서 많이 사용하는 해석법이다.&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/gyro/Untitled.jpeg&quot; alt=&quot;핸드폰에 자이로스코프의 값을 시각화해 주는 어플을 다운받아 실제로 높은 공진주파수와 상대적으로 낮은 공진주파수를 재생했을 때의 변화 양상이다. 이런 식으로 공진주파수의 Frequency를 다르게 줌으로써 비트를 구분할 경우 자이로스코프 신호의 주기가 바뀌므로 약 3m 떨어진 거리에서도 오차 없이 비트를 구분함을 알 수 있었다.&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/gyro/Untitled.jpeg&quot; alt=&quot;핸드폰에 자이로스코프의 값을 시각화해 주는 어플을 다운받아 실제로 높은 공진주파수와 상대적으로 낮은 공진주파수를 재생했을 때의 변화 양상이다. 이런 식으로 공진주파수의 Frequency를 다르게 줌으로써 비트를 구분할 경우 자이로스코프 신호의 주기가 바뀌므로 약 3m 떨어진 거리에서도 오차 없이 비트를 구분함을 알 수 있었다.&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;&lt;/p&gt;
 
     &lt;p&gt;핸드폰에 자이로스코프의 값을 시각화해 주는 어플을 다운받아 실제로 높은 공진주파수와 상대적으로 낮은 공진주파수를 재생했을 때의 변화 양상이다. 이런 식으로 공진주파수의 Frequency를 다르게 줌으로써 비트를 구분할 경우 자이로스코프 신호의 주기가 바뀌므로 약 3m 떨어진 거리에서도 오차 없이 비트를 구분함을 알 수 있었다.&lt;/p&gt;
   &lt;/li&gt;
@@ -1034,6 +1035,31 @@
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;여기서부터는 내 사감이다.&lt;/p&gt;
+
+&lt;p&gt;먼저 고생했어 우리 팀원들!!! 주제 선정부터 발표까지 20일밖에 없었고, 나는 막학기 16학점(…^^….), 너희는 가장 바쁜 3학년이었잖아!
+그 와중에 다같이 모여서 밤늦게까지 노력했고, 어찌 됐든 결과도 재현했고!
+우리 완전 대단해 대단해~~~&lt;/p&gt;
+
+&lt;p&gt;플젝을 하는 내내 다같이 입버릇처럼 너무 재밌다 근데 시간이 없어서 속상하다 말했을 정도로 참 재밌었다.
+특히 팀원 하나는 구현을 정말 잘하는데다 플젝에도 적극적이라 나도 에너지를 얻었다.
+나는 구상을 잘 하는데, 이 친구가 구현을 특출나게 잘 하니까 엄청난 시너지가 나더라.
+아니 정말로 내가 실험을 설계해서 이거 이렇게이렇게 하고 싶은데 어때, 라고 하면 말 그대로 뚝! 딱! 하는 사이에 코드를 짜서 짜잔 하고 보여준다.
+당신은 신이에요. You are GOD.&lt;/p&gt;
+
+&lt;p&gt;진짜 존경스러웠고… 나에게 큰 자극이 되었다.&lt;/p&gt;
+
+&lt;p&gt;다른 팀원은 주제가 어려워 힘들어하면서도 마지막까지 어떻게든 팀에 기여하려 노력하는 면모가 배울 점이었다.
+이거 정말 어렵잖아…. 답이 안 보여도 팀활동이기 때문에 끝까지 참여하는 거.
+그냥 참여하는 것도 아니다. 다른 팀원에게 피해가 되지 않도록 배려하며 팀플에 참여하고자 했다.
+아이고 내 친구 고생했다.&lt;/p&gt;
+
+&lt;p&gt;팀플레이를 정말 좋아한다. 개개인이 서로에게 좋은 에너지를 주고받으며 단순합이 아닌 곱의 결과를 내는 게 멋있다고 생각하기 때문이다.
+이번 미니플젝은 이런 내 로망을 좀 이뤄준 것 같다 ㅋㅋㅋㅋㅋㅋㅋㅋㅋ&lt;/p&gt;
+
+&lt;p&gt;재밌었어! 담에 이런 거 또 하자 얘들아!!&lt;/p&gt;
+
 </description>
         <pubDate>Fri, 30 Jun 2023 15:53:23 +0900</pubDate>
         <link>http://localhost:4000/blog/paper_study/airgap-break-using-gyro-resonance</link>

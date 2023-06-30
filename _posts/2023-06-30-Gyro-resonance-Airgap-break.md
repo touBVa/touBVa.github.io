@@ -269,7 +269,9 @@ normal-status (아무 주파수도 없을 때 일반적인 양상)
 ## 2.1. 데모 영상
 
 <br>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/MZGVMOy3WaA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+<div style="position: relative; width: 100%; height: 0; overflow: hidden; padding-bottom: 80%;">
+<iframe src="https://www.youtube.com/embed/MZGVMOy3WaA" style="position: absolute; top:0; left:0; width: 80%; height: 80%; max-width: 1080px; max-height: 720px;" frameborder="0" scrolling="no"></iframe></div>
 
 <br>
 
