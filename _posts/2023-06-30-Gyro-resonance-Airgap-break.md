@@ -1,6 +1,6 @@
 ---
 layout: post
-title: '[논문 재현] Gyroscope 센서의 공진을 이용한 Airgap Break 논문 재현 프로젝트'
+title: '[논문 재현] Gyroscope 센서의 공진을 이용한 Airgap Break 논문 재현 프로젝트(1)'
 summary: Breaking airgap using resonance frequency of a smartphone gyroscope sensor.
 author: TouBVa
 date: '2023-06-30 15:53:23 +09'
@@ -19,6 +19,7 @@ permalink: /blog/paper_study/airgap-break-using-gyro-resonance
 # 0. 배경지식
 
 Reproduce 타겟 논문은 “GAIROSCOPE: Injecting Data from Air-Gapped Computers to Nearby Gyroscopes”로, [여기](https://arxiv.org/abs/2208.09764)에서 다운받을 수 있다.
+이 프로젝트는 논문을 오류가 많은 방식으로 재현했다. 조만간 팀원과 함께 논문의 원래 방식대로 재현해서 정리글을 올리려 하니 그것도 많은 기대 부탁!!
 
 <br>
 
