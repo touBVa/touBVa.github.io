@@ -5,13 +5,206 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 30 Jun 2023 17:10:54 +0900</pubDate>
-    <lastBuildDate>Fri, 30 Jun 2023 17:10:54 +0900</lastBuildDate>
+    <pubDate>Mon, 03 Jul 2023 23:05:13 +0900</pubDate>
+    <lastBuildDate>Mon, 03 Jul 2023 23:05:13 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
     
       <item>
-        <title>[논문 재현] Gyroscope 센서의 공진을 이용한 Airgap Break 논문 재현 프로젝트</title>
+        <title>Searching for IPSec Vulnerability from Its Specification Level</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section01-about-the-ipsec&quot; id=&quot;markdown-toc-section01-about-the-ipsec&quot;&gt;&lt;strong&gt;Section01. About the IPSec&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section02-vulnerability-reported-for-ikev1&quot; id=&quot;markdown-toc-section02-vulnerability-reported-for-ikev1&quot;&gt;&lt;strong&gt;Section02. Vulnerability Reported for IKEv1&lt;/strong&gt;&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#2-1-description&quot; id=&quot;markdown-toc-2-1-description&quot;&gt;&lt;strong&gt;2-1) Description&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#2-2-impact&quot; id=&quot;markdown-toc-2-2-impact&quot;&gt;&lt;strong&gt;2-2) Impact&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#2-3-solution&quot; id=&quot;markdown-toc-2-3-solution&quot;&gt;&lt;strong&gt;2-3) Solution&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#2-4-details-of-the-vulnerability&quot; id=&quot;markdown-toc-2-4-details-of-the-vulnerability&quot;&gt;&lt;strong&gt;2-4) Details of the vulnerability&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section03-aggressive-mode-and-its-vulnerable-points---rfc2409&quot; id=&quot;markdown-toc-section03-aggressive-mode-and-its-vulnerable-points---rfc2409&quot;&gt;&lt;strong&gt;Section03. Aggressive mode and its vulnerable points - RFC2409&lt;/strong&gt;&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#3-1-ikev1-phase1-authenticated-with-signatures&quot; id=&quot;markdown-toc-3-1-ikev1-phase1-authenticated-with-signatures&quot;&gt;&lt;strong&gt;3-1) &lt;mark&gt;IKEv1 Phase1 Authenticated with Signatures&lt;/mark&gt;&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#3-2-ikev1-phase1-authenticated-with-public-key-encryption-has-no-vulnerability&quot; id=&quot;markdown-toc-3-2-ikev1-phase1-authenticated-with-public-key-encryption-has-no-vulnerability&quot;&gt;&lt;strong&gt;3-2) IKEv1 Phase1 Authenticated with Public Key Encryption (Has no vulnerability)&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#3-3-ikev1-phase1-authentication-with-a-revised-mode-of-public-key-encryption&quot; id=&quot;markdown-toc-3-3-ikev1-phase1-authentication-with-a-revised-mode-of-public-key-encryption&quot;&gt;&lt;strong&gt;3-3) IKEv1 Phase1 Authentication with a Revised Mode of Public Key Encryption&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#3-4-ikev1-phase1-authentication-with-a-pre-shared-key&quot; id=&quot;markdown-toc-3-4-ikev1-phase1-authentication-with-a-pre-shared-key&quot;&gt;&lt;strong&gt;3-4) &lt;mark&gt;IKEv1 Phase1 Authentication with a Pre-Shared Key&lt;/mark&gt;&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#conclusion&quot; id=&quot;markdown-toc-conclusion&quot;&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;학교 과제로 했던 건데, 내용이 좋아서 블로그에 백업!
+오랜만에 어택 벡터 찾는 느낌이 나서 재밌었던 과제로 기억한다.
+그리고…. 한국어 수업인데 정줄 놓고 쓰다 보니 영어로 쓰고 제출까지 하는 바람에 교수님께 양해를 구했던….. 과제다…….
+(당시 진짜 바빴고 참고 문서가 다 영어라서 정말 실수였다)
+아무튼 읽으시는 분께. 미안합니다 이건 영어예요.
+DeepL이 번역을 솔찬히 잘하니 추천드립니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section01-about-the-ipsec&quot;&gt;&lt;strong&gt;Section01. About the IPSec&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;It is a well-known fact that if the logical complexity gets higher, the possibility of the existence of critical contradiction gets higher too. Hence, I am going to describe the subprotocols of IPSec and pick the most complex protocol among them.&lt;/li&gt;
+  &lt;li&gt;IPSec consists of ESP, AH, and IKE protocol. IKE is known as the most complex protocol because of its mathematical and dependency complexity. Therefore, I am going to find a vulnerability that exists in the &lt;strong&gt;design of the IKE.&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;IKE is consisted of OAKLEY, SKEME, and ISAKMP and provides 1) PSK-based, 2) PKE-based, 3) RPKE-based, and 4) Signature-based encryption. Because PKE and RPKE are well-known secure protocols(at least their design is secure), I prefer delving into the PSK-based and Signature-based encryption of IKE.&lt;/li&gt;
+  &lt;li&gt;According to the inference above, I found a vulnerability that existed in the design of the IKEv1. Section 2 is the description of the vulnerability which is followed by section 3, details of the Aggressive mode of IKEv1 and attack vectors that exists in the protocol.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section02-vulnerability-reported-for-ikev1&quot;&gt;&lt;strong&gt;Section02. Vulnerability Reported for IKEv1&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-1-description&quot;&gt;&lt;strong&gt;2-1) Description&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;CVE-2002-1623 / CVSS 2.0: 5.0 Medium&lt;/p&gt;
+
+&lt;p&gt;The design of the Internet Key Exchange (IKE) protocol, when using Aggressive Mode for shared secret authentication, does not encrypt initiator or responder identities during negotiation, which may allow remote attackers to determine valid usernames by (1) monitoring responses before the password is supplied or (2) sniffing.&lt;/p&gt;
+
+&lt;p&gt;This vulnerability is originally reported for Checkpoint FireWall-1 SecuRemote.&lt;/p&gt;
+
+&lt;p&gt;Because Checkpoint implemented the IKE standard for aggressive mode correctly, it could not keep itself from having the vulnerability.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-2-impact&quot;&gt;&lt;strong&gt;2-2) Impact&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Devices that implement this protocol in aggressive mode will leak username information while negotiating IKE sessions. This can be led to the reconnaissance of networks for further attacks.&lt;/p&gt;
+
+&lt;p&gt;The vulnerable product is CheckPoint VPN-1/FireWall-1 product, involving the use of SecuRemote/SecureClient and IKE Aggressive mode.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-3-solution&quot;&gt;&lt;strong&gt;2-3) Solution&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Use an alternative mode and authentication method.&lt;/p&gt;
+
+&lt;p&gt;For example, both the Main mode with PSK authentication and the Aggressive mode with PK authentication will provide identity protection.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-4-details-of-the-vulnerability&quot;&gt;&lt;strong&gt;2-4) Details of the vulnerability&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;usernames are susceptible to brute-force guessing when using IKE Aggressive Mode&lt;/p&gt;
+
+    &lt;p&gt;By sending an IKE Phase-1 aggressive mode packet with the following payloads the firewall will either 1) send back an IKE notification message indicating that the user is not valid in some way, or 2) it will respond with an aggressive mode packet indicating that the user exists and is valid.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;usernames are passed in cleartext using IKE Aggressive Mode&lt;/p&gt;
+
+    &lt;p&gt;(Refer the Section 3-which discusses the attack vectors that could be found in the IKE specification)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section03-aggressive-mode-and-its-vulnerable-points---rfc2409&quot;&gt;&lt;strong&gt;Section03. Aggressive mode and its vulnerable points - RFC2409&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;While OAKLEY defines “modes”, ISAKMP defines “phases”.  The relationship between the two is very straightforward and IKE presents different exchanges as modes that operate in one of two phases.&lt;/p&gt;
+
+&lt;p&gt;&lt;mark&gt;Phase 1&lt;/mark&gt; is where the two ISAKMP peers establish a secure, authenticated channel with which to communicate. This is called the ISAKMP Security Association (SA). “Main Mode” and “Aggressive Mode” each accomplish a phase 1 exchange. “Main Mode” and “Aggressive Mode” MUST ONLY be used in phase 1.&lt;/p&gt;
+
+&lt;p&gt;&lt;mark&gt;Phase 2&lt;/mark&gt; &lt;em&gt;**&lt;/em&gt;is where Security Associations are negotiated on behalf of services such as IPsec or any other service which needs key material and/or parameter negotiation. “Quick Mode” accomplishes a phase 2 exchange. “Quick Mode” MUST ONLY be used in phase 2.&lt;/p&gt;
+
+&lt;p&gt;“Main Mode” for phase 1 provides identity protection. &lt;mark&gt;When identity protection is not needed, &quot;Aggressive Mode&quot; can be used to reduce round trips even further.&lt;/mark&gt;&lt;/p&gt;
+
+&lt;p&gt;Four different authentication methods are allowed with either Main Mode or Aggressive Mode.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;digital signature&lt;/li&gt;
+  &lt;li&gt;two forms of authentication with public key encryption&lt;/li&gt;
+  &lt;li&gt;pre-shared key&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-1-ikev1-phase1-authenticated-with-signatures&quot;&gt;&lt;strong&gt;3-1) &lt;mark&gt;IKEv1 Phase1 Authenticated with Signatures&lt;/mark&gt;&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ipsecVuln01/Untitled.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Aggressive mode with signatures in conjunction with ISAKMP is described as follows:&lt;/p&gt;
+
+&lt;p&gt;IDii: Identity of the initiator&lt;/p&gt;
+
+&lt;p&gt;IDir: Identity of the Responder&lt;/p&gt;
+
+&lt;p&gt;KE: Key exchange payload which contains public information exchanged in a DHKE&lt;/p&gt;
+
+&lt;p&gt;As you can see above, the IDs of the party negotiating the signature are exposed on the network.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-2-ikev1-phase1-authenticated-with-public-key-encryption-has-no-vulnerability&quot;&gt;&lt;strong&gt;3-2) IKEv1 Phase1 Authenticated with Public Key Encryption (Has no vulnerability)&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ipsecVuln01/Untitled%201.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Unlike other authentication methods, authentication with public key encryption allows for identity protection in Aggressive Mode.&lt;/p&gt;
+
+&lt;p&gt;(If the authentication method is public key encryption, the nonce and identity payloads MUST be encrypted with the public key of the other party. Only the body of the payloads is encrypted, the payload headers are left in the clear.)&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-3-ikev1-phase1-authentication-with-a-revised-mode-of-public-key-encryption&quot;&gt;&lt;strong&gt;3-3) IKEv1 Phase1 Authentication with a Revised Mode of Public Key Encryption&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ipsecVuln01/Untitled%202.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Identical to 2), the body of the payloads is encrypted.&lt;/p&gt;
+
+&lt;p&gt;(In this mode, the nonce is still encrypted using the public key of the peer, however, the peer’s identity (and the certificate if it is sent) is encrypted using the negotiated symmetric encryption algorithm (from the SA payload) with a key derived from the nonce.)&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-4-ikev1-phase1-authentication-with-a-pre-shared-key&quot;&gt;&lt;strong&gt;3-4) &lt;mark&gt;IKEv1 Phase1 Authentication with a Pre-Shared Key&lt;/mark&gt;&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ipsecVuln01/Untitled%203.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;IDii: Identity of the initiator&lt;/p&gt;
+
+&lt;p&gt;IDir: Identity of the Responder&lt;/p&gt;
+
+&lt;p&gt;The key can only be identified by the IP address of the peers since HASH_I must be computed before the initiator has processed IDir.&lt;/p&gt;
+
+&lt;p&gt;As you can see above, the IDs of the party negotiating the SA are exposed on the network.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;In conclusion, CVE-2002-1623 was meant to be discovered because the Aggressive mode of the IKE allows cleartext exchange of peer identifiers during phase 1-authentication using 1) Signatures or 2) Pre-Shared Key.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 03 Jul 2023 22:20:23 +0900</pubDate>
+        <link>http://localhost:4000/blog/paper_study/ipsecVuln01</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/paper_study/ipsecVuln01</guid>
+      </item>
+    
+      <item>
+        <title>[논문 재현] Gyroscope 센서의 공진을 이용한 Airgap Break 논문 재현 프로젝트(1)</title>
         <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#0-배경지식&quot; id=&quot;markdown-toc-0-배경지식&quot;&gt;0. 배경지식&lt;/a&gt;    &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#01-gyroscope&quot; id=&quot;markdown-toc-01-gyroscope&quot;&gt;0.1. Gyroscope?&lt;/a&gt;        &lt;ul&gt;
@@ -50,7 +243,8 @@
 
 &lt;h1 id=&quot;0-배경지식&quot;&gt;0. 배경지식&lt;/h1&gt;
 
-&lt;p&gt;Reproduce 타겟 논문은 “GAIROSCOPE: Injecting Data from Air-Gapped Computers to Nearby Gyroscopes”로, &lt;a href=&quot;https://arxiv.org/abs/2208.09764&quot;&gt;여기&lt;/a&gt;에서 다운받을 수 있다.&lt;/p&gt;
+&lt;p&gt;Reproduce 타겟 논문은 “GAIROSCOPE: Injecting Data from Air-Gapped Computers to Nearby Gyroscopes”로, &lt;a href=&quot;https://arxiv.org/abs/2208.09764&quot;&gt;여기&lt;/a&gt;에서 다운받을 수 있다.
+이 프로젝트는 논문을 오류가 많은 방식으로 재현했다. 조만간 팀원과 함께 논문의 원래 방식대로 재현해서 정리글을 올리려 하니 그것도 많은 기대 부탁!!&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -988,7 +1182,7 @@
 
     &lt;p&gt;→ 이 경우 java의 math3 라이브러리에서 FFT 메소드를 가져와 쓰면 되는데, 이것의 output이 무엇을 의미하는지 알지 못해 사용하지 못했다.&lt;/p&gt;
 
-    &lt;p&gt;→ 인덱스가 파동의 주기라고는 하는데-푸리에 변환의 정의상으로 보면 그럴싸하기 때문에 신빙성이 있다고 판단한 정보다-, 해당 인덱스의 배열에 저장된 값이 대체 뭔지 모르겠다.&lt;/p&gt;
+    &lt;p&gt;→ 인덱스가 파동의 Frequency라고는 하는데-푸리에 변환의 정의상으로 보면 그럴싸하기 때문에 신빙성이 있다고 판단한 정보다-, 해당 인덱스의 배열에 저장된 값이 대체 뭔지 모르겠다.&lt;/p&gt;
 
     &lt;p&gt;→ 아시는 분은 개인적으로 연락 부탁드립니다. 밑에 댓글란에….&lt;/p&gt;
   &lt;/li&gt;
@@ -1046,7 +1240,7 @@
 특히 팀원 하나는 구현을 정말 잘하는데다 플젝에도 적극적이라 나도 에너지를 얻었다.
 나는 구상을 잘 하는데, 이 친구가 구현을 특출나게 잘 하니까 엄청난 시너지가 나더라.
 아니 정말로 내가 실험을 설계해서 이거 이렇게이렇게 하고 싶은데 어때, 라고 하면 말 그대로 뚝! 딱! 하는 사이에 코드를 짜서 짜잔 하고 보여준다.
-당신은 신이에요. You are GOD.&lt;/p&gt;
+당신은 신이에요. You are the GOD.&lt;/p&gt;
 
 &lt;p&gt;진짜 존경스러웠고… 나에게 큰 자극이 되었다.&lt;/p&gt;
 
@@ -8490,7 +8684,7 @@ rsp -= 8 //stack grows from high to low
     &lt;a name=&quot;paper_study&quot;&gt;&lt;/a&gt;
      
     &lt;article class=&quot;center&quot;&gt;
-      &lt;h6&gt;&lt;a href=&quot;/blog/paper_study/airgap-break-using-gyro-resonance&quot;&gt;[논문 재현] Gyroscope 센서의 공진을 이용한 Airgap Break 논문 재현 프로젝트&lt;/a&gt;&lt;/h6&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/paper_study/airgap-break-using-gyro-resonance&quot;&gt;[논문 재현] Gyroscope 센서의 공진을 이용한 Airgap Break 논문 재현 프로젝트(1)&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
 
 
@@ -8517,7 +8711,13 @@ rsp -= 8 //stack grows from high to low
     &lt;a name=&quot;network_hacking&quot;&gt;&lt;/a&gt;
      
     &lt;article class=&quot;center&quot;&gt;
-      &lt;h6&gt;&lt;a href=&quot;/blog/paper_study/airgap-break-using-gyro-resonance&quot;&gt;[논문 재현] Gyroscope 센서의 공진을 이용한 Airgap Break 논문 재현 프로젝트&lt;/a&gt;&lt;/h6&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/paper_study/ipsecVuln01&quot;&gt;Searching for IPSec Vulnerability from Its Specification Level&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/paper_study/airgap-break-using-gyro-resonance&quot;&gt;[논문 재현] Gyroscope 센서의 공진을 이용한 Airgap Break 논문 재현 프로젝트(1)&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
 
 
