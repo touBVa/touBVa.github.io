@@ -6,7 +6,7 @@ author: TouBVa
 date: '2023-08-31 13:05:23 +09'
 category: ['reversing']
 thumbnail: /assets/img/posts/chaining/Untitled.png
-keywords: IPSec, IKE
+keywords: reversing, rop chaining
 usemathjax: true
 permalink: /blog/paper_study/reversing/chaining
 ---
