@@ -8,7 +8,7 @@ category: ['reversing']
 thumbnail: /assets/img/posts/chaining/Untitled.png
 keywords: IPSec, IKE
 usemathjax: true
-permalink: /blog/paper_study/ipsecVuln01
+permalink: /blog/paper_study/reversing/chaining
 ---
 
 * TOC
