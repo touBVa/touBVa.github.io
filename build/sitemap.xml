@@ -2,7 +2,7 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://localhost:4000/blog/authors/toubva</loc>
-<lastmod>2023-07-03T23:05:13+09:00</lastmod>
+<lastmod>2023-08-31T13:11:34+09:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/blog/dreamhack_system_hacking/step2-1</loc>
@@ -101,16 +101,20 @@
 <lastmod>2023-07-03T22:20:23+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/blog/paper_study/ipsecVuln01</loc>
+<lastmod>2023-08-31T13:05:23+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/products/product1/</loc>
-<lastmod>2023-07-03T23:05:13+09:00</lastmod>
+<lastmod>2023-08-31T13:11:34+09:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/products/product2/</loc>
-<lastmod>2023-07-03T23:05:13+09:00</lastmod>
+<lastmod>2023-08-31T13:11:34+09:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/products/product3/</loc>
-<lastmod>2023-07-03T23:05:13+09:00</lastmod>
+<lastmod>2023-08-31T13:11:34+09:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/blog/welcome-to-devlopr-jekyll/</loc>
@@ -149,10 +153,10 @@
 <loc>http://localhost:4000/blog/categories/dreamhack_system_hacking/</loc>
 </url>
 <url>
-<loc>http://localhost:4000/gallery/</loc>
+<loc>http://localhost:4000/blog/</loc>
 </url>
 <url>
-<loc>http://localhost:4000/blog/</loc>
+<loc>http://localhost:4000/gallery/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/</loc>
@@ -174,6 +178,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/blog/categories/protostar/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/blog/categories/reversing/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/blog/categories/sample_category/</loc>
@@ -204,6 +211,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/blog/page/6/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/blog/page/7/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/admin/</loc>

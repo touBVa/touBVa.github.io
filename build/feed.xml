@@ -5,10 +5,788 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 03 Jul 2023 23:05:13 +0900</pubDate>
-    <lastBuildDate>Mon, 03 Jul 2023 23:05:13 +0900</lastBuildDate>
+    <pubDate>Thu, 31 Aug 2023 13:11:34 +0900</pubDate>
+    <lastBuildDate>Thu, 31 Aug 2023 13:11:34 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
+    
+      <item>
+        <title>Dreamhack-Reversing-Chaining 문제 풀이</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#dreamhack-chaining-문제-풀이&quot; id=&quot;markdown-toc-dreamhack-chaining-문제-풀이&quot;&gt;Dreamhack Chaining 문제 풀이&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#0-바이너리-포맷-분석&quot; id=&quot;markdown-toc-0-바이너리-포맷-분석&quot;&gt;0. 바이너리 포맷 분석&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#01-파일에-적용된-보호-기법-및-엔트리-확인&quot; id=&quot;markdown-toc-01-파일에-적용된-보호-기법-및-엔트리-확인&quot;&gt;0.1. 파일에 적용된 보호 기법 및 엔트리 확인&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#02-엔트리의-함수-확인&quot; id=&quot;markdown-toc-02-엔트리의-함수-확인&quot;&gt;0.2. 엔트리의 함수 확인&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#1-행위기반-정적-디버깅&quot; id=&quot;markdown-toc-1-행위기반-정적-디버깅&quot;&gt;1. 행위기반 정적 디버깅&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2-동적-디버깅&quot; id=&quot;markdown-toc-2-동적-디버깅&quot;&gt;2. 동적 디버깅&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#21-main-이후-실행되는-함수-sub_34d7&quot; id=&quot;markdown-toc-21-main-이후-실행되는-함수-sub_34d7&quot;&gt;2.1. main 이후 실행되는 함수: sub_34D7&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#22-sub_19c4-내부에서-password-를-출력하는-부분-체크&quot; id=&quot;markdown-toc-22-sub_19c4-내부에서-password-를-출력하는-부분-체크&quot;&gt;2.2. sub_19C4 내부에서 password: 를 출력하는 부분 체크&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#23-sub_1447-분석&quot; id=&quot;markdown-toc-23-sub_1447-분석&quot;&gt;2.3. sub_1447 분석&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#24-sub_14ed-분석&quot; id=&quot;markdown-toc-24-sub_14ed-분석&quot;&gt;2.4. sub_14ed 분석&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#25-sub_15bb-분석&quot; id=&quot;markdown-toc-25-sub_15bb-분석&quot;&gt;2.5. sub_15bb 분석&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#251-sub_1545-for-4k-4k2-elements&quot; id=&quot;markdown-toc-251-sub_1545-for-4k-4k2-elements&quot;&gt;2.5.1. sub_1545 (for 4k, 4k+2 elements)&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#252-sub_1580-for-4k1-4k3-elements&quot; id=&quot;markdown-toc-252-sub_1580-for-4k1-4k3-elements&quot;&gt;2.5.2 sub_1580 (for 4k+1, 4k+3 elements)&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#26-sub_16e0-분석&quot; id=&quot;markdown-toc-26-sub_16e0-분석&quot;&gt;2.6. sub_16e0 분석&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#27-sub_172e-분석&quot; id=&quot;markdown-toc-27-sub_172e-분석&quot;&gt;2.7. sub_172e 분석&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#28-sub_193c-분석&quot; id=&quot;markdown-toc-28-sub_193c-분석&quot;&gt;2.8. sub_193c 분석&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#3-복호화-프로그램-만들기&quot; id=&quot;markdown-toc-3-복호화-프로그램-만들기&quot;&gt;3. 복호화 프로그램 만들기&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#31-sub_1215-does-xor-every-char-in-user-input-with-0x44&quot; id=&quot;markdown-toc-31-sub_1215-does-xor-every-char-in-user-input-with-0x44&quot;&gt;3.1. sub_1215: does xor every char in user input with 0x44&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#32-sub_1268-make-a-permutation-table&quot; id=&quot;markdown-toc-32-sub_1268-make-a-permutation-table&quot;&gt;3.2. sub_1268: make a permutation table&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#33-sub_1447-does-permutation-on-user-inputbuf&quot; id=&quot;markdown-toc-33-sub_1447-does-permutation-on-user-inputbuf&quot;&gt;3.3. sub_1447: Does Permutation on user input(buf)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#34-sub_14ed--table의-1-byte를-buf의-1byte와-xor해-buf에-저장한다&quot; id=&quot;markdown-toc-34-sub_14ed--table의-1-byte를-buf의-1byte와-xor해-buf에-저장한다&quot;&gt;3.4. sub_14ed:  table의 1 byte를 buf의 1byte와 xor해 buf에 저장한다.&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#35-sub_15bb-buf에서-4k-4k1-4k2-4k3-k0-1---15-번째의-원소별로-다른-알고리즘을-적용해-변환한다-즉-substitution-연산을-한다&quot; id=&quot;markdown-toc-35-sub_15bb-buf에서-4k-4k1-4k2-4k3-k0-1---15-번째의-원소별로-다른-알고리즘을-적용해-변환한다-즉-substitution-연산을-한다&quot;&gt;3.5. sub_15bb: buf에서 4k, 4k+1, 4k+2, 4k+3 (k=0, 1, … , 15) 번째의 원소별로 다른 알고리즘을 적용해 변환한다. 즉 substitution 연산을 한다.&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#351-sub_1545-우로-n비트-순환-시프트-연산을-수행하는-함수다-for-4k-4k2&quot; id=&quot;markdown-toc-351-sub_1545-우로-n비트-순환-시프트-연산을-수행하는-함수다-for-4k-4k2&quot;&gt;3.5.1. sub_1545: 우로 n비트 순환 시프트 연산을 수행하는 함수다. (for 4k, 4k+2)&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#352-sub_1580-좌로-n비트-순환-시프트-연산을-수행하는-함수다-for-4k1-4k3&quot; id=&quot;markdown-toc-352-sub_1580-좌로-n비트-순환-시프트-연산을-수행하는-함수다-for-4k1-4k3&quot;&gt;3.5.2. sub_1580: 좌로 n비트 순환 시프트 연산을 수행하는 함수다. (for 4k+1, 4k+3)&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#36-sub_16e0-카이사르-치환-암호화&quot; id=&quot;markdown-toc-36-sub_16e0-카이사르-치환-암호화&quot;&gt;3.6. sub_16e0: 카이사르 치환 암호화&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#37-sub_172e&quot; id=&quot;markdown-toc-37-sub_172e&quot;&gt;3.7. sub_172e&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#38-sub_193c-여긴-정답-배열과-input-배열을-대조하는-루틴이다&quot; id=&quot;markdown-toc-38-sub_193c-여긴-정답-배열과-input-배열을-대조하는-루틴이다&quot;&gt;3.8. sub_193c: 여긴 정답 배열과 input 배열을 대조하는 루틴이다.&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#4-구현-및-결과&quot; id=&quot;markdown-toc-4-구현-및-결과&quot;&gt;4. 구현 및 결과&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;dreamhack-chaining-문제-풀이&quot;&gt;Dreamhack Chaining 문제 풀이&lt;/h1&gt;
+
+&lt;p&gt;주어진 바이너리를 실행해 보면 아래와 같은 화면이 출력된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Password로 알맞은 값을 줘야 pass가 뜰 것이고, 그건 플래그값이 될 것이다.&lt;/p&gt;
+
+&lt;p&gt;일단 바이너리의 data섹션에 저장된 string을 불러오는 부분이 있을 것이고, 해당 스트링을 띄우는 함수 내부에서 input값이 올바른 값인지 체크하는 부분이 있을 것임을 유추할 수 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;0-바이너리-포맷-분석&quot;&gt;0. 바이너리 포맷 분석&lt;/h1&gt;
+
+&lt;h2 id=&quot;01-파일에-적용된-보호-기법-및-엔트리-확인&quot;&gt;0.1. 파일에 적용된 보호 기법 및 엔트리 확인&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%201.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;해당 파일에는 모든 보호 조치가 적용되어 있고, PIE(바이너리가 업로드되는 메모리 영역이 매번 달라져서 plt나 got 접근을 통해 라이브러리 함수의 절대 주소를 알아내는 기법을 차단함)및 Full RELRO(got overwrite를 차단함)가 적용되어 있다.&lt;/li&gt;
+  &lt;li&gt;또한 Stripped되어 있어 함수나 변수 등의 심볼이 전부 없어져 있다.&lt;/li&gt;
+  &lt;li&gt;이런 경우, 함수의 엔트리가 어디인지 알아내야 이후 리버싱이 편하다. readelf로 헤더 정보를 읽어낸 결과, 엔트리 오프셋은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x10a0&lt;/code&gt;임을 확인했다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;02-엔트리의-함수-확인&quot;&gt;0.2. 엔트리의 함수 확인&lt;/h2&gt;
+
+&lt;p&gt;IDA를 사용해 엔트리에 어떤 함수가 정의되어 있는지 확인한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%202.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;start로 정의되어 있고, 내부에서 libc_start_main을 콜함을 확인했다. 이 함수의 첫 번째 인자인 rdi에 들어간 주소가 main함수의 주소이므로, main을 찾아낼 수 있었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%203.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;main의 내부에서는 sub_34D7을 콜함을 확인했다.&lt;/p&gt;
+
+&lt;p&gt;그런데 조금 이상하다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_34D7(rbp+var_18, rbp+var_10), var_18과 var_10은 모두 특정 ptr과 관련 있음&lt;/code&gt;은 대체 무슨 뜻인지 모르겠기 때문이다… 심지어 저 ptr이 뭔지도 알 수 없다. 따라서 gdb를 붙여서 직접 어떤 인자가 들어가는지 확인해 보려 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%204.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;일단 엔트리 상에서 메인함수를 콜하는 부분을 찾았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%205.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 메인함수를 보니 IDA로 찾았던 메인함수의 인스트럭션과 일치함을 확인할 수 있었다.&lt;/p&gt;
+
+&lt;p&gt;아하! IDA에서 보였던 ptr 변수는 main 스택프레임의 rbp였다. 해당 바이너리가 stripped되었기 때문에 생긴 현상으로 보인다.&lt;/p&gt;
+
+&lt;h1 id=&quot;1-행위기반-정적-디버깅&quot;&gt;1. 행위기반 정적 디버깅&lt;/h1&gt;
+
+&lt;p&gt;일단 여기까지 하고, 앞서 추측했던 점-내부에 저장된 문자열이 출력되는 함수와 사용자 입력값 verification 부분이 밀접할 것이라는 점-이 맞는지 확인해 보기로 했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%206.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;아마 good:) 부분이 올바른 코드 플로우겠지&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%207.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;xref lookup을 이용해 해당 문자열을 참조하는 코드섹션으로 이동했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%208.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;해당 문자열을 출력하는 기능을 발견했고, 함수가 정의되어 있지 않아 함수로 정의해 주었다.&lt;/p&gt;
+
+&lt;p&gt;여기에서부터 문제를 푸는 방법을 고려해 보았으나, 다 stripped되어 있으므로 역으로 따라가는 것은 힘들어 보인다. 따라서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;password:&lt;/code&gt; 를 출력하는 부분부터 순차적으로 따라가 보기로 했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_19C4&lt;/code&gt;에서 시작하는 함수에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;password:&lt;/code&gt; 문자열을 참조하고 있음을 확인했지만, 정작 프린트하는 함수는 없어 보인다.&lt;/p&gt;
+
+&lt;p&gt;애초에 해당 함수는 굉장히 이상해 보이는데, 이유는 아래와 같다.&lt;/p&gt;
+
+&lt;p&gt;첫째, 분명히 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;password:&lt;/code&gt; 문자열을 가져와 사용하는데 이걸 pseudo-function으로 바꿔 보면 그런 부분이 전혀 보이지 않는다. 즉 IDA가 인지할 수 없는 형태로 코드가 짜여져 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%209.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;둘째, 이전의 문자열 출력 함수들에서 주로 보였던 puts 등의 출력 함수를 콜하는 부분이 보이지 않는다. 실제로 pwndbg의 rop를 이용해 찾은 call 가젯 중 오프셋 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x193C&lt;/code&gt;이상 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x34CE&lt;/code&gt; (0x00005555555559C4~0x00005555555574CE) 범위에 해당되는 것은 없었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2010.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;셋째. 그렇다면 상기 조건을 모두 충족할 때, 여기에서 syscall write on console이 가능한 이유는 뭘까? 사실 당장은 모르겠다.&lt;/p&gt;
+
+&lt;p&gt;일단 접근법을 결정해 보자. 현재 목표는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;good:)&lt;/code&gt;를 출력하기 전에, 사용자 입력값 verification 과정을 찾아내는 것이다. 이를 위해 역순으로 접근했으나 함수 간의 연결성이 확보되지 않아 스트링을 근거로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;password:&lt;/code&gt; 를 출력하는 부분부터 찾아 이후 함수의 행위를 확인함으로써 함수 간의 연결성을 확보하려는 시도 중이다.&lt;/p&gt;
+
+&lt;p&gt;이를 위해 첫째, syscall이 수행되기 위해 필수적인 가젯을 찾아본다. 둘째, 동적으로 디버깅하며 syscall write가 수행되는 지점에 bp를 건다. 두 가지 접근이 가능하다.&lt;/p&gt;
+
+&lt;p&gt;단, 현재 문제를 푸는 과정이므로 두 번째 방식으로 접근해 빠르게 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;password:&lt;/code&gt;를 출력하는 부분을 찾고 이후 어떤 함수가 실행되는지 체크해야 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;2-동적-디버깅&quot;&gt;2. 동적 디버깅&lt;/h1&gt;
+
+&lt;h2 id=&quot;21-main-이후-실행되는-함수-sub_34d7&quot;&gt;2.1. main 이후 실행되는 함수: sub_34D7&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2011.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;일단 앞에서 찾았던 지점을 정리하고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;password:&lt;/code&gt;를 출력하는 부분을 찾자.&lt;/p&gt;
+
+&lt;p&gt;IDA에서 sub_34D7을 콜하는 지점으로 확인됐던 지점에 bp를 걸고 실행해 보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2012.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;저거 너무 string같은 포맷인데… 실제로 확인해 보니 스트링이 맞다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2013.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;저런 문자열을 보통 받는 함수가 있나? 그건 이후 찾아봐야 할 문제 같다.&lt;/p&gt;
+
+&lt;p&gt;일단 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_34D7(”\177ELF\002\001\001\003”, “\177ELF\002\001\001”)&lt;/code&gt; 인 점은 체크해두자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2014.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이후 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_19C4(”\177ELF\002\001\001\003”, “\177ELF\002\001\001”)&lt;/code&gt; 를 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;22-sub_19c4-내부에서-password-를-출력하는-부분-체크&quot;&gt;2.2. sub_19C4 내부에서 password: 를 출력하는 부분 체크&lt;/h2&gt;
+
+&lt;p&gt;pwndbg 내부에는 특정 시스콜이 실행될 때 코드플로우를 멈춰 주는 기능이 있다.&lt;/p&gt;
+
+&lt;p&gt;따라서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;catch syscall write&lt;/code&gt; 옵션을 주고 프로그램을 실행시켜 보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2015.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;전혀 상관 없는 함수 내부의 syscall 인스트럭션을 실행하는 부분에서 멈췄다. 현재 rsi에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;input&lt;/code&gt; 이 들어가 있고, 아래 스택에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;password:&lt;/code&gt; 가 들어가 있는 것을 보아 실제로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;input password:&lt;/code&gt; 를 콘솔에 뿌려 주는 부분인 것이 맞는 것 같다.&lt;/p&gt;
+
+&lt;p&gt;여기에서 rip가 멈춰 있는 함수는 vmmap으로 확인한 결과 기본 라이브러리 함수였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2016.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;아하! 그럼 주어진 바이너리는 rop를 이용해 만든 바이너리임을 추측할 수 있다. 원래 바이너리의 코드부가 아닌 멀쩡한 라이브러리 함수의 코드부에서도 특정 목적을 위한 인스트럭션으로 점프한 것을 그 근거로 들 수 있다. 또한 콜스택에 유의미한 콜러-콜리 정보가 없는 대신 스택에 가젯들이 들어가 있는 것을 그 그 근거로 들 수 있겠다.&lt;/p&gt;
+
+&lt;p&gt;그럼 이제 해당 행위가 끝나고 리턴할 지점은 콜스택이 아니라 프로세스 스택에 저장되어 있을 것이다. 즉 pwndbg가 제공하는 backtrace로는 리턴할 callee를 찾아낼 수 없다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2017.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;따라서 스택을 분석해 보았다. 그 결과 알아낸 점은 아래와 같다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;사이에 2개 값들이 용처가 정확하지 않게 비어 있다. 이것들이 어떻게 되는지는 쭉 따라가면서 찾아봐야 할 텐데, 중간의 0xbeefbeefbeefbeef는 누가 봐도 바이너리에서 넣어 준 값 같다. 매우 특징적인 값이므로 따라가볼 만하다고 생각한다.
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;찾아보니, 정말로 바이너리에 있었다. 오프셋 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x202e&lt;/code&gt;에서 진행되는 행위였다.&lt;/p&gt;
+
+        &lt;p&gt;해당 지점은 스택에 rop chain을 저장하는 기능에 포함되어 있었다.&lt;/p&gt;
+
+        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2018.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;사용자 입력값을 저장하는 버퍼로 0x55555555a800를 사용하고 있다. 디버거상에서 해당 메모리를 참조할 때마다 멈추도록 설정한 다음 프로그램을 돌리면 어떤 행위가 일어나는지, 그리고 그 행위는 어떤 함수에서 수행되는지 알 수 있을 것 같다.
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;행위 분석 및 함수 복원&lt;/p&gt;
+
+        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2019.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2020.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+        &lt;p&gt;bp가 트리거되었을 때 컨텍스트. 앞선 read/write를 끝내고 오프셋 0x1215로 돌아와 다른 행위를 하는데, 사용자 입력값이 저장된 버퍼에 어떤 행위를 했다.&lt;/p&gt;
+
+        &lt;p&gt;어떤 행위를 했는지 IDA로 확인해 보니, 아래와 같았다.&lt;/p&gt;
+
+        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2021.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+        &lt;p&gt;사용자 입력값이 저장된 버퍼에 rax의 하위 32비트(al)을 저장했다.&lt;/p&gt;
+
+        &lt;p&gt;해당 기능은 IDA기준 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1215&lt;/code&gt; 함수의 일부로 정의되어 있다. 해당 함수를 가상코드로 변환해 보면 영 이상하다. 어셈블리와 비교하며 올바른 루프문으로 바꿔주면 아래와 같다.&lt;/p&gt;
+
+        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2022.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+        &lt;p&gt;반복할 횟수를 a1으로 받아(아마 문자열의 길이일 것이고, 앞에서 봤던 스택을 생각하면 0x40일 것이다), 사용자 입력이 저장된 버퍼에 대해 a3와 xor연산을 한다.  a3는 전달받을 당시 edx로 전달되며 이후 버퍼에 저장된 첫 글자부터 xor되는 int값이다.  앞에서 봤던 스택과, 동적으로 디버깅했을 때 0x41과 xor된 값이 0x5라는 점을 감안하면 0x44가 인자로 주어지는 것 같다. 따라서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1215&lt;/code&gt;를 복원하면 아래와 같다.&lt;/p&gt;
+
+        &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1215(0x40, char *buf, 0x44)&lt;/code&gt;: does xor every chars in user input with 0x44&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;또한 해당 바이너리의 코드 영역에 해당하는 주소가 중간에 2개 존재하는데, 이는 특정 행위를 마치고 코드 플로우가 돌아갈 부분을 의미하는 것 같다. 실제로 동적으로 디버깅해 보니 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x1215&lt;/code&gt; 이후 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x1268&lt;/code&gt;이 실행됨을 확인할 수 있었다. 두 주소를 IDA에서 확인해 보니 아래와 같았다.
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;0x1215 함수는 이미 복원했으므로 0x1268만 다루겠다.&lt;/p&gt;
+
+        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2023.png&quot; alt=&quot;0x1268의 루틴&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+        &lt;p&gt;0x1268의 루틴&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2024.png&quot; alt=&quot;0x1268의 pseudo-code&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;0x1268의 pseudo-code&lt;/p&gt;
+
+    &lt;p&gt;해당 함수가 실행되는 순간의 레지스터는 아래와 같았다.&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2025.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;즉 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x1268(0xe5119cf0, 0xddc615f0, 0x7851327a, 0x84a7815a, char *buf)&lt;/code&gt;이다.&lt;/p&gt;
+
+    &lt;p&gt;그렇다면 이 함수는 어떤 기능을 할까? 일단 사용자 인풋이 저장되는 주소인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x55555555a800&lt;/code&gt; 과는 아무런 상호작용이 없다는 점에서 입력과는 독립적인 무언가를 행하는 부분일 것이다.&lt;/p&gt;
+
+    &lt;p&gt;아마 느낌상 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x55555555a900&lt;/code&gt;이 모종의 단계를 거쳐 변화한 값이 저장되는 부분일 것이고…&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2026.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;그리고 실제로도 맞는 것 같다. 그럼 대체 뭘 변화시킨 걸까?&lt;/p&gt;
+
+    &lt;p&gt;사실 감이 안 온다. 그럼 일단 넘어가고, 다음에 실행되는 함수를 분석해 보자.&lt;/p&gt;
+
+    &lt;p&gt;해당 함수를 총 3회 정도 추가로 수행하고 다음 함수로 넘어감을 확인했다. 그 때의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x55555555a900&lt;/code&gt; 은 다음과 같았다. (참고: 어떤 함수를 몇 번 수행할지는 스택을 보면 알 수 있다. ROP chaining을 통해 이미 스택에 코드 플로우가 다 들어가 있기 때문이다. 따라서 동적 디버깅을 할 때 왜 똑같은 함수로 들어가는 거지? 싶으면 스택을 보면 된다.)&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2027.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;23-sub_1447-분석&quot;&gt;2.3. sub_1447 분석&lt;/h2&gt;
+
+&lt;p&gt;현재까지의 흐름은 아래와 같다..&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_34d7&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_19c4&lt;/code&gt;(rop chaining) → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1215&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1268&lt;/code&gt; * 4&lt;/p&gt;
+
+&lt;p&gt;이후 실행되는 함수는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1447&lt;/code&gt;이었다. 해당 함수의 기능을 알아보자.&lt;/p&gt;
+
+&lt;p&gt;IDA 상에서는 함수로 인식되지 않기 때문에, 내가 직접 함수로 설정해줘야 한다. create function 기능을 이용해 함수로 만들어 주었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2028.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;해당 함수는 두 개의 인자를 받는데, 첫 번째가 user input이 저장된 부분이고 두 번째가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1268&lt;/code&gt;에서 만들어준 값이 저장된 부분이다. 여기에서 user input이 변화할 것임을 추측할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;또한 우리는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1268&lt;/code&gt;에서 모종의 값을 변화해 저장하면서 16바이트의 공간에 16회 접근한 것을 알고 있다. 즉, 1바이트를 배열의 한 인덱스에 저장되는 값으로 취급했음을 알고 있다. 이를 기반으로 IDA에서 출력해 주는 가상함수를 수정하면 아래와 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2029.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;아하… sub_1268에서 만들어준 값 배열은 위치 지정자였음을 알 수 있다. 일종의 테이블 아닐까? SPN 네트워크 구조에서 보이는 Permutation 구조를 반영한 것 말이다. 즉 user input 내부의 순서를 마구 바꿔서 다시 user input에 저장하는… 그런 것 같다.&lt;/p&gt;
+
+&lt;p&gt;따라서 나는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1447&lt;/code&gt;을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;after_password_3_Permutation_sub_1447&lt;/code&gt;로 네이밍했고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1268&lt;/code&gt;을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;after_password_2_making_permutation_table_sub_1268&lt;/code&gt;로 네이밍했다.&lt;/p&gt;
+
+&lt;p&gt;sub_1447을 복원하면 아래와 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1447(char *buf, int8 *table)&lt;/code&gt;: Does Permutation on user input(buf)&lt;/p&gt;
+
+&lt;p&gt;이제 다른 함수로 넘어가 보자. 그 전에, 이 함수를 총 몇 회 수행하는지 체크했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2030.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;총 4회 수행한다. (usr_input의 0~15, 16~31, 32~47, 48~63 인덱스에 대해 차례로 table의 첫 바이트부터 참고하여 permutation을 수행하는 것이라 어느 쪽으로 옮겨진 게 또 다른 쪽으로 옮겨질 수도 있다.)&lt;/p&gt;
+
+&lt;h2 id=&quot;24-sub_14ed-분석&quot;&gt;2.4. sub_14ed 분석&lt;/h2&gt;
+
+&lt;p&gt;현재까지의 흐름은 아래와 같다&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_34d7&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_19c4&lt;/code&gt;(rop chaining) → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1215&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1268&lt;/code&gt; * 4 → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1447&lt;/code&gt; *4&lt;/p&gt;
+
+&lt;p&gt;이쯤에서 사용자 input은 어떻게 됐는지 보자. 아 그런데 나는 입력값을 알파벳 하나로 통일해서… permutation이 안 잡힐 것 같긴 하다….&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2031.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 역시 안 잡혔다. 하지만 permutation이 진행된 것이다…!!!!!!&lt;/p&gt;
+
+&lt;p&gt;음 입력값의 permutation이 더 확실히 잡히는 게 나을 것 같아 다른 값을 주고 재실행했다.&lt;/p&gt;
+
+&lt;p&gt;입력값: 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!&lt;/p&gt;
+
+&lt;p&gt;sub_1447(permutation) 수행 전&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2032.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;sub_1447(permutation) 수행 마무리 후&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2033.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;IDA에서는 sub_14ed 또한 함수로 인식하지 못하므로 create function 해줬다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2034.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;여기에서 전달되는 두 개의 인자는 무엇인지 확인해 보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2035.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;rsi로는 user input buffer의 시작주소가 들어가 있는 것을 확인했다.&lt;/p&gt;
+
+&lt;p&gt;rdi에는 이전까지 보지 못했던 주소가 들어가 있다. 해당 주소에 뭐가 있는지 확인해 보니 아래와 같았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2036.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;user input에 영향을 받는 부분일까? 알고 싶어 다시 한 개 알파벳으로만 통일한 값을 줘 보았으나, 변동은 없었다. 이것도 모종의 테이블 같다. (0xa060은 오프셋 0x6060으로 정답값이 들어있는 64바이트 배열이다)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2037.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;어셈블리에서 1바이트 단위로 테이블에서 값을 가져와 xor 연산을 하고 있다는 점을 감안해 IDA의 가상함수를 수정하니 아래와 같았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2038.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;또 xor이다!&lt;/p&gt;
+
+&lt;p&gt;즉 sub_14ed를 복원하면 아래와 같았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_14ed(char *table, char *buf)&lt;/code&gt; : table의 1 byte를 buf의 1byte와 xor해 buf에 저장한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;25-sub_15bb-분석&quot;&gt;2.5. sub_15bb 분석&lt;/h2&gt;
+
+&lt;p&gt;혹시나 해서 다시 언급한다. 이 문제는 stack-based rop chaining으로, 다음에 무슨 함수가 실행될지는 스택을 쭉 펼쳐보면 알 수 있다. 동적으로 디버깅하는 코드 플로우와 스택을 비교해 가면서 지금 내가 맞는 위치에 있는지 꼭 확인하자!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2039.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;어셈블리까지 감안해 보았을 때, 해당 함수에 전달되는 파라미터는 하나로, user input이 저장된 buf의 시작주소인 것 같다.&lt;/p&gt;
+
+&lt;p&gt;그리고 가상코드로 변환한 IDA의 코드를 보면 다음과 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2040.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;buf에서 4k, 4k+1, 4k+2, 4k+3 (k=0, 1, … , 15) 번째의 원소별로 다른 알고리즘을 적용해 변환한다. 즉 substitution 연산을 한다.&lt;/p&gt;
+
+&lt;p&gt;이제 callee들을 분석해 보자.&lt;/p&gt;
+
+&lt;h3 id=&quot;251-sub_1545-for-4k-4k2-elements&quot;&gt;2.5.1. sub_1545 (for 4k, 4k+2 elements)&lt;/h3&gt;
+
+&lt;p&gt;전달되는 인자들의 type을 감안해 해당 함수에서 사용되는 파라미터들의 type을 수정해 주었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2041.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;숫자 8을 기준으로 대칭이 되는 pair로 좌, 우에 대해 각각 시프트 연산을 한다는 의미는 다음과 같다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;시프트 연산 대상의 자료형이 8bits 크기를 가진다.&lt;/p&gt;
+
+    &lt;p&gt;→ 즉, 이 크기를 넘어가게 시프트를 시켜버리면 데이터가 완전히 소실된다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;좌, 우에 대해 각각 x, y 비트만큼을 시프트시킬 때 x+y=8이고, 그 둘을 or 연산 한다.&lt;/p&gt;
+
+    &lt;p&gt;→ or 연산의 의미는 데이터를 최대한 보존하겠다는 것이다.&lt;/p&gt;
+
+    &lt;p&gt;→ 이는 좌로 x비트 순환 시프트 연산(==우로 y비트 순환 시프트 연산)을 시키겠다는 뜻이다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;결론: 해당 함수는 우로 a2비트 순환 시프트 연산을 수행하는 함수다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;252-sub_1580-for-4k1-4k3-elements&quot;&gt;2.5.2 sub_1580 (for 4k+1, 4k+3 elements)&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2042.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;좌로 a2비트 순환 시프트 연산을 수행하는 함수다.&lt;/p&gt;
+
+&lt;p&gt;이제 분석이 끝났으니, 해당 함수의 끝에 bp를 걸고 다음 함수로 넘어가 보자.&lt;/p&gt;
+
+&lt;h2 id=&quot;26-sub_16e0-분석&quot;&gt;2.6. sub_16e0 분석&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2043.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;여기에서 IDA로 뺀 가상함수는 알아보기 힘들기 때문에 참고해서 재구성해야 한다.&lt;/p&gt;
+
+&lt;p&gt;해당 함수에 진입하기 전에 수행된 함수가 epilogue를 수행한 직후의 스택을 확인하자(stack-based rop chaining이므로 전달되는 파라미터가 const인지 확인하려면 스택을 봐야 한다)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2044.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;pop rsi를 통해 함수의 두 번째 인자로 전달될 값이 무조건 고정임을 확인했다. (offset이 0x0011이고, 이후 이것의 하위 1바이트를 사용하므로)&lt;/p&gt;
+
+&lt;p&gt;또한 어셈블리를 보고 함수를 재구성한 결과 복원된 함수는 아래와 같음을 확인했다.&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;sub_16e0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// x==0x11&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;63&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x11&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;즉 카이사르 치환 암호화를 적용했다.&lt;/p&gt;
+
+&lt;h2 id=&quot;27-sub_172e-분석&quot;&gt;2.7. sub_172e 분석&lt;/h2&gt;
+
+&lt;p&gt;그 다음에 실행되는 함수는 sub_172e였다. 해당 함수 프롤로그 실행될 당시의 context를 보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2045.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;어셈블리로부터 인자가 단 하나만 들어갔고, 그 인자는 user_input의 시작 주소임을 알 수 있다.&lt;/p&gt;
+
+&lt;p&gt;이제 IDA로 디스어셈블한 코드를 보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2046.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;굳이 더 부연하지 않고 넘어가야겠다. 중요한 건 이걸 복호화하는 코드를 만드는 일이고, 그를 위해서는 해당 연산에 xor만이 사용되었다, 즉 xor로 간단히 복호화 가능하다는 점만이 중요하기 때문이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;28-sub_193c-분석&quot;&gt;2.8. sub_193c 분석&lt;/h2&gt;
+
+&lt;p&gt;여기는 사용자의 입력이 정답이 아닐 경우 nop :( 를 출력해 주는 함수다. 해당 함수가 수행되기 직전의 스택 상태를 보면 다음과 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2047.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 sub_193c의 내용은 다음과 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2048.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;스택에 sub_193c가 먼저 나와 있고, sub_19a3이 다음으로 나와 있는 것, 그리고 후자에서 good:) 를 출력해 주는 것을 감안하면 저 if 문 안으로 들어가지 않고 return 되었을 때 good:) 가 출력될 것을 추측할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;즉, byte_6060이 진짜 정답이 들어 있는 배열일 것이고, 64 바이트일 것이다.&lt;/p&gt;
+
+&lt;p&gt;해당 배열의 내용은 다음과 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2049.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;mi&quot;&gt;27&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;63&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;72&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;73&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;43&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;43&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F0&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;33&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F3&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;07&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;33&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;E5&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DB&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C9&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;62&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BB&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;96&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DB&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FD&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;89&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;47&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BD&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;88&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;D6&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F9&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B9&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;76&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;E1&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;89&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;54&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;D&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A6&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;그럼 이제 절반 왔다! 우리는 사용자의 입력값이 어떤 변환 과정을 거치는지 알고, 그 변환 결과가 어떤 값이 되어야 하는지도 알고 있다. 그럼 이제 복호화 프로그램을 만들어 보자.&lt;/p&gt;
+
+&lt;h1 id=&quot;3-복호화-프로그램-만들기&quot;&gt;3. 복호화 프로그램 만들기&lt;/h1&gt;
+
+&lt;p&gt;앞선 과정을 다시 정리해 보자.&lt;/p&gt;
+
+&lt;h2 id=&quot;31-sub_1215-does-xor-every-char-in-user-input-with-0x44&quot;&gt;3.1. sub_1215: does xor every char in user input with 0x44&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1215(0x40, char *buf, 0x44)&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2022.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;32-sub_1268-make-a-permutation-table&quot;&gt;3.2. sub_1268: make a permutation table&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1268(0xe5119cf0, 0xddc615f0, 0x7851327a, 0x84a7815a, char *buf)&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;table: (명령어: dump memory ./permutation_table.txt 0x55555555a900 0x55555555a940)&lt;/p&gt;
+
+    &lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;mo&quot;&gt;07&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;09&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;01&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;03&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;06&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;04&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;02&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;00&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;D&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;03&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;01&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;04&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;02&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;06&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;09&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;00&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;D&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;07&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;D&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;04&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;06&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;03&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;09&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;01&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;02&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;07&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;00&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;07&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;01&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;09&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;06&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;03&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;D&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;02&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;00&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;04&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;33-sub_1447-does-permutation-on-user-inputbuf&quot;&gt;3.3. sub_1447: Does Permutation on user input(buf)&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1447(char *buf, int8 *table)&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2029.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;34-sub_14ed--table의-1-byte를-buf의-1byte와-xor해-buf에-저장한다&quot;&gt;3.4. sub_14ed:  table의 1 byte를 buf의 1byte와 xor해 buf에 저장한다.&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_14ed(char *table2, char *buf)&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2038.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;사용된 테이블:&lt;/p&gt;
+
+    &lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;n&quot;&gt;E9&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;D&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;D&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;45&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;61&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F6&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;47&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C8&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;E5&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CA&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;53&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;07&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C3&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FB&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AC&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;34&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;38&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;D3&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;D5&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;22&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F5&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F8&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;19&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ED&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;D0&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F8&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;37&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B4&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;68&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;58&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;92&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BB&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;47&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;E6&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A5&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;D&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EC&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FA&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;35-sub_15bb-buf에서-4k-4k1-4k2-4k3-k0-1---15-번째의-원소별로-다른-알고리즘을-적용해-변환한다-즉-substitution-연산을-한다&quot;&gt;3.5. sub_15bb: buf에서 4k, 4k+1, 4k+2, 4k+3 (k=0, 1, … , 15) 번째의 원소별로 다른 알고리즘을 적용해 변환한다. 즉 substitution 연산을 한다.&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_15bb(char *buf)&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2040.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;351-sub_1545-우로-n비트-순환-시프트-연산을-수행하는-함수다-for-4k-4k2&quot;&gt;3.5.1. sub_1545: 우로 n비트 순환 시프트 연산을 수행하는 함수다. (for 4k, 4k+2)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1545(char c, int n)&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2041.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;352-sub_1580-좌로-n비트-순환-시프트-연산을-수행하는-함수다-for-4k1-4k3&quot;&gt;3.5.2. sub_1580: 좌로 n비트 순환 시프트 연산을 수행하는 함수다. (for 4k+1, 4k+3)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_1580(char c, int n)&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2050.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;36-sub_16e0-카이사르-치환-암호화&quot;&gt;3.6. sub_16e0: 카이사르 치환 암호화&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_16e0(char *buf, const int x(0x11))&lt;/code&gt;&lt;/p&gt;
+
+    &lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;n&quot;&gt;sub_16e0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// x==0x11&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;63&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  	&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  		&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x11&lt;/span&gt;
+  	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;37-sub_172e&quot;&gt;3.7. sub_172e&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub_172e(char *buf)&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/chaining/Untitled%2046.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;38-sub_193c-여긴-정답-배열과-input-배열을-대조하는-루틴이다&quot;&gt;3.8. sub_193c: 여긴 정답 배열과 input 배열을 대조하는 루틴이다.&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;정답 배열&lt;/p&gt;
+
+    &lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;mi&quot;&gt;27&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;63&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;72&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;73&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;43&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;43&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F0&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;33&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F3&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mo&quot;&gt;07&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;33&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;E5&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DB&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C9&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;62&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BB&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;96&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DB&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FD&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;89&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;47&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BD&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;88&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;D6&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F9&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B9&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;76&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;E1&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;89&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;54&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;D&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A6&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;디버거에서 뽑은 값은 그대로 복사하면 안된다. 리틀 엔디언이라 순서가 바뀌므로 IDA의 Hex view→범위저장→ HXD로 열어서 복사의 과정을 거치자.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;4-구현-및-결과&quot;&gt;4. 구현 및 결과&lt;/h1&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt;&lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
+#include&lt;/span&gt;&lt;span class=&quot;cpf&quot;&gt;&amp;lt;string.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
+#include&lt;/span&gt;&lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
+&lt;/span&gt;        
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev1_sub_1215&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev2_sub_1447&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev3_sub_14ed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev4_sub_15bb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev4_1_sub_1545&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev4_2_sub_1580&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev5_sub_16e0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev6_sub_172E&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// will be parsed and appended to the table1&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;07 09 0E 01 0C 08 03 06 04 0A 02 0B 00 05 0F 0D 03 01 04 0A 02 06 0B 08 0F 09 0C 05 0E 00 0D 07 0A 0E 0D 04 05 06 08 03 0B 0F 09 01 0C 02 07 00 07 01 09 0A 05 06 0F 03 0D 02 0E 00 04 0C 08 0B&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// will be parsed and appended to the table2&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;E9 10 8A 6D 2D 6C 45 61 0C F6 21 47 15 0E C8 25 9A E5 CA 53 18 07 F4 C3 FB 4C AC 34 31 38 D3 0A D5 22 0B C4 F5 F8 19 ED D0 42 F2 BE F8 4A 0B 37 B4 68 58 92 BB 47 E6 A5 4C 21 4D EC 8E 7A FA 2F&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// will be parsed and appended to the answer&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;27 63 72 73 43 3F 9F 43 2E F0 33 F3 1E 07 0A 33 E5 6C DB 5F C9 11 DE 62 42 18 FE 9B 8E 15 3A BB 96 DB 9E 23 FD 90 10 9B 8E 0A 89 47 BD 8E 88 D6 F9 B9 50 76 E1 0C 4F 89 54 9D B1 F1 A6 9B 8A 2C&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    
+    &lt;span class=&quot;c1&quot;&gt;//parsing &lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp_len1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;malloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp_len1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;malloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp_len1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;malloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp_len1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp_len1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hexByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;&apos;0&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;hexByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;hexByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;hexByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&apos;\0&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;table1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strtol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hexByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//printf(&quot;table1[%d]: %ldbyte, \\x0%x\n&quot;, i, sizeof(table1[i]), table1[i]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp_len1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hexByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;&apos;0&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;hexByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;hexByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;hexByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&apos;\0&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;table2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strtol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hexByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//printf(&quot;table1[%d]: %ldbyte, \\x0%x\n&quot;, i, sizeof(table1[i]), table1[i]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp_len1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hexByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;&apos;0&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;hexByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;hexByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;hexByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&apos;\0&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strtol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hexByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//printf(&quot;table1[%d]: %ldbyte, \\x0%x\n&quot;, i, sizeof(table1[i]), table1[i]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;rev6_sub_172E&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;rev5_sub_16e0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;rev4_sub_15bb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;rev3_sub_14ed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;14ed output: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;0x%02x &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;rev2_sub_1447&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;table1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;rev2_sub_1447&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;table1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;rev2_sub_1447&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;table1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;rev2_sub_1447&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;table1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1447 output: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;0x%02x &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;rev1_sub_1215&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp_len1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x44&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev1_sub_1215&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev2_sub_1447&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;&apos;0&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev3_sub_14ed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev4_sub_15bb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rev4_1_sub_1545&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rev4_2_sub_1580&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rev4_1_sub_1545&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rev4_2_sub_1580&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev4_1_sub_1545&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 4k, 4k+2nd elements&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)));&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev4_2_sub_1580&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 4k+1, 4k+3rd elements&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)));&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev5_sub_16e0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xff&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 0x00~0xff hence, 0xff+1 == 0x00&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev6_sub_172E&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [rsp+16h] [rbp-2h]&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [rsp+16h] [rbp-2h]&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [rsp+16h] [rbp-2h]&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [rsp+16h] [rbp-2h]&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [rsp+17h] [rbp-1h]&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [rsp+17h] [rbp-1h]&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [rsp+17h] [rbp-1h]&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [rsp+17h] [rbp-1h]&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [rsp+17h] [rbp-1h]&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [rsp+17h] [rbp-1h]&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;63&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;47&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xFF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;47&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;63&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xFF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xFF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;63&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xFF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xFF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;63&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xFF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이것저것 시행착오를 거친 끝에 정답을 구할 수 있었다.&lt;/p&gt;
+
+&lt;p&gt;정말 중요한 사실: char 타입은 음수가 될 경우 출력이나 연산에 사용 시 자동으로 int type로 전환되어 사용된다. 이걸 몰라서 한참 헤맸다.&lt;/p&gt;
+
+&lt;p&gt;따라서 음수가 되는 경우를 무시하고 0x00~0xff 범위 내부를 순환하도록 하고 싶다면 char가 아닌 unsigned char로 정의하고, 함수에 인자를 전달할 때에도 반드시 해당 형식으로 전달해야 한다.&lt;/p&gt;
+
+&lt;p&gt;파이썬으로 작성했다면 훨씬 편했을 텐데… 하…. 포인터를 쓰고 싶어서 C 언어로 작성하는 바람에 type 관련해서 정말 힘들었다.&lt;/p&gt;
+
+&lt;p&gt;문제 정말 어렵더라. 더 화이팅 해보자!&lt;/p&gt;
+</description>
+        <pubDate>Thu, 31 Aug 2023 13:05:23 +0900</pubDate>
+        <link>http://localhost:4000/blog/paper_study/ipsecVuln01</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/paper_study/ipsecVuln01</guid>
+      </item>
     
       <item>
         <title>Searching for IPSec Vulnerability from Its Specification Level</title>
@@ -36,8 +814,9 @@
 &lt;p&gt;학교 과제로 했던 건데, 내용이 좋아서 블로그에 백업!
 오랜만에 어택 벡터 찾는 느낌이 나서 재밌었던 과제로 기억한다.
 그리고…. 한국어 수업인데 정줄 놓고 쓰다 보니 영어로 쓰고 제출까지 하는 바람에 교수님께 양해를 구했던….. 과제다…….
-(당시 진짜 바빴고 참고 문서가 다 영어라서 정말 실수였다)
-아무튼 읽으시는 분께. 미안합니다 이건 영어예요.
+(당시 진짜 바빴고 참고 문서가 다 영어라서 정말 실수였다)&lt;/p&gt;
+
+&lt;p&gt;아무튼 읽으시는 분께. 미안합니다.
 DeepL이 번역을 솔찬히 잘하니 추천드립니다.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -8746,6 +9525,21 @@ rsp -= 8 //stack grows from high to low
 
   &lt;/div&gt;
 
+  &lt;div class=&quot;category-box&quot;&gt;
+    
+    &lt;div id=&quot;#reversing&quot;&gt;&lt;/div&gt;
+    &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;/blog/categories/reversing&quot;&gt;reversing&lt;/a&gt;&lt;/h4&gt;
+    &lt;a name=&quot;reversing&quot;&gt;&lt;/a&gt;
+     
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/paper_study/ipsecVuln01&quot;&gt;Dreamhack-Reversing-Chaining 문제 풀이&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+
+  &lt;/div&gt;
+
 &lt;/div&gt;
 
 </description>
@@ -9079,6 +9873,22 @@ You can visit the blog using [http://your-github-username.github.io](http://your
       
         
           <item>
+            <title>reversing</title>
+            <description>&lt;h5&gt; Posts by Category : {{ page.title }} &lt;/h5&gt;
+
+&lt;div class=&quot;card&quot;&gt;
+{% for post in site.categories.reversing %}
+ &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;{{ post.date | date_to_string }}&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;{{ post.url }}&quot;&gt;{{ post.title }}&lt;/a&gt;&lt;/li&gt;
+{% endfor %}
+&lt;/div&gt;</description>
+            <link>http://localhost:4000/blog/categories/reversing/</link>
+          </item>
+        
+      
+    
+      
+        
+          <item>
             <title>Guides</title>
             <description>&lt;h5&gt; Posts by Category : {{ page.title }} &lt;/h5&gt;
 
@@ -9330,6 +10140,8 @@ You can visit the blog using [http://your-github-username.github.io](http://your
             <link>http://localhost:4000/blog/categories/system_hacking/</link>
           </item>
         
+      
+    
       
     
       
