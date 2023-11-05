@@ -5,10 +5,578 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 31 Aug 2023 13:11:34 +0900</pubDate>
-    <lastBuildDate>Thu, 31 Aug 2023 13:11:34 +0900</lastBuildDate>
+    <pubDate>Sun, 05 Nov 2023 18:17:53 +0900</pubDate>
+    <lastBuildDate>Sun, 05 Nov 2023 18:17:53 +0900</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
+    
+      <item>
+        <title>금융사이버보안이슈 정리 백업</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#3개년-동안-지속된-금융사이버보안-위협&quot; id=&quot;markdown-toc-3개년-동안-지속된-금융사이버보안-위협&quot;&gt;3개년 동안 지속된 금융사이버보안 위협&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#순위권에서-한-번-빠졌으나-3년간-요주의-대상이었던-사이버보안-위협&quot; id=&quot;markdown-toc-순위권에서-한-번-빠졌으나-3년간-요주의-대상이었던-사이버보안-위협&quot;&gt;순위권에서 한 번 빠졌으나 3년간 요주의 대상이었던 사이버보안 위협&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2개년-동안-지속됐으며-화제성이-있는-금융사이버보안-위협&quot; id=&quot;markdown-toc-2개년-동안-지속됐으며-화제성이-있는-금융사이버보안-위협&quot;&gt;2개년 동안 지속됐으며 화제성이 있는 금융사이버보안 위협&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2021년-디지털금융-및-사이버보안-이슈-전망&quot; id=&quot;markdown-toc-2021년-디지털금융-및-사이버보안-이슈-전망&quot;&gt;2021년 디지털금융 및 사이버보안 이슈 전망&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#3개년-동안-지속된-금융사이버보안-위협-1&quot; id=&quot;markdown-toc-3개년-동안-지속된-금융사이버보안-위협-1&quot;&gt;3개년 동안 지속된 금융사이버보안 위협&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#순위권에서-한-번-빠졌으나-3년간-요주의-대상이었던-사이버보안-위협-1&quot; id=&quot;markdown-toc-순위권에서-한-번-빠졌으나-3년간-요주의-대상이었던-사이버보안-위협-1&quot;&gt;순위권에서 한 번 빠졌으나 3년간 요주의 대상이었던 사이버보안 위협&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#2개년-동안-지속됐으며-화제성이-있는-금융사이버보안-위협-1&quot; id=&quot;markdown-toc-2개년-동안-지속됐으며-화제성이-있는-금융사이버보안-위협-1&quot;&gt;2개년 동안 지속됐으며 화제성이 있는 금융사이버보안 위협&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2022년-디지털금융-및-사이버보안-이슈-전망&quot; id=&quot;markdown-toc-2022년-디지털금융-및-사이버보안-이슈-전망&quot;&gt;2022년 디지털금융 및 사이버보안 이슈 전망&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#3개년-동안-지속된-금융사이버보안-위협-2&quot; id=&quot;markdown-toc-3개년-동안-지속된-금융사이버보안-위협-2&quot;&gt;3개년 동안 지속된 금융사이버보안 위협&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#순위권에서-한-번-빠졌으나-3년간-요주의-대상이었던-사이버보안-위협-2&quot; id=&quot;markdown-toc-순위권에서-한-번-빠졌으나-3년간-요주의-대상이었던-사이버보안-위협-2&quot;&gt;순위권에서 한 번 빠졌으나 3년간 요주의 대상이었던 사이버보안 위협&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#2개년-동안-지속됐으며-화제성이-있는-금융사이버보안-위협-2&quot; id=&quot;markdown-toc-2개년-동안-지속됐으며-화제성이-있는-금융사이버보안-위협-2&quot;&gt;2개년 동안 지속됐으며 화제성이 있는 금융사이버보안 위협&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2023년-디지털금융-및-사이버보안-이슈-전망&quot; id=&quot;markdown-toc-2023년-디지털금융-및-사이버보안-이슈-전망&quot;&gt;2023년 디지털금융 및 사이버보안 이슈 전망&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#3개년-동안-지속된-금융사이버보안-위협-3&quot; id=&quot;markdown-toc-3개년-동안-지속된-금융사이버보안-위협-3&quot;&gt;3개년 동안 지속된 금융사이버보안 위협&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#순위권에서-한-번-빠졌으나-3년간-요주의-대상이었던-사이버보안-위협-3&quot; id=&quot;markdown-toc-순위권에서-한-번-빠졌으나-3년간-요주의-대상이었던-사이버보안-위협-3&quot;&gt;순위권에서 한 번 빠졌으나 3년간 요주의 대상이었던 사이버보안 위협&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#2개년-동안-지속됐으며-화제성이-있는-금융사이버보안-위협-3&quot; id=&quot;markdown-toc-2개년-동안-지속됐으며-화제성이-있는-금융사이버보안-위협-3&quot;&gt;2개년 동안 지속됐으며 화제성이 있는 금융사이버보안 위협&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/img/posts/finIssue/%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%82%E1%85%B3%E1%86%AB%20%E1%84%83%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%90%E1%85%A5%E1%84%87%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%B3%20020157fb36d0477dbc667149fed2a869.csv&quot;&gt;제목 없는 데이터베이스&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3개년-동안-지속된-금융사이버보안-위협&quot;&gt;3개년 동안 지속된 금융사이버보안 위협&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;랜섬웨어, 랜섬디도스, 보이스피싱&lt;/li&gt;
+  &lt;li&gt;마이플랫폼으로 자리매김한 데이터 산업&lt;/li&gt;
+  &lt;li&gt;금융서비스의 대면 비대면 일원화, 디지털 금융 서비스의 일원화(All-in-One 앱)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;순위권에서-한-번-빠졌으나-3년간-요주의-대상이었던-사이버보안-위협&quot;&gt;순위권에서 한 번 빠졌으나 3년간 요주의 대상이었던 사이버보안 위협&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;새로운 금융인증제-디지털신원인증으로 인한 리스크&lt;/li&gt;
+  &lt;li&gt;AI&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;2개년-동안-지속됐으며-화제성이-있는-금융사이버보안-위협&quot;&gt;2개년 동안 지속됐으며 화제성이 있는 금융사이버보안 위협&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;디지털자산의 확산에 따른 리스크 관리-금융보안규제와 자율보안&lt;/li&gt;
+  &lt;li&gt;오픈소스 리스크&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;2021년-디지털금융-및-사이버보안-이슈-전망&quot;&gt;2021년 디지털금융 및 사이버보안 이슈 전망&lt;/h2&gt;
+
+&lt;h3 id=&quot;3개년-동안-지속된-금융사이버보안-위협-1&quot;&gt;3개년 동안 지속된 금융사이버보안 위협&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;비대면 금융
+    &lt;ul&gt;
+      &lt;li&gt;비대면 금융 타겟으로 한 금융사기의 다양화 및 고도화
+        &lt;ul&gt;
+          &lt;li&gt;실명확인 절차상의 취약점을 악용
+            &lt;ul&gt;
+              &lt;li&gt;신분증 위조로 알뜰폰 개통 → 계좌 개설 → 공인인증서 발급 및 등록 → 피해자의 개인정보 변경→ 자금이체 또는 대출 실행&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;모바일 뱅킹 앱 자체의 취약점을 악용&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;전망 및 시사점
+        &lt;ul&gt;
+          &lt;li&gt;비대면 금융의 위협은 지속될 것, 파급력 또한 확대될 것.
+            &lt;ul&gt;
+              &lt;li&gt;전자금융거래법 개정으로 비대면 금융 방식과 서비스의 확대 → 어텍 서페이스의 확대&lt;/li&gt;
+              &lt;li&gt;오픈뱅킹, 마이데이터 산업 활성화로 보안사고 전파력의 상승 → 한 금융사의 사고가 타 금융사로 전파되는 식.&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;보안성과 포용성을 모두 확보하여 서비스 제공&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;랜섬웨어와 랜섬디도스 공격 증가
+    &lt;ul&gt;
+      &lt;li&gt;랜섬웨어 공격 방식 고도화 및 협박 수위 강화: 정보유출 협박&lt;/li&gt;
+      &lt;li&gt;국내 금융권 대상 랜섬디도스 공격 급증
+        &lt;ul&gt;
+          &lt;li&gt;주로 UDP 증폭 반사 공격 기법 사용 - IP 스푸핑이 가능&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;전망 및 시사점
+        &lt;ul&gt;
+          &lt;li&gt;랜섬웨어와 랜섬디도스 공격 수행 환경이 점점 공격자 친화적으로 변화하고 있음 → 위험 확대 전망
+            &lt;ul&gt;
+              &lt;li&gt;랜섬웨어: RaaS, 다크웹 내 해킹 정보 판매 등&lt;/li&gt;
+              &lt;li&gt;랜섬디도스: IoT 기기 보급 증대 → 봇넷으로 악용 가능, 디도스 공격 대행 서비스의 등장&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;금융권의 철저한 대비 요망
+            &lt;ul&gt;
+              &lt;li&gt;금융권은 대량의 개인(신용)정보를 보관 + 서비스 가용성이 매우 중요 → 즉 아주 좋은 타겟&lt;/li&gt;
+              &lt;li&gt;랜섬웨어 대응 방안
+                &lt;ul&gt;
+                  &lt;li&gt;이메일 경유 악성코드 유입 예방: 스팸메일 차단 + 악성코드 사전 검사&lt;/li&gt;
+                  &lt;li&gt;데이터 유출 대비: DRM 등의 문서 암호화 보안솔루션 도입&lt;/li&gt;
+                  &lt;li&gt;사전 대비: 다크웹 상의 랜섬웨어 공모, 데이터 유출 등 모니터링&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;랜섬디도스 대응 방안
+                &lt;ul&gt;
+                  &lt;li&gt;사전 대비:
+                    &lt;ul&gt;
+                      &lt;li&gt;국내외 랜섬디도스 공격 관련 정보 공유 및 모니터링&lt;/li&gt;
+                      &lt;li&gt;UDP뿐 아니라, 대응이 더 어려운 TCP 기반 공격 발생 가능성도 고려, 대응훈련 실시 등의 사전 대비 필요&lt;/li&gt;
+                    &lt;/ul&gt;
+                  &lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;보이스피싱
+    &lt;ul&gt;
+      &lt;li&gt;갈수록 고도화, 지능화 추세
+        &lt;ul&gt;
+          &lt;li&gt;대출 사기형, 기관 사칭형, 메신저 피싱, 납치/사고 빙자형 등으로 체계적 접근&lt;/li&gt;
+          &lt;li&gt;수법이 더욱 치밀해지는 상황&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;모바일 앱 악용하는 수법도 등장
+        &lt;ul&gt;
+          &lt;li&gt;악성 모바일 앱 설치 유도 → 전화 가로채기, 휴대폰 원격제어로 피해자 명의 금융 앱 실행&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;전망 및 시사점
+        &lt;ul&gt;
+          &lt;li&gt;보이스피싱 + 신기술 → 위험도 상승
+            &lt;ul&gt;
+              &lt;li&gt;AI 활용: 딥페이크 기술을 이용한 정교화&lt;/li&gt;
+              &lt;li&gt;클라우드 리스크: 클라우드 이용 확대 → 클라우드에 더욱 가치 있는 정보 많이 저장 → 클라우드 해킹으로 중요 정보 획득하여 보이스피싱&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;전방위적 대응의 필요
+            &lt;ul&gt;
+              &lt;li&gt;AI 기반으로 예방 및 대응 방안 고도화&lt;/li&gt;
+              &lt;li&gt;범금융권 정보 공유체계 구축&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;데이터 산업 경쟁 본격화
+    &lt;ul&gt;
+      &lt;li&gt;신용정보법 개정 → 개인신용정보의 가명, 익명처리 가능 / 데이터 간 결합 가능&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;ul&gt;
+      &lt;li&gt;금융 빅데이터 개방시스템(CreDB)등으로 금융데이터 개방&lt;/li&gt;
+      &lt;li&gt;금융데이터거래소 출범 → 데이터 거래 활성화 지원
+    - 금융권 데이터 산업(마이데이터 등) 주도권 확보를 위한 경쟁 시작
+    - 전망 및 시사점&lt;/li&gt;
+      &lt;li&gt;데이터 산업의 성공을 위해서는 반드시 보안성을 확보해야 함
+        &lt;ul&gt;
+          &lt;li&gt;금융데이터 유출 사고 발생 시, 금융소비자 피해 + 금융데이터 산업 전반의 신뢰 하락 가능&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;순위권에서-한-번-빠졌으나-3년간-요주의-대상이었던-사이버보안-위협-1&quot;&gt;순위권에서 한 번 빠졌으나 3년간 요주의 대상이었던 사이버보안 위협&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;새로운 인증시장의 향방
+    &lt;ul&gt;
+      &lt;li&gt;인증 정책의 전환: 공인인증서에서 다양한 인증수단으로
+        &lt;ul&gt;
+          &lt;li&gt;전자서명법 개정으로 다양한 인증수단의 동등 경쟁 환경 조성&lt;/li&gt;
+          &lt;li&gt;공인인증서 폐지 후 금융 인증시장 선점을 위한 경쟁 본격화&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;전망 및 시사점
+        &lt;ul&gt;
+          &lt;li&gt;‘신규 사업 기회’ → 고객 잠금 효과를 노림&lt;/li&gt;
+          &lt;li&gt;보안성을 반드시 전제로 하여 인증수단의 다양성 존중&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;AI 거버넌스 구축&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;2023년 동향: NH 농협은행(23.5)에 이어 나이스평가정보에서 AI거버넌스 수립 및 도입 움직임&lt;/p&gt;
+
+      &lt;ul&gt;
+        &lt;li&gt;AI 활용 확대에 따른 부작용의 우려
+          &lt;ul&gt;
+            &lt;li&gt;AI 편향: 차별적 결과의 도출로 금융소비자 피해 유발&lt;/li&gt;
+            &lt;li&gt;AI 불투명성: 내부 처리 과정을 알 수 없기 때문에 결과의 공정성에 대한 불신
+              &lt;ul&gt;
+                &lt;li&gt;신용정보법 제32조2에 의거, 금융소비자가 금융회사에 AI 도출 결과에 대한 설명을 요구할 수 있는 권리가 보장되므로 이는 큰 문제의 소지가 될 수 있음&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/li&gt;
+            &lt;li&gt;AI 보안 위협
+              &lt;ul&gt;
+                &lt;li&gt;Adversarial Attacks등 AI 취약점 악용&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;해외 각국은 AI 위험 최소화를 위한 각종 정책 발제 및 시행&lt;/li&gt;
+        &lt;li&gt;전망 및 시사점
+          &lt;ul&gt;
+            &lt;li&gt;전선 업무 위주였던 금융권 AI 도입이 빅데이터와 연계하여 중선, 후선 업무로 확대될 예정
+              &lt;ul&gt;
+                &lt;li&gt;이는 AI 위협의 현실화를 불러올 것&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/li&gt;
+            &lt;li&gt;AI 거버넌스 구축이 선결 과제
+              &lt;ul&gt;
+                &lt;li&gt;AI 위험 최소화 및 설명 가능한 AI(XAI)&lt;/li&gt;
+                &lt;li&gt;단 위의 연구는 초기 단계로 가시적이지 않음; 따라서 AI 거버넌스 확립이 최우선 정책 과제
+                  &lt;ul&gt;
+                    &lt;li&gt;금융위는 ‘20.7. 금융분야 AI 활성화를 위한 워킹그룹을 구성했음&lt;/li&gt;
+                  &lt;/ul&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;2개년-동안-지속됐으며-화제성이-있는-금융사이버보안-위협-1&quot;&gt;2개년 동안 지속됐으며 화제성이 있는 금융사이버보안 위협&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;금융 산업 개방
+    &lt;ul&gt;
+      &lt;li&gt;금융 산업 개방에 따른 플레이어 확대 및 다변화
+        &lt;ul&gt;
+          &lt;li&gt;전자금융거래법 개정(’20.11.27 발의)로 전자금융업을 자금이체업, 대금결제업, 결제대행업으로 통폐합하고, 지급지시업을 추가로 도입해 총 4개 업종으로 재분류&lt;/li&gt;
+          &lt;li&gt;그러나 2년 넘게 국회에 계류되어 있다가, ‘21 머지포인트 사태 계기로 수정 보완하여 ‘23.8.24 국회 본회의 통과 → 선불업 규제 강화 및 면제 사유 축소&lt;/li&gt;
+          &lt;li&gt;금융 산업 개방
+            &lt;ul&gt;
+              &lt;li&gt;오픈뱅킹: 하나의 앱으로 모든 은행 계좌 조회 이체 가능&lt;/li&gt;
+              &lt;li&gt;마이데이터: 개인신용정보 전송요구권 행사로 본인 정보의 일괄 조회 관리, 맞춤형 금융상품 추천&lt;/li&gt;
+              &lt;li&gt;지급지시전달업: 지급지시를 청산기관에 전달해 이행 지원하는 사업. 규제 강화로 자금보유 필&lt;/li&gt;
+              &lt;li&gt;종합지급결제업: 모든 전자금융 서비스 제공 가능, 자기자본 등 지정 요건이 있어 빅테크 기업 대상&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;플레이어의 종류와 요구되는 노력
+        &lt;ul&gt;
+          &lt;li&gt;금융사: 금융그룹사 통합 플랫폼 구축, 외부 협력으로 자사 금융상품 및 서비스 고도화 필&lt;/li&gt;
+          &lt;li&gt;빅테크 기업: 기존 플랫폼 기반으로 금융사와 제휴 혹은 직접 금융업에 진출&lt;/li&gt;
+          &lt;li&gt;핀테크 기업: 혁신적 서비스 개발, 타 금융회사 상품 비교 추천 서비스 개발 등&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;전망 및 시사점
+        &lt;ul&gt;
+          &lt;li&gt;금융권 보안 리스크의 상호연계성 확대 경계 필
+            &lt;ul&gt;
+              &lt;li&gt;협력기업의 보안 취약점이 금융사의 취약점으로 전이될 수 있음(보이스피싱 등의 금융범죄와 관련)&lt;/li&gt;
+              &lt;li&gt;협력기업의 보안 리스크를 면밀히 고려할 것&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;2022년-디지털금융-및-사이버보안-이슈-전망&quot;&gt;2022년 디지털금융 및 사이버보안 이슈 전망&lt;/h2&gt;
+
+&lt;h3 id=&quot;3개년-동안-지속된-금융사이버보안-위협-2&quot;&gt;3개년 동안 지속된 금융사이버보안 위협&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;디지털 팬데믹-랜섬웨어 대유행
+    &lt;ul&gt;
+      &lt;li&gt;현황
+        &lt;ul&gt;
+          &lt;li&gt;가속화된 디지털 전환 → 가상자산의 활성화, 공격의 비즈니스화로 랜섬웨어 및 핵티비즘의 증가&lt;/li&gt;
+          &lt;li&gt;랜섬웨어의 고도화 및 핵티비스트들의 활동 지속
+            &lt;ul&gt;
+              &lt;li&gt;랜섬웨어 공격 대상이 개인 → 기업 또는 주요 인프라&lt;/li&gt;
+              &lt;li&gt;다중협박, APT, 공급망 공격과의 결합&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;전망 및 대응전략
+        &lt;ul&gt;
+          &lt;li&gt;사이버굥격으로 인한 금융위기의 가능성
+            &lt;ul&gt;
+              &lt;li&gt;주요 금융회사 또는 금융 인프라의 장기간 중단 등&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;사이버리스크 확산 방지를 위한 ‘레질리언스’, ‘유관 기관 간 긴밀한 협력 체계 구축’&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;제로 트러스트
+    &lt;ul&gt;
+      &lt;li&gt;현황
+        &lt;ul&gt;
+          &lt;li&gt;클라우드 등 제3자 활용 증가 및 원격근무 장기화 → 보안위협도 심화&lt;/li&gt;
+          &lt;li&gt;전통적 신뢰 경계가 사라짐&lt;/li&gt;
+          &lt;li&gt;AI등 신기술 활용한 차세대 보안 솔루션 도입 확산&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;전망 및 대응 전략
+        &lt;ul&gt;
+          &lt;li&gt;강력한 인증 기반의 제로 트러스트 전략
+            &lt;ul&gt;
+              &lt;li&gt;기존 워크로드에 대한 상세 분석, 고위험 업무에 필요한 통제 식별&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;성숙한 조직과 절차로 기술 도입의 득실을 철저히 판단&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;데이터 산업 경쟁
+    &lt;ul&gt;
+      &lt;li&gt;현황
+        &lt;ul&gt;
+          &lt;li&gt;데이터 독점, 개인정보 통제, 데이터 소외계층 등의 양극화 이슈&lt;/li&gt;
+          &lt;li&gt;공정 경쟁 저해 및 소비자 부담 증가의 우려&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;전망 및 대응 전략
+        &lt;ul&gt;
+          &lt;li&gt;데이터 표준화 및 가치평가의 중요성 강조&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;순위권에서-한-번-빠졌으나-3년간-요주의-대상이었던-사이버보안-위협-2&quot;&gt;순위권에서 한 번 빠졌으나 3년간 요주의 대상이었던 사이버보안 위협&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;업무 자동화 리스크
+    &lt;ul&gt;
+      &lt;li&gt;현황
+        &lt;ul&gt;
+          &lt;li&gt;초자동화 기술: AI등의 발전으로 고차원적 업무까지 자동화가 진행되면서 업무 효율성과 정확성 극대화&lt;/li&gt;
+          &lt;li&gt;새로운 문제점 제기
+            &lt;ul&gt;
+              &lt;li&gt;예상하지 못한 자동화 오류&lt;/li&gt;
+              &lt;li&gt;시스템 복잡도 상승에 따른 취약점 증가&lt;/li&gt;
+              &lt;li&gt;지속적인 관리 실패&lt;/li&gt;
+              &lt;li&gt;대안 부제&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;전망 및 대응 전략
+        &lt;ul&gt;
+          &lt;li&gt;인력 소비가 크거나 인적 실수가 자주 발생하는 분야 관련해서 업무 자동화 확대 예상&lt;/li&gt;
+          &lt;li&gt;위험 요소를 사전에 분석해 차단 하고 안전하게 활용 해야 함&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;2개년-동안-지속됐으며-화제성이-있는-금융사이버보안-위협-2&quot;&gt;2개년 동안 지속됐으며 화제성이 있는 금융사이버보안 위협&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;디지털 전환과 새로운 금융보안 규제
+    &lt;ul&gt;
+      &lt;li&gt;이건 법 개정안 발의 관련한 내용인데, 반영 안 됐고 오히려 전자금융거래법 개정안은 머지포인트 사태 + 공인인증서 폐지가 쟁점이 됐음&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;오픈소스 리스크
+    &lt;ul&gt;
+      &lt;li&gt;현황
+        &lt;ul&gt;
+          &lt;li&gt;다양한 산업 분야에서 오픈소스를 적극 활용 중
+            &lt;ul&gt;
+              &lt;li&gt;새로운 기술의 활용, 신속하고 효율적인 개발 목적&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;오픈소스는 누구나 접근, 수정이 가능
+            &lt;ul&gt;
+              &lt;li&gt;공격자가 임의로 악의적 코드 추가할 가능성&lt;/li&gt;
+              &lt;li&gt;공개된 소스 코드에서 취약점을 찾아내 악용할 가능성&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;라이선스 체계가 엄연히 존재&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;전망 및 대응
+        &lt;ul&gt;
+          &lt;li&gt;다각적 노력 필요
+            &lt;ul&gt;
+              &lt;li&gt;오픈소스 활용 정책 및 절차 수립&lt;/li&gt;
+              &lt;li&gt;오픈소스 보안대책 고려 필요&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;라이선스에 대한 정확한 인식 필요
+            &lt;ul&gt;
+              &lt;li&gt;오픈소스 분석 점검 서비스 등을 이용(라이선스와 취약점을 일괄 분석)&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;제3자 리스크와 운영복원력
+    &lt;ul&gt;
+      &lt;li&gt;현황
+        &lt;ul&gt;
+          &lt;li&gt;금융안정성 저해: 금융 디지털 전환으로 인한 관리 대상 사이버리스크의 범위 확대, 사이버공격의 고도화. 또한 금융시스템 참여자 간 연계가 복잡해지며 금융 보안 리스크의 확산가능성 증대&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;전망 및 대응
+        &lt;ul&gt;
+          &lt;li&gt;운영복원력 확보, 제3자 리스크 관리가 쟁점이 됨
+            &lt;ul&gt;
+              &lt;li&gt;운영복원력: 위기 상황에서도 중요 금융기능이 영향 허용한도 내에서 유지되도록 하는 역량&lt;/li&gt;
+              &lt;li&gt;제3자 리스크: 클라우드 이용 확대, 핀테크 기업과의 연계 증가. 주요 제3자와 관련해서는 보안리스크 + 집중 리스크(수탁사가 독점 가까이 하고 있어서 거기가 마비될 경우 파급력이 큼) + 종속 리스크(수탁사에게 크게 의존하고 있어 수탁사의 리스크가 위탁사에게 전이되거나 변화비용이 큼)까지 관리 필요, 출구 전략 필요.&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;디지털자산의 확산
+    &lt;ul&gt;
+      &lt;li&gt;현황
+        &lt;ul&gt;
+          &lt;li&gt;디지털 자산의 확대
+            &lt;ul&gt;
+              &lt;li&gt;이로 인해 DeFI 등장(디지털자산 간 경제활동 서비스 플랫폼)&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;그러나 디지털 자산 관련 다양한 보안위협의 존재
+            &lt;ul&gt;
+              &lt;li&gt;익명성 보장 수준에 따른 범죄 악용 가능성&lt;/li&gt;
+              &lt;li&gt;CBDC의 프라이버시 이슈&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;전망 및 대응
+        &lt;ul&gt;
+          &lt;li&gt;디지털자산의 특성과 용도 등에 따른 적절한 보안대책을 세울 것
+            &lt;ul&gt;
+              &lt;li&gt;블록체인 기술 적용 시 코드 감사 등을 통한 스마트컨트랙트의 취약점 최소화&lt;/li&gt;
+              &lt;li&gt;피해보상체계 구축&lt;/li&gt;
+              &lt;li&gt;디지털자산 개발자, 제공자의 책임소재 명확화&lt;/li&gt;
+              &lt;li&gt;금융서비스 중단 방지를 위한 운영복원력 확보 등&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;2023년-디지털금융-및-사이버보안-이슈-전망&quot;&gt;2023년 디지털금융 및 사이버보안 이슈 전망&lt;/h2&gt;
+
+&lt;h3 id=&quot;3개년-동안-지속된-금융사이버보안-위협-3&quot;&gt;3개년 동안 지속된 금융사이버보안 위협&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;랜섬웨어, 피싱 앱의 진화
+    &lt;ul&gt;
+      &lt;li&gt;현황
+        &lt;ul&gt;
+          &lt;li&gt;랜섬웨어 공격의 증가
+            &lt;ul&gt;
+              &lt;li&gt;RaaS의 보편화, 핵티비즘의 증가&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;보이스피싱 악성 앱의 강화&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;전망 및 대응 전략
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;제로 트러스트&lt;/p&gt;
+
+            &lt;p&gt;&lt;img src=&quot;/assets/img/posts/finIssue/Untitled.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;마이플랫폼 시대, 데이터 확보와 보호&lt;/li&gt;
+  &lt;li&gt;클라우드와 보안 고려사항
+    &lt;ol&gt;
+      &lt;li&gt;디지털 전환을 위해 보다 유연한 인프라 운용이 가능한 클라우드 이용을 적극 검토&lt;/li&gt;
+      &lt;li&gt;클라우드 보안 사고 대부분이 기술적인 문제보다는 관리 미흡에서 비롯&lt;/li&gt;
+      &lt;li&gt;통합 모니터링 및 관리 기능을 적극 사용해야!&lt;/li&gt;
+      &lt;li&gt;보안 리스크 + 집중 리스크 + 종속 리스크의 우려. 출구 전략 필요&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;순위권에서-한-번-빠졌으나-3년간-요주의-대상이었던-사이버보안-위협-3&quot;&gt;순위권에서 한 번 빠졌으나 3년간 요주의 대상이었던 사이버보안 위협&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;디지털 신원증명 활용&lt;/li&gt;
+  &lt;li&gt;인공지능 활용, 공정성 보안성 확보를 통한 이용자 보호
+    &lt;ul&gt;
+      &lt;li&gt;현황
+        &lt;ul&gt;
+          &lt;li&gt;금융권 전선, 중선, 후선 업무를 통틀어 AI 활용
+            &lt;ul&gt;
+              &lt;li&gt;사이버 보안 및 이상금융거래 탐지에서 AI를 적용해 고도화&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;금융위의 금융분야 AI 활용 활성화 및 신뢰확보 방안 발표&lt;/p&gt;
+
+            &lt;p&gt;&lt;img src=&quot;/assets/img/posts/finIssue/Untitled%201.png&quot; alt=&quot;Untitled&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;빅데이터 확보
+                &lt;ul&gt;
+                  &lt;li&gt;금융회사 AI 데이터 라이브러리 구축&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;보안 위험 요소 제거
+                &lt;ul&gt;
+                  &lt;li&gt;금융분야 AI 보안성 검증체계 구축 및 운영&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;전망 및 대응책
+        &lt;ul&gt;
+          &lt;li&gt;금융권 내 안전한 AI 활용 및 도입의 기반 마련 전망
+            &lt;ul&gt;
+              &lt;li&gt;데이터 결합 후 재사용 허용, 공동 AI 데이터셋 구축 및 합성 데이터 기술(실제 데이터와 통계적 특성이 유사하여 실제 데이터를 분석한 결과와 유사한 결과를 얻을 수 있도록 인공적으로 재현하여 생성한 가상 데이터)&lt;/li&gt;
+              &lt;li&gt;XAI 기준 마련 → AI 의사결정 과정에 대한 신뢰성 확보&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;공정성, 신뢰성 확보를 통한 이용자 보호의 필요성&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;금융보안 규제 합리화, 전제되는 자율 보안&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;2개년-동안-지속됐으며-화제성이-있는-금융사이버보안-위협-3&quot;&gt;2개년 동안 지속됐으며 화제성이 있는 금융사이버보안 위협&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;디지털자산의 확산에 따른 리스크 관리 체계 필요성&lt;/li&gt;
+  &lt;li&gt;오픈소스 활성화에 따르는 공급망 보안 필요성&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Sun, 05 Nov 2023 13:05:23 +0900</pubDate>
+        <link>http://localhost:4000/blog/paper_study/financial</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/paper_study/financial</guid>
+      </item>
     
       <item>
         <title>Dreamhack-Reversing-Chaining 문제 풀이</title>
@@ -784,8 +1352,8 @@
 &lt;p&gt;문제 정말 어렵더라. 더 화이팅 해보자!&lt;/p&gt;
 </description>
         <pubDate>Thu, 31 Aug 2023 13:05:23 +0900</pubDate>
-        <link>http://localhost:4000/blog/paper_study/ipsecVuln01</link>
-        <guid isPermaLink="true">http://localhost:4000/blog/paper_study/ipsecVuln01</guid>
+        <link>http://localhost:4000/blog/paper_study/reversing/chaining</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/paper_study/reversing/chaining</guid>
       </item>
     
       <item>
@@ -9463,6 +10031,12 @@ rsp -= 8 //stack grows from high to low
     &lt;a name=&quot;paper_study&quot;&gt;&lt;/a&gt;
      
     &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/paper_study/financial&quot;&gt;금융사이버보안이슈 정리 백업&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
       &lt;h6&gt;&lt;a href=&quot;/blog/paper_study/airgap-break-using-gyro-resonance&quot;&gt;[논문 재현] Gyroscope 센서의 공진을 이용한 Airgap Break 논문 재현 프로젝트(1)&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
 
@@ -9532,7 +10106,7 @@ rsp -= 8 //stack grows from high to low
     &lt;a name=&quot;reversing&quot;&gt;&lt;/a&gt;
      
     &lt;article class=&quot;center&quot;&gt;
-      &lt;h6&gt;&lt;a href=&quot;/blog/paper_study/ipsecVuln01&quot;&gt;Dreamhack-Reversing-Chaining 문제 풀이&lt;/a&gt;&lt;/h6&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/paper_study/reversing/chaining&quot;&gt;Dreamhack-Reversing-Chaining 문제 풀이&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
 
 
