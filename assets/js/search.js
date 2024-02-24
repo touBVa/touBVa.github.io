@@ -31,9 +31,9 @@ $(document).ready(function() {
 
     search_field.ghostHunter({
       results: search_results,
-      onKeyUp         : true,
-      rss             : base_url + '/feed.xml',
-      zeroResultsInfo : false,
+      onKeyUp: true,
+      rss: base_url + '/feed.xml',
+      zeroResultsInfo: false,
       info_template   : "<h4 class='heading'>Number of posts found: {{amount}}</h4>",
       result_template : search_result_template,
       before: function() {
