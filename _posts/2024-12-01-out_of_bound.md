@@ -14,30 +14,30 @@ permalink: /blog/system_hacking/2024-12-01-out-of-bound
 * TOC
 {:toc}
 
-<br></br>
+<br>
 
 
 ## 0. 메타데이터 확인
 
-<br></br>
+<br>
 
-![/assets/img/posts/2024-12-01-out-of-bound/Untitled.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled.png)
+![/assets/img/posts/2024-12-01-out-of-bound/Untitled.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled.png){: width="100%" height="100%"}
 
-<br></br>
+<br>
 
 - ELF32
 - Little endian
 
-![/assets/img/posts/2024-12-01-out-of-bound/Untitled_1.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_1.png)
+![/assets/img/posts/2024-12-01-out-of-bound/Untitled_1.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_1.png){: width="100%" height="100%"}
 
-<br></br>
+<br>
 
 - not stripped
 - c언어 라이브러리 사용
 
-![/assets/img/posts/2024-12-01-out-of-bound/Untitled_2.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_2.png)
+![/assets/img/posts/2024-12-01-out-of-bound/Untitled_2.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_2.png){: width="100%" height="100%"}
 
-<br></br>
+<br>
 
 - 스택에서 쉘코드 실행 어려움
 - 스택 카나리 켜져 있음
@@ -45,59 +45,59 @@ permalink: /blog/system_hacking/2024-12-01-out-of-bound
 
 새로 안 사실: checksec은 사실 pwntools 라이브러리의 하위 응용이었다.
 
-![/assets/img/posts/2024-12-01-out-of-bound/Untitled_3.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_3.png)
+![/assets/img/posts/2024-12-01-out-of-bound/Untitled_3.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_3.png){: width="100%" height="100%"}
 
-<br></br>
+<br>
 
 **가설: plt, got 테이블을 타고 들어가야 할 수도 있겠다, RAO를 사용할 만하다, 가젯을 사용해 ROP을 해야 할 수도?**
 
-<br></br>
+<br>
 
 ## 1. 행위 확인
 
-<br></br>
+<br>
 
-![/assets/img/posts/2024-12-01-out-of-bound/Untitled_4.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_4.png)
+![/assets/img/posts/2024-12-01-out-of-bound/Untitled_4.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_4.png){: width="100%" height="100%"}
 
-<br></br>
+<br>
 
 사용자의 입력을 총 2회 받는다.
 
 이제 어셈을 분석해 보자.
 
-<br></br>
+<br>
 
 ## 2. 정적 및 동적 분석
 
-<br></br>
+<br>
 
 ### 2.1. 내부 함수 리스트 확인
 
-<br></br>
+<br>
 
-![/assets/img/posts/2024-12-01-out-of-bound/Untitled_5.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_5.png)
+![/assets/img/posts/2024-12-01-out-of-bound/Untitled_5.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_5.png){: width="100%" height="100%"}
 
-<br></br>
+<br>
 
 systeml 함수의 plt가 로딩되어 있다는 점을 염두에 두고 접근하자.
 
-<br></br>
+<br>
 
 ### 2.2. main 함수 확인
 
-<br></br>
+<br>
 
 일단 main 함수를 디스어셈블해 보았다.
 
-![/assets/img/posts/2024-12-01-out-of-bound/Untitled_6.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_6.png)
+![/assets/img/posts/2024-12-01-out-of-bound/Untitled_6.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_6.png){: width="100%" height="100%"}
 
-<br></br>
+<br>
 
 내부에서 system 함수를 콜하는데 직전에 사용자 입력값의 길이를 제한하지 않아 취약한 함수인 scanf를 사용한다.
 
 왠지 system 함수에 들어갈 커맨드를 오염시킬 수 있을 것 같다.
 
-<br></br>
+<br>
 
 1. `Admin name:` 을 출력하고, 사용자 입력을 `0x804a0ac`에 0x10 byte 받는 부분
 
@@ -117,7 +117,7 @@ systeml 함수의 plt가 로딩되어 있다는 점을 염두에 두고 접근�
    0x08048731 <+102>:   add    esp,0x10   0x08048734 <+105>:   mov    eax,DWORD PTR [ebp-0x10]   0x08048737 <+108>:   mov    eax,DWORD PTR [eax*4+0x804a060]   0x0804873e <+115>:   sub    esp,0xc   0x08048741 <+118>:   push   eax   0x08048742 <+119>:   call   0x8048500 <system@plt>
 ```
 
-<br></br>
+<br>
 
 line 108이 이해가 안된다. eax는 ebp-0x10 주소값이 들어있는데, 따라서 ebp-0x10 위치에 있는 값을 참조하게 된다.
 
@@ -125,21 +125,21 @@ line 108이 이해가 안된다. eax는 ebp-0x10 주소값이 들어있는데, �
 
 코드를 보면 `0x804a060` 에 저장된 주소를 베이스로 하고, eax*4를 오프셋으로 하여 커맨드 set에 접근하는 모양새인 것 같은데 맞을까? 그럼 테이블처럼 명령어를 참조하는 방식인 듯 하다.
 
-![/assets/img/posts/2024-12-01-out-of-bound/Untitled_7.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_7.png)
+![/assets/img/posts/2024-12-01-out-of-bound/Untitled_7.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_7.png){: width="100%" height="100%"}
 
-<br></br>
+<br>
 
 맞는 것 같다. 그럼 테이블의 위치를 참조하기 위해 ebp-0x10위치에 저장되는 사용자의 두 번째 입력값을 이용하는 게 된다.
 
-<br></br>
+<br>
 
 ### 2.3. 동적 분석
 
-<br></br>
+<br>
 
 실제로 프로그램을 run해 보았고, 가설을 세웠다.
 
-<br></br>
+<br>
 
 **[시도 1]**
 
@@ -147,9 +147,9 @@ line 108이 이해가 안된다. eax는 ebp-0x10 주소값이 들어있는데, �
 
 **[결과]**
 
-![/assets/img/posts/2024-12-01-out-of-bound/Untitled_8.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_8.png)
+![/assets/img/posts/2024-12-01-out-of-bound/Untitled_8.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_8.png){: width="100%" height="100%"}
 
-<br></br>
+<br>
 
 **[시도 2]**
 
@@ -165,13 +165,13 @@ line 108이 이해가 안된다. eax는 ebp-0x10 주소값이 들어있는데, �
    0x08048731 <+102>:   add    esp,0x10   0x08048734 <+105>:   mov    eax,DWORD PTR [ebp-0x10]   0x08048737 <+108>:   mov    eax,DWORD PTR [eax*4+0x804a060]   0x0804873e <+115>:   sub    esp,0xc   0x08048741 <+118>:   push   eax   0x08048742 <+119>:   call   0x8048500 <system@plt>
 ```
 
-<br></br>
+<br>
 
 단순히 내가 입력했던 명령어의 시작 주소를 가리키도록 line 108을 조정하면 eax에는 내가 입력했던 명령어의 앞 4byte만 들어간다. 또한, 기본적으로 참조할 주소를 저장하는 레지스터의 특성상 아무 일도 일어나지 않는다.
 
-![/assets/img/posts/2024-12-01-out-of-bound/Untitled_9.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_9.png)
+![/assets/img/posts/2024-12-01-out-of-bound/Untitled_9.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_9.png){: width="100%" height="100%"}
 
-<br></br>
+<br>
 
 첫번째로 입력을 받을 때 0x10byte를 받는다.
 
@@ -179,7 +179,7 @@ line 108이 이해가 안된다. eax는 ebp-0x10 주소값이 들어있는데, �
 
 그 중 처음 4byte를 이후 12byte의 시작 주소가 되도록 조정한다.
 
-<br></br>
+<br>
 
 **[시도 3]**
 
@@ -195,8 +195,8 @@ p.sendline("19")
 
 **[결과]**
 
-![/assets/img/posts/2024-12-01-out-of-bound/Untitled_10.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_10.png)
+![/assets/img/posts/2024-12-01-out-of-bound/Untitled_10.png](/assets/img/posts/2024-12-01-out-of-bound/Untitled_10.png){: width="100%" height="100%"}
 
-<br></br>
+<br>
 
 플래그 획득에 성공했다!
