@@ -8,6 +8,8 @@ gem 'kramdown'
 gem 'rack-jekyll'
 gem 'rack'
 gem 'puma'
+# gem 'liquid', github: 'Shopify/liquid', branch: 'main'
+# gem 'liquid-c', github: 'Shopify/liquid-c', branch: 'main'
 
 
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and

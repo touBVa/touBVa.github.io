@@ -1,6 +1,6 @@
 ---
 layout: page
-title: certification_study
+title: paper_study
 permalink: /blog/categories/paper_study/
 ---
 
