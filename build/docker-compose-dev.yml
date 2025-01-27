@@ -6,7 +6,7 @@ services:
     build:
       context: .
       args:
-        build_command: "jekyll serve --watch"
+        build_command: # "bundle exec jekyll serve --watch"
     volumes:
       - ".:/srv/jekyll"
     ports:
