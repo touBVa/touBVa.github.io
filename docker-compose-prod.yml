@@ -6,9 +6,10 @@ services:
     build:
       context: .
       args:
-        build_command: "jekyll build"
+        build_command: "bundle exec jekyll build --skip-initial-build --watch"
     volumes:
       - ".:/srv/jekyll"
+    tty: true
   nginx:
     image: nginx
     volumes:

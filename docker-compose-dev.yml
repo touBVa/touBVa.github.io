@@ -6,9 +6,9 @@ services:
     build:
       context: .
       args:
-        build_command: "ls /srv/jekyll/ -al" # "jekyll build --watch --verbose"
-    # volumes:
-    #   - ".:/srv/jekyll"
+        build_command: "jekyll build --watch --verbose"
+    volumes:
+      - ".:/srv/jekyll"
     ports:
       - 4000:4000
       - 35729:35729

@@ -8,7 +8,7 @@ services:
       args:
         build_command: "jekyll build --watch --verbose"
     volumes:
-      - "C:/Users/toubva/touBVa.github.io:/srv/jekyll"
+      - ".:/srv/jekyll"
     ports:
       - 4000:4000
       - 35729:35729

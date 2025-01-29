@@ -1,5 +1,7 @@
 /* devlopr-jekyll styling */
 /* variables */
+img { /* vertical-align: middle; */ border-style: none; display: block; margin: auto; }
+
 html[data-theme="dark"] { --bold-color: rgb(233, 233, 233); --box-background-color: hsl(0, 0%, 20%); --highlight-color: hsla(58, 100%, 79%, 0.792); --light-border-color: hsl(0, 0%, 30%); --light-text-color: rgb(233, 233, 233); --link-color: #f69801; --link-color-visited: hsl(250, 100%, 60%); --main-background-color: rgb(19, 19, 19); --main-text-color: rgb(233, 233, 233); --medium-text-color: hsl(0, 0%, 93%); --underline-color: hsl(0, 0%, 50%); --social-link-color: #ffffff; --card-background-color: rgb(36, 36, 37); --newsletter-background-color: #222324; --button-background-color: #111; }
 
 html, html[data-theme="light"] { --bold-color: rgb(0, 0, 0); --box-background-color: rgb(249, 249, 250); --highlight-color: hsl(79, 100%, 72%); --light-border-color: rgb(230, 230, 230); --light-text-color: rgb(0, 0, 0); --link-color: rgb(37, 97, 202); --link-color-visited: hsl(30, 100%, 45%); --main-background-color: rgb(255, 255, 255); --main-text-color: rgb(0, 0, 0); --medium-text-color: hsl(0, 0%, 0%); --sidebar-color: hsl(0, 0%, 90%); --underline-color: hsl(0, 0%, 60%); --social-link-color: #262222; --card-background-color: rgb(250, 250, 250); --newsletter-background-color: #00000008; --button-background-color: #fff; }
@@ -546,7 +548,7 @@ footer { width: 100%; height: 70px; text-align: center; padding: 20px; backgroun
 /* ========================================================================== NOTICE TEXT BLOCKS ========================================================================== */
 /** Default Kramdown usage (no indents!): <div class="notice" markdown="1"> #### Headline for the Notice Text for the notice </div> */
 /* Default notice */
-.notice { margin: 2em 0 !important; /* override*/ padding: 2em; color: #3d4144; font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif; font-size: 0.75em !important; text-indent: initial; /* override*/ background-color: #f2f3f3; border-radius: 4px; box-shadow: 0 1px 1px rgba(189, 193, 196, 0.25); }
+.notice { margin: 2em 0 !important; /* override*/ padding: 2em; color: #3d4144; font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif; font-size: 1em !important; text-indent: initial; /* override*/ background-color: #f2f3f3; border-radius: 4px; box-shadow: 0 1px 1px rgba(189, 193, 196, 0.25); }
 
 .notice h4 { margin-top: 0 !important; /* override*/ margin-bottom: 0.75em; line-height: inherit; }
 
@@ -569,7 +571,7 @@ blockquote.notice { border-inline-start-color: #aaaeb0; }
 .notice ul:last-child { margin-bottom: 0; /* override*/ }
 
 /* Primary notice */
-.notice--primary { margin: 2em 0 !important; /* override*/ padding: 2em; color: #3d4144; font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif; font-size: 0.75em !important; text-indent: initial; /* override*/ background-color: #e2e4e5; border-radius: 4px; box-shadow: 0 1px 1px rgba(111, 119, 125, 0.25); }
+.notice--primary { margin: 2em 0 !important; /* override*/ padding: 2em; color: #3d4144; font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif; font-size: 1em !important; text-indent: initial; /* override*/ background-color: #e2e4e5; border-radius: 4px; box-shadow: 0 1px 1px rgba(111, 119, 125, 0.25); }
 
 .notice--primary h4 { margin-top: 0 !important; /* override*/ margin-bottom: 0.75em; line-height: inherit; }
 
@@ -592,7 +594,7 @@ blockquote.notice--primary { border-inline-start-color: #646b71; }
 .notice--primary ul:last-child { margin-bottom: 0; /* override*/ }
 
 /* Info notice */
-.notice--info { margin: 2em 0 !important; /* override*/ padding: 2em; color: #3d4144; font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif; font-size: 0.75em !important; text-indent: initial; /* override*/ background-color: #d8ebf1; border-radius: 4px; box-shadow: 0 1px 1px rgba(59, 156, 186, 0.25); }
+.notice--info { margin: 2em 0 !important; /* override*/ padding: 2em; color: #3d4144; font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif; font-size: 1em !important; text-indent: initial; /* override*/ background-color: #d8ebf1; border-radius: 4px; box-shadow: 0 1px 1px rgba(59, 156, 186, 0.25); }
 
 .notice--info h4 { margin-top: 0 !important; /* override*/ margin-bottom: 0.75em; line-height: inherit; }
 
@@ -615,7 +617,7 @@ blockquote.notice--info { border-inline-start-color: #358ca7; }
 .notice--info ul:last-child { margin-bottom: 0; /* override*/ }
 
 /* Warning notice */
-.notice--warning { margin: 2em 0 !important; /* override*/ padding: 2em; color: #3d4144; font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif; font-size: 0.75em !important; text-indent: initial; /* override*/ background-color: #f7e5cd; border-radius: 4px; box-shadow: 0 1px 1px rgba(214, 127, 5, 0.25); }
+.notice--warning { margin: 2em 0 !important; /* override*/ padding: 2em; color: #3d4144; font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif; font-size: 1em !important; text-indent: initial; /* override*/ background-color: #f7e5cd; border-radius: 4px; box-shadow: 0 1px 1px rgba(214, 127, 5, 0.25); }
 
 .notice--warning h4 { margin-top: 0 !important; /* override*/ margin-bottom: 0.75em; line-height: inherit; }
 
@@ -638,7 +640,7 @@ blockquote.notice--warning { border-inline-start-color: #c17205; }
 .notice--warning ul:last-child { margin-bottom: 0; /* override*/ }
 
 /* Success notice */
-.notice--success { margin: 2em 0 !important; /* override*/ padding: 2em; color: #3d4144; font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif; font-size: 0.75em !important; text-indent: initial; /* override*/ background-color: #d9edd9; border-radius: 4px; box-shadow: 0 1px 1px rgba(63, 166, 63, 0.25); }
+.notice--success { margin: 2em 0 !important; /* override*/ padding: 2em; color: #3d4144; font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif; font-size: 1em !important; text-indent: initial; /* override*/ background-color: #d9edd9; border-radius: 4px; box-shadow: 0 1px 1px rgba(63, 166, 63, 0.25); }
 
 .notice--success h4 { margin-top: 0 !important; /* override*/ margin-bottom: 0.75em; line-height: inherit; }
 
@@ -661,7 +663,7 @@ blockquote.notice--success { border-inline-start-color: #399539; }
 .notice--success ul:last-child { margin-bottom: 0; /* override*/ }
 
 /* Danger notice */
-.notice--danger { margin: 2em 0 !important; /* override*/ padding: 2em; color: #3d4144; font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif; font-size: 0.75em !important; text-indent: initial; /* override*/ background-color: #fcdfde; border-radius: 4px; box-shadow: 0 1px 1px rgba(238, 95, 91, 0.25); }
+.notice--danger { margin: 2em 0 !important; /* override*/ padding: 2em; color: #3d4144; font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif; font-size: 1em !important; text-indent: initial; /* override*/ background-color: #fcdfde; border-radius: 4px; box-shadow: 0 1px 1px rgba(238, 95, 91, 0.25); }
 
 .notice--danger h4 { margin-top: 0 !important; /* override*/ margin-bottom: 0.75em; line-height: inherit; }
 

@@ -6,6 +6,13 @@ $nav-typeface: "Gill sans";
 $mono-typeface: Menlo, Monaco, monospace;
 $text-width: 650px;
 
+img {
+    /* vertical-align: middle; */
+    border-style: none;
+    display: block;
+    margin: auto;
+  }
+
 html[data-theme="dark"] {
     --bold-color: rgb(233, 233, 233);
     --box-background-color: hsl(0, 0%, 20%);
