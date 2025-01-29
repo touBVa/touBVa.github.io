@@ -1,17 +1,19 @@
 version: '3' # specify docker-compose version
-
+# docker-compose -f docker-compose-dev.yml up --build --remove-orphans
 # Define the services/containers to be run
 services:
   jekyllbuild:
     build:
       context: .
       args:
-        build_command: # "bundle exec jekyll serve --watch"
+        build_command: "jekyll build --watch --verbose"
     volumes:
-      - ".:/srv/jekyll"
+      - "C:/Users/toubva/touBVa.github.io:/srv/jekyll"
     ports:
       - 4000:4000
       - 35729:35729
+    # command: ["/bin/bash", "-c", "jekyll build --watch --verbose"]
+    tty: true
   nginx:
     image: nginx
     volumes:

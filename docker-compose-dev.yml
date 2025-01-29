@@ -1,25 +1,27 @@
 version: '3' # specify docker-compose version
-
+# docker-compose -f docker-compose-dev.yml up --build --remove-orphans
 # Define the services/containers to be run
 services:
   jekyllbuild:
     build:
       context: .
       args:
-        build_command: # "bundle exec jekyll serve --watch"
-    volumes:
-      - ".:/srv/jekyll"
+        build_command: "ls /srv/jekyll/ -al" # "jekyll build --watch --verbose"
+    # volumes:
+    #   - ".:/srv/jekyll"
     ports:
       - 4000:4000
       - 35729:35729
-  # nginx:
-  #   image: nginx
-  #   volumes:
-  #     - "./build:/var/www/public"
-  #     - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
-  #     - "./nginx/html/404.html:/usr/share/nginx/html/404.html"
-  #     # to use jekyll's 404 page, uncomment the line below and disable the line above
-  #     # Important: ensure that 404.html exist else this will throw an error during build
-  #   # - "./web/_site/404.html:/usr/share/nginx/html/404.html"
-  #   ports:
-  #     - 80:80
+    # command: ["/bin/bash", "-c", "jekyll build --watch --verbose"]
+    tty: true
+  nginx:
+    image: nginx
+    volumes:
+      - "./build:/var/www/public"
+      - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - "./nginx/html/404.html:/usr/share/nginx/html/404.html"
+      # to use jekyll's 404 page, uncomment the line below and disable the line above
+      # Important: ensure that 404.html exist else this will throw an error during build
+    # - "./web/_site/404.html:/usr/share/nginx/html/404.html"
+    ports:
+      - 80:80

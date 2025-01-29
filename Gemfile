@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem 'jekyll', '~> 4.3.3'
+gem 'jekyll', '~> 4.2.2', '>= 4.1.1'
 gem 'bundler', '~> 2.5.15'
 gem 'faraday-retry'
 gem 'backports', '~> 3.25.0'
@@ -8,6 +8,8 @@ gem 'kramdown'
 gem 'puma'
 gem 'csv'
 gem 'base64'
+gem  "sinatra", ">= 3", "< 4.0"
+gem 'tzinfo-data'
 
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
 # uncomment the line below. To upgrade, run `bundle update github-pages`.
@@ -26,7 +28,7 @@ group :jekyll_plugins do
     gem 'jekyll-seo-tag', '~> 2.8.0'
     gem 'jekyll-sitemap', '~> 1.4.0'
 
-    # gem 'jekyll-admin', '~> 0.11.1'
+    gem 'jekyll-admin', '~> 0.11.1'
 end
 
 
