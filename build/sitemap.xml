@@ -2,7 +2,7 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://toubva.github.io/blog/authors/toubva</loc>
-<lastmod>2025-01-29T05:35:21-06:00</lastmod>
+<lastmod>2025-02-02T07:06:33-06:00</lastmod>
 </url>
 <url>
 <loc>https://toubva.github.io/blog/dreamhack_system_hacking/step2-1</loc>
@@ -181,16 +181,20 @@
 <lastmod>2025-01-28T09:00:02-06:00</lastmod>
 </url>
 <url>
+<loc>https://toubva.github.io/blog/reversing/2025-02-02-FIESTA2024-cert1</loc>
+<lastmod>2025-02-01T09:21:02-06:00</lastmod>
+</url>
+<url>
 <loc>https://toubva.github.io/products/product1/</loc>
-<lastmod>2025-01-29T05:35:21-06:00</lastmod>
+<lastmod>2025-02-02T07:06:33-06:00</lastmod>
 </url>
 <url>
 <loc>https://toubva.github.io/products/product2/</loc>
-<lastmod>2025-01-29T05:35:21-06:00</lastmod>
+<lastmod>2025-02-02T07:06:33-06:00</lastmod>
 </url>
 <url>
 <loc>https://toubva.github.io/products/product3/</loc>
-<lastmod>2025-01-29T05:35:21-06:00</lastmod>
+<lastmod>2025-02-02T07:06:33-06:00</lastmod>
 </url>
 <url>
 <loc>https://toubva.github.io/blog/welcome-to-devlopr-jekyll/</loc>
