@@ -5,8 +5,8 @@
     <description>Harder than you thought, easier than you expected</description>
     <link>https://touBVa.github.io/</link>
     <atom:link href="https://touBVa.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 16 Feb 2025 06:33:39 -0600</pubDate>
-    <lastBuildDate>Sun, 16 Feb 2025 06:33:39 -0600</lastBuildDate>
+    <pubDate>Sun, 16 Feb 2025 06:36:28 -0600</pubDate>
+    <lastBuildDate>Sun, 16 Feb 2025 06:36:28 -0600</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
 
     
@@ -53,7 +53,7 @@
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image.png&quot; alt=&quot;image.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image.png&quot; alt=&quot;image.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;그런데 이렇게 유틸리티를 통해 지워진 파워쉘 로그를 다른 곳에서도 찾아볼 수 있다는 점을 알았다.&lt;/p&gt;
 
@@ -71,7 +71,7 @@
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C:\Users\user\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%201.png&quot; alt=&quot;image.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%201.png&quot; alt=&quot;image.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -113,7 +113,7 @@
 
 &lt;p&gt;아래 코드를 기억하는가? 1.exe 의 일부였다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%202.png&quot; alt=&quot;image.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%202.png&quot; alt=&quot;image.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;실제 악성 행위를 하는 DLL을 다운받는 부분이었다.&lt;/p&gt;
 
@@ -143,7 +143,7 @@
   &lt;li&gt;
     &lt;p&gt;실행된 악성 행위는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;“C:\Windows(공백)\System32″&lt;/code&gt;명의 공백 폴더를 생성한다.&lt;/p&gt;
 
-    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%202.png&quot; alt=&quot;image.png&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%202.png&quot; alt=&quot;image.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;이후 추가적인 악성 코드를 생성하고자 한다면 powershell 명령어를 통해 2에서 생성된 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;“C:\Windows(공백)\System32″&lt;/code&gt;명의 공백 폴더를 윈도우 디펜더 검사 예외 경로에 등록한다.&lt;/li&gt;
   &lt;li&gt;추가로, 1에서 실행된 악성 행위는 UAC를 비활성화한다.
@@ -263,7 +263,7 @@
       &lt;li&gt;
         &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;“\\?\{directory_name_want_to_create}”&lt;/code&gt; 식으로 내가 생성하려는 파일명 앞에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;“\\?\”&lt;/code&gt;를 붙여 CreateDirectory 함수를 콜하면 된다.&lt;/p&gt;
 
-        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%203.png&quot; alt=&quot;image.png&quot; /&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;img src=&quot;/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%203.png&quot; alt=&quot;image.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;

@@ -48,7 +48,7 @@ Restart-Computer -Force
 
 <br>
 
-![image.png](/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image.png)
+![image.png](/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image.png){: width="80%" height="80%"}
 
 그런데 이렇게 유틸리티를 통해 지워진 파워쉘 로그를 다른 곳에서도 찾아볼 수 있다는 점을 알았다.
 
@@ -66,7 +66,7 @@ Restart-Computer -Force
 
 `C:\Users\user\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\`
 
-![image.png](/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%201.png)
+![image.png](/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%201.png){: width="80%" height="80%"}
 
 <br>
 
@@ -109,7 +109,7 @@ ls
 
 아래 코드를 기억하는가? 1.exe 의 일부였다.
 
-![image.png](/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%202.png)
+![image.png](/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%202.png){: width="80%" height="80%"}
 
 실제 악성 행위를 하는 DLL을 다운받는 부분이었다.
 
@@ -135,7 +135,7 @@ ls
 1. 정상 파일로 위장한 lnk 파일을 실행하면 악성 명령어 혹은 파일이 실행된다.
 2. 실행된 악성 행위는 `“C:\Windows(공백)\System32″`명의 공백 폴더를 생성한다.
     
-    ![image.png](/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%202.png)
+    ![image.png](/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%202.png){: width="80%" height="80%"}
     
 3. 이후 추가적인 악성 코드를 생성하고자 한다면 powershell 명령어를 통해 2에서 생성된 `“C:\Windows(공백)\System32″`명의 공백 폴더를 윈도우 디펜더 검사 예외 경로에 등록한다.
 4. 추가로, 1에서 실행된 악성 행위는 UAC를 비활성화한다.
@@ -229,7 +229,7 @@ ls
 - 그러나 CreateDirectory API의 취약점을 이용하거나
     - `“\\?\{directory_name_want_to_create}”` 식으로 내가 생성하려는 파일명 앞에 `“\\?\”`를 붙여 CreateDirectory 함수를 콜하면 된다.
         
-        ![image.png](/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%203.png)
+        ![image.png](/assets/img/posts/2025-02-16-FIESTA2024-cert1-addinfo/image%203.png){: width="80%" height="80%"}
         
 - CMD상에서 mkdir를 이용하면 폴더명의 앞 혹은 뒤에 공백을 붙여 폴더 생성이 가능하다.
 
